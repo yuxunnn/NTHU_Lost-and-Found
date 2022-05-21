@@ -58,9 +58,14 @@ fun UserPostCard(
     where: List<String>,
     modifier: Modifier
 ) {
-    Surface(
-        shape = MaterialTheme.shapes.small,
+    val surface = Surface(
+        shape = RoundedCornerShape(10.dp),
         modifier = modifier
+            .border(
+                width = 1.dp,
+                color = Color.LightGray,
+                shape = RoundedCornerShape(10.dp)
+            )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
