@@ -1,8 +1,5 @@
-package com.example.ss_team2
+package com.example.ss_team2.myprofile
 
-import android.graphics.fonts.FontStyle
-import android.util.Log.i
-import android.view.Surface
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,18 +17,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ModifierInfo
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.R
 
 @Composable
 fun UserPostCardList(UserPostData: List<Post>) {
@@ -54,11 +48,11 @@ fun UserPostCardList(UserPostData: List<Post>) {
 fun UserPostCard(
     type: Int,
     @DrawableRes image: Int,
-    what: String,
+    what: List<String>,
     where: List<String>,
     modifier: Modifier
 ) {
-    val surface = Surface(
+    Surface(
         shape = RoundedCornerShape(10.dp),
         modifier = modifier
             .border(
@@ -79,42 +73,16 @@ fun UserPostCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(72.dp)
             )
-            Column(
+            PostInfo(
+                text = "What",
+                tags = what,
                 modifier = Modifier.offset(x = 12.dp)
-            ) {
-                Text(
-                    text = "What",
-                    style = MaterialTheme.typography.h6,
-                    fontSize = 8.sp,
-                    modifier = Modifier
-                )
-                Text(
-                    text = what,
-                    style = MaterialTheme.typography.h6,
-                    fontSize = 12.sp,
-                )
-            }
-            Column(
+            )
+            PostInfo(
+                text = "Where",
+                tags = where,
                 modifier = Modifier.offset(x = 60.dp)
-            ) {
-                Text(
-                    text = "Where",
-                    style = MaterialTheme.typography.h6,
-                    fontSize = 8.sp,
-                    modifier = Modifier
-                )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    items(where) { location ->
-                        Text(
-                            text = location,
-                            style = MaterialTheme.typography.h6,
-                            fontSize = 12.sp,
-                        )
-                    }
-                }
-            }
+            )
         }
     }
     PostTypeHint(
@@ -125,43 +93,70 @@ fun UserPostCard(
     )
 }
 
-data class Post(val type: Int, val image: Int, val what: String, val where: List<String>)
-
-private val tempUserPostData: List<Post> = listOf(
-    Post(type = 1, image = R.drawable.umbrella1, what = "雨傘", where = listOf("資電館")),
-    Post(type = 2, image = R.drawable.umbrella2, what = "傘", where = listOf("資電館", "小吃部", "碩齋"))
-)
-
 @Composable
-fun PostTypeHint(type: Int, modifier: Modifier) {
-    if (type == 1) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier
-                .background(color = Color.Green, shape = CircleShape)
+fun PostInfo(
+    text: String,
+    tags: List<String>,
+    modifier: Modifier
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.h6,
+            fontSize = 8.sp,
+            modifier = Modifier
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            Text(
-                text = "撿",
-                color = Color.White,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Center,
-            )
-        }
-    } else {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier
-                .background(color = Color.Red, shape = CircleShape)
-        ) {
-            Text(
-                text = "遺",
-                color = Color.White,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Center
-            )
+            items(tags) { location ->
+                Text(
+                    text = location,
+                    style = MaterialTheme.typography.h6,
+                    fontSize = 12.sp,
+                )
+            }
         }
     }
 }
+
+@Composable
+fun PostTypeHint(
+    type: Int,
+    modifier: Modifier
+) {
+    val color: Color = if (type == 1) Color.Green else Color.Red
+    val text: String = if (type == 1) "撿" else "遺"
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.background(color = color, shape = CircleShape)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontSize = 10.sp,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+data class Post(val type: Int, val image: Int, val what: List<String>, val where: List<String>)
+
+private val tempUserPostData: List<Post> = listOf(
+    Post(
+        type = 1,
+        image = R.drawable.umbrella1,
+        what = listOf("雨傘"),
+        where = listOf("資電館")
+    ),
+    Post(
+        type = 2,
+        image = R.drawable.umbrella2,
+        what = listOf("傘"),
+        where = listOf("資電館", "小吃部", "碩齋")
+    )
+)
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
