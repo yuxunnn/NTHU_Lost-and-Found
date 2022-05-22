@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,9 +29,10 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.R
 
 @Composable
-fun UserPostCardList(UserPostData: List<Post>) {
+fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
     LazyColumn(
-        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp)
+        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
+        modifier = modifier
     ) {
         items(UserPostData) { item ->
             UserPostCard(
@@ -158,10 +160,31 @@ private val tempUserPostData: List<Post> = listOf(
     )
 )
 
+@Composable
+fun MyProfileScreen(modifier: Modifier) {
+    UserPostCardList(
+        UserPostData = tempUserPostData,
+        modifier = Modifier.absoluteOffset(x = 8.dp, y = 320.dp)
+    )
+}
+
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun UserPostCardPreview() {
     SSteam2Theme {
-        UserPostCardList(tempUserPostData)
+        UserPostCardList(
+            UserPostData = tempUserPostData,
+            modifier = Modifier
+        )
+    }
+}
+
+@Preview(widthDp = 360, heightDp = 640)
+@Composable
+fun MyProfilePreview() {
+    SSteam2Theme() {
+        Scaffold { padding ->
+            MyProfileScreen(modifier = Modifier.padding(padding))
+        }
     }
 }
