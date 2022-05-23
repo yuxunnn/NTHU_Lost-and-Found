@@ -1,8 +1,10 @@
 import { versionQueries } from './version'
+import { userQueries } from './user'
 
 const resolvers = {
   Query: {
-    ...versionQueries
+    ...versionQueries,
+    ...userQueries
   }
 }
 

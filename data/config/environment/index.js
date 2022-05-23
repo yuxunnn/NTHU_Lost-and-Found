@@ -23,4 +23,10 @@ const db = {
   port: process.env.DB_PORT
 }
 
-export { port, env, secret, db, version }
+// API
+const api = {
+  host: process.env.API_HOST,
+  key: process.env.API_KEY
+}
+
+export { port, env, secret, db, version, api }

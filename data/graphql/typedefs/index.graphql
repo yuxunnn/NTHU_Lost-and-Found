@@ -4,5 +4,8 @@ scalar Date
 type Query {
   # Version
   version: String!
-}
 
+  # User
+  users: [User]
+  user(userName: String!): User
+}

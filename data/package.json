@@ -5,8 +5,10 @@
   "license": "MIT",
   "author": "hui",
   "scripts": {
-    "dev": "standard --fix && nodemon ./index.js --exec babel-node",
-    "test": "standard --fix && jest --force-exit --detectOpenHandles -u"
+    "dev": "nodemon ./index.js --exec babel-node",
+    "test": "standard --fix && jest --force-exit --detectOpenHandles -u",
+    "cover": "jest --coverage --watchAll=false --force-exit -u",
+    "stan": "standard --fix"
   },
   "standard": {
     "env": [
@@ -25,11 +27,14 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.3.1",
+    "apollo-boost": "^0.4.9",
+    "apollo-datasource": "^3.3.1",
     "apollo-datasource-rest": "^3.5.1",
-    "apollo-server": "^3.6.6",
-    "apollo-server-core": "^3.6.1",
+    "apollo-server": "^3.6.3",
+    "apollo-server-core": "^3.6.4",
     "apollo-server-express": "^3.6.1",
     "apollo-server-testing": "^2.25.3",
+    "apollo-server-types": "^3.5.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "graphql": "^16.2.0",
