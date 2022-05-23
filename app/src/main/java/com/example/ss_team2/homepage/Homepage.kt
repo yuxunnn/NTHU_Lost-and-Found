@@ -2,15 +2,15 @@ package com.example.ss_team2.homepage
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -19,92 +19,68 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
-
-@Composable
-fun SchoolFlag(
-    school: Int,
-    currentSchool: Int,
-    onClick: () -> Unit
-) {
-    val color: Color = if (school != currentSchool) Color.LightGray
-        else when (school) {
-        1 -> Color.Magenta
-        2 -> Color.Yellow
-        3 -> Color.Cyan
-        else -> Color.Blue
-    }
-    val text: String = when (school) {
-        1 -> "清"
-        2 -> "交"
-        3 -> "台"
-        else -> "政"
-    }
-
-    Button(
-        onClick = onClick,
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(backgroundColor = color),
-        modifier = Modifier
-            .width(60.dp)
-            .height(80.dp)
-            .clip(CutCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp))
-    ) {
-        Text(
-            text = text,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.offset(y = (-10).dp)
-        )
-    }
-}
-
-@Composable
-fun LostFindButton(
-    type: Int,
-    onClick: () -> Unit
-) {
-    val color: Color = when (type) {
-        1 -> Color.Red
-        2 -> Color.Green
-        else -> Color.Cyan
-    }
-    val text: String = when (type) {
-        1 -> "遺失"
-        2 -> "撿到"
-        else -> "前往地圖"
-    }
-
-    Button(
-        onClick = onClick,
-        shape = RectangleShape,
-        colors = ButtonDefaults.buttonColors(backgroundColor = color),
-        modifier = Modifier
-            .width(200.dp)
-            .height(80.dp)
-            .clip(CutCornerShape(size = 8.dp))
-    ) {
-        Text(
-            text = text,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            fontSize = 32.sp,
-            textAlign = TextAlign.Center
-        )
-    }
-}
-
 @Composable
 fun HomepageScreen(modifier: Modifier) {
 
-    val currentSchool = remember { mutableStateOf(2) }
+    val currentSchool = remember { mutableStateOf(1) }
 
     Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 20.dp)
+    ) {
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults
+                .buttonColors(
+                    backgroundColor = MaterialTheme.colors.background,
+                    contentColor = MaterialTheme.colors.onBackground
+                ),
+            contentPadding = PaddingValues(all = 0.dp),
+            shape = RectangleShape,
+            modifier = Modifier
+                .size(32.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.ShoppingCart,
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Text(
+            text = "頂大失物尋寶",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+        )
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults
+                .buttonColors(
+                    backgroundColor = MaterialTheme.colors.background,
+                    contentColor = MaterialTheme.colors.onBackground
+                ),
+            contentPadding = PaddingValues(all = 0.dp),
+            shape = RectangleShape,
+            modifier = Modifier
+                .size(32.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Send,
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    }
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
-            .absoluteOffset(y = 60.dp)
-            .padding(horizontal = 8.dp)
+            .absoluteOffset(y = 100.dp)
+            .padding(horizontal = 20.dp)
             .fillMaxWidth()
     ) {
         SchoolFlag(
@@ -133,24 +109,23 @@ fun HomepageScreen(modifier: Modifier) {
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .absoluteOffset(y = 160.dp)
-            .height(360.dp)
+            .absoluteOffset(y = 220.dp)
+            .height(440.dp)
             .fillMaxWidth()
     ) {
-        LostFindButton(type = 1, onClick = {})
-        LostFindButton(type = 2, onClick = {})
-        LostFindButton(type = 3, onClick = {})
+        HomepageMainButton(type = 1, onClick = {})
+        HomepageMainButton(type = 2, onClick = {})
+        HomepageMainButton(type = 3, onClick = {})
     }
 }
 
 @Preview(
     showBackground = true,
-    widthDp = 320,
-    heightDp = 640,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "DefaultPreviewDark"
+    name = "HomepagePreviewDark",
+    showSystemUi = true
 )
-@Preview(showBackground = true, widthDp = 360, heightDp = 640)
+@Preview(showBackground = true, name = "HomepagePreviewLight", showSystemUi = true)
 @Composable
 fun HomepagePreview() {
     SSteam2Theme {
