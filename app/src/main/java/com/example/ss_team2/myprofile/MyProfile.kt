@@ -1,5 +1,6 @@
 package com.example.ss_team2.myprofile
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,8 +32,9 @@ import com.example.ss_team2.R
 @Composable
 fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
     LazyColumn(
-        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
+        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 20.dp),
         modifier = modifier
+            .fillMaxWidth()
     ) {
         items(UserPostData) { item ->
             UserPostCard(
@@ -62,12 +64,12 @@ fun UserPostCard(
                 color = Color.LightGray,
                 shape = RoundedCornerShape(10.dp)
             )
+            .clickable {}
+            .fillMaxWidth()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable {}
         ) {
             Image(
                 painter = painterResource(id = image),
@@ -78,7 +80,7 @@ fun UserPostCard(
             PostInfo(
                 text = "What",
                 tags = what,
-                modifier = Modifier.offset(x = 12.dp)
+                modifier = Modifier.offset(x = 12.dp).width(30.dp)
             )
             PostInfo(
                 text = "Where",
@@ -164,22 +166,18 @@ private val tempUserPostData: List<Post> = listOf(
 fun MyProfileScreen(modifier: Modifier) {
     UserPostCardList(
         UserPostData = tempUserPostData,
-        modifier = Modifier.absoluteOffset(x = 8.dp, y = 320.dp)
+        modifier = modifier.absoluteOffset(y = 320.dp)
     )
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun UserPostCardPreview() {
-    SSteam2Theme {
-        UserPostCardList(
-            UserPostData = tempUserPostData,
-            modifier = Modifier
-        )
-    }
-}
-
-@Preview(widthDp = 360, heightDp = 640)
+@Preview(
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Preview(showBackground = true, widthDp = 360, heightDp = 640)
 @Composable
 fun MyProfilePreview() {
     SSteam2Theme() {

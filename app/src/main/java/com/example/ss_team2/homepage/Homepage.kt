@@ -1,5 +1,6 @@
 package com.example.ss_team2.homepage
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
@@ -16,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ss_team2.ui.theme.LostButtonDark
+import com.example.ss_team2.ui.theme.LostButtonLight
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 
@@ -142,7 +145,14 @@ fun HomepageScreen(modifier: Modifier) {
     }
 }
 
-@Preview(widthDp = 360, heightDp = 640)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    heightDp = 640,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Preview(showBackground = true, widthDp = 360, heightDp = 640)
 @Composable
 fun HomepagePreview() {
     SSteam2Theme {
