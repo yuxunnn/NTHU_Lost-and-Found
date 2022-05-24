@@ -1,10 +1,11 @@
 # Types
 type Post implements Timestamps{
-    author: User
+    postId: ID!
+    author: User!
     postType: String!
     itemType: String!
-    location: String
-    describe: String
+    location: String!
+    postDescribe: String
     hasDone: Boolean!
     rewardCoin: Int!
     anonymous: Boolean!
@@ -12,6 +13,18 @@ type Post implements Timestamps{
     # Interface required
     createdAt: Date!
     updatedAt: Date!
+}
+
+# Inputs
+input PostCreateInput{
+    author: String!
+    postType: String!
+    itemType: String!
+    location: String!
+    postDescribe: String
+    hasDone: Boolean!
+    rewardCoin: Int!
+    anonymous: Boolean!
 }
 
 """

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 export default class UserModel {
-  static async selectAll (conn) {
+  static async selectAll(conn) {
     try {
       // Return all users
       const query = 'SELECT * FROM user'
@@ -12,7 +12,7 @@ export default class UserModel {
     }
   }
 
-  static async selectUserById (conn, userId) {
+  static async selectUserById(conn, userId) {
     const _userId = userId
 
     try {
@@ -22,11 +22,11 @@ export default class UserModel {
 
       return rows[0]
     } catch (err) {
-      console.error(`[ERROR] userModel.selectUser :\n ${err}`)
+      console.error(`[ERROR] userModel.selectUserById :\n ${err}`)
     }
   }
 
-  static async selectUserByName (conn, userName) {
+  static async selectUserByName(conn, userName) {
     const _userName = userName
 
     try {
@@ -36,11 +36,11 @@ export default class UserModel {
 
       return rows[0]
     } catch (err) {
-      console.error(`[ERROR] userModel.selectUser :\n ${err}`)
+      console.error(`[ERROR] userModel.selectUserByName :\n ${err}`)
     }
   }
 
-  static async createUser (conn, args) {
+  static async createUser(conn, args) {
     const _userName = args.userName
     const _userSchool = args.userSchool
     const _userPhoneNumber = args.userPhoneNumber

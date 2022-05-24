@@ -1,13 +1,16 @@
 import { versionQueries } from './version'
 import { userMutations, userQueries } from './user'
+import { postMutations, postQueries } from './post'
 
 const resolvers = {
   Query: {
     ...versionQueries,
-    ...userQueries
+    ...userQueries,
+    ...postQueries
   },
   Mutation: {
-    ...userMutations
+    ...userMutations,
+    ...postMutations
   }
 }
 

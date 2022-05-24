@@ -11,10 +11,12 @@ type Query {
   userByName(userName: String!): User
 
   # Post
-  # posts: [Post]
-  # post(postType: String!, itemType: String!, location: String): Post
+  posts: [Post]
+  postById(postId: ID!): Post
+  postSearch(postType: String!, itemType: String!, location: String!): [Post]
 }
 
 type Mutation{
   createUser(user: UserCreateInput!): User!
+  createPost(post: PostCreateInput!): Post!
 }
