@@ -7,8 +7,13 @@ const userQueries = {
 
     return users
   },
-  user: async (_, args) => {
-    const user = await UserModel.selectUser(connectPool, args.userName)
+  userByName: async (_, args) => {
+    const user = await UserModel.selectUserByName(connectPool, args.userName)
+
+    return user
+  },
+  userById: async (_, args) => {
+    const user = await UserModel.selectUserById(connectPool, args.userId)
 
     return user
   }
