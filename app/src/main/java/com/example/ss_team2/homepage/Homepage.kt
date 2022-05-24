@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,13 +38,13 @@ fun HomepageScreen(modifier: Modifier) {
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults
                     .buttonColors(
-                        backgroundColor = MaterialTheme.colors.background,
+                        backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.onBackground
                     ),
                 contentPadding = PaddingValues(all = 0.dp),
                 shape = RectangleShape,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
@@ -62,13 +63,13 @@ fun HomepageScreen(modifier: Modifier) {
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults
                     .buttonColors(
-                        backgroundColor = MaterialTheme.colors.background,
+                        backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.onBackground
                     ),
                 contentPadding = PaddingValues(all = 0.dp),
                 shape = RectangleShape,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Send,

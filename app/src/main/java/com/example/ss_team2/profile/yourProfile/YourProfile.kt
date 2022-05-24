@@ -1,6 +1,5 @@
 package com.example.ss_team2.profile.yourProfile
 
-import com.example.ss_team2.profile.UserPostCardList
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -9,6 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,16 +21,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
-import com.example.ss_team2.profile.ChangeListButton
-import com.example.ss_team2.profile.ProfileInfo
+import com.example.ss_team2.profile.*
 import com.example.ss_team2.ui.theme.SSteam2Theme
-import com.example.ss_team2.profile.tempUserPostData
 
 @Composable
 fun YourProfileScreen(
     username: String,
     modifier: Modifier
 ) {
+
+    val onNewPost = remember { mutableStateOf(true) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,13 +47,13 @@ fun YourProfileScreen(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults
                     .buttonColors(
-                        backgroundColor = MaterialTheme.colors.background,
+                        backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.onBackground
                     ),
                 contentPadding = PaddingValues(all = 0.dp),
                 shape = RectangleShape,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
@@ -119,12 +120,27 @@ fun YourProfileScreen(
             }
         }
 
-        ChangeListButton()
-
-        UserPostCardList(
-            UserPostData = tempUserPostData,
-            modifier = Modifier
+        ChangeListButton(
+            onNewPost = onNewPost.value,
+            onClickNew = {
+                onNewPost.value = true
+            },
+            onClickOld = {
+                onNewPost.value = false
+            }
         )
+
+        if (onNewPost.value) {
+            UserPostCardList(
+                UserPostData = tempUserPostData,
+                modifier = Modifier
+            )
+        } else {
+            UserPostCardList(
+                UserPostData = tempUserPostData2,
+                modifier = Modifier
+            )
+        }
     }
 }
 

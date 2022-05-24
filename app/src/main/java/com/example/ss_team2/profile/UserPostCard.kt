@@ -48,8 +48,8 @@ fun UserPostCard(
                 text = "What",
                 tags = what,
                 modifier = Modifier
-                    .offset(x = 12.dp)
-                    .width(30.dp)
+                    .offset(x = 20.dp)
+                    .width(60.dp)
             )
             PostInfo(
                 text = "Where",

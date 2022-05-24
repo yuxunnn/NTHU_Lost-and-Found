@@ -1,7 +1,6 @@
 package com.example.ss_team2.map
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,12 +11,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ss_team2.R
 import com.example.ss_team2.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
@@ -39,13 +36,13 @@ fun MapScreen(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults
                     .buttonColors(
-                        backgroundColor = MaterialTheme.colors.background,
+                        backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.onBackground
                     ),
                 contentPadding = PaddingValues(all = 0.dp),
                 shape = RectangleShape,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
@@ -85,13 +82,13 @@ fun MapScreen(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults
                     .buttonColors(
-                        backgroundColor = MaterialTheme.colors.background,
+                        backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.onBackground
                     ),
                 contentPadding = PaddingValues(all = 0.dp),
                 shape = RectangleShape,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
@@ -119,14 +116,7 @@ fun MapScreen(
 
 @Composable
 fun Map(modifier: Modifier) {
-    Image(
-        painter = painterResource(id = R.drawable.umbrella1),
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = modifier
-            .height(300.dp)
-            .fillMaxWidth()
-    )
+
 }
 
 
