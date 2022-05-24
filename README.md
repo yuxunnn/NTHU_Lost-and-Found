@@ -23,4 +23,5 @@
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
-post的queries要可以回傳post list包含users
+postUpdate
+postDelete

@@ -36,7 +36,7 @@ export default class PostModel {
             const query = `SELECT * FROM post WHERE postType = '${_postType}' AND itemType = '${_itemType}' AND location = '${_location}'`
             const [row, fields] = await conn.execute(query)
 
-            return row[0]
+            return row
         } catch (err) {
             console.error(`[ERROR] PostModel.searchPost :\n ${err}`)
         }
@@ -61,5 +61,16 @@ export default class PostModel {
         } catch (err) {
             console.error(`[ERROR] PostModel.createPost :\n ${err}`)
         }
+    }
+
+    static async updatePost(conn, args, post) {
+        let _postId
+        let _itemType
+        let _locationL
+        let _postDescribe
+        let _rewardCoin
+        let _anonymous
+        //TODO
+
     }
 }
