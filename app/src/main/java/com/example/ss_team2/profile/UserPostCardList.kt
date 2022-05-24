@@ -1,12 +1,16 @@
 package com.example.ss_team2.profile
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
@@ -24,5 +28,22 @@ fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
                 modifier = Modifier
             )
         }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "UserPostCardListPreviewDark",
+    backgroundColor = 0xff000000
+)
+@Preview(showBackground = true, name = "UserPostCardListPreviewLight")
+@Composable
+fun UserPostCardListPreview(){
+    SSteam2Theme {
+        UserPostCardList(
+            UserPostData = tempUserPostData,
+            modifier = Modifier
+        )
     }
 }

@@ -1,7 +1,6 @@
 package com.example.ss_team2.homepage
 
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults

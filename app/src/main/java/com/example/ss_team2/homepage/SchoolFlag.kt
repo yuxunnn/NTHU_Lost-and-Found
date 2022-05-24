@@ -21,7 +21,8 @@ import androidx.compose.ui.unit.sp
 fun SchoolFlag(
     school: Int,
     currentSchool: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier
 ) {
     val color: Color = if (school != currentSchool) Color.LightGray
     else when (school) {
@@ -41,7 +42,7 @@ fun SchoolFlag(
         onClick = onClick,
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(backgroundColor = color),
-        modifier = Modifier
+        modifier = modifier
             .width(60.dp)
             .height(80.dp)
             .clip(CutCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp))
