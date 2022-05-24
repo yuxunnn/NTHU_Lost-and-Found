@@ -25,7 +25,7 @@ fun HomepageScreen(modifier: Modifier) {
 
     val currentSchool = remember { mutableStateOf(1) }
 
-    Column() {
+    Column {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

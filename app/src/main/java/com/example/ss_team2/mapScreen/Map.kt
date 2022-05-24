@@ -1,4 +1,4 @@
-package com.example.ss_team2.map
+package com.example.ss_team2.mapScreen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
