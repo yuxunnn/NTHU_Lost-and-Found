@@ -2,7 +2,6 @@ package com.example.ss_team2.profile
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,14 +18,17 @@ fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
         modifier = modifier
             .fillMaxWidth()
     ) {
-        items(UserPostData) { item ->
-            UserPostCard(
-                type = item.type,
-                image = item.image,
-                what = item.what,
-                where = item.where,
-                modifier = Modifier
-            )
+        repeat(4){
+
+            items(UserPostData) { item ->
+                UserPostCard(
+                    type = item.type,
+                    image = item.image,
+                    what = item.what,
+                    where = item.where,
+                    modifier = Modifier
+                )
+            }
         }
     }
 }
