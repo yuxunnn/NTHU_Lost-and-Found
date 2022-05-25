@@ -63,14 +63,49 @@ export default class PostModel {
         }
     }
 
-    static async updatePost(conn, args, post) {
+    static async updatePost(conn, args, modifyPost) {
         let _postId
-        let _itemType
-        let _locationL
-        let _postDescribe
-        let _rewardCoin
-        let _anonymous
-        //TODO
+        let originPost
 
+        if (modifyPost != null) {
+            _postId = args.postId
+            originPost = await this.selectPostById(conn, _postId)
+        } else {
+            throw new Error("Post Update is null")
+        }
+
+        let _itemType = originPost.itemType
+        let _location = originPost.location
+        let _postDescribe = originPost.postDescribe
+        let _rewardCoin = originPost.rewardCoin
+        let _anonymous = originPost.anonymous
+
+        if ('itemType' in modifyPost) _itemType = modifyPost.itemType
+        if ('location' in modifyPost) _location = modifyPost.location
+        if ('postDescribe' in modifyPost) _postDescribe = modifyPost.postDescribe
+        if ('rewardCoin' in modifyPost) _rewardCoin = modifyPost.rewardCoin
+        if ('anonymous' in modifyPost) _anonymous = modifyPost.anonymous
+
+        try {
+            const query = `UPDATE post SET itemType = '${_itemType}', location = '${_location}', postDescribe = '${_postDescribe}', rewardCoin = '${_rewardCoin}', anonymous = '${_anonymous}' WHERE postId = '${_postId}'`
+            const [row, fields] = await conn.execute(query)
+
+            return _postId
+        } catch (err) {
+            console.error(`[ERROR] PostModel.updatePost :\n ${err}`)
+        }
+    }
+
+    static async deletePost(conn, postId) {
+        const _postId = postId
+
+        try {
+            const query = `DELETE FROM post WHERE postId = '${_postId}'`
+            const [rows, fields] = await conn.query(query)
+
+            return `Delete user ${_postId} successfull!`
+        } catch (err) {
+            console.error(`[ERROR] PostModel.deletePost :\n ${err}`)
+        }
     }
 }

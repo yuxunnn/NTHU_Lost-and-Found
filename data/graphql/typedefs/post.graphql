@@ -29,7 +29,7 @@ input PostCreateInput{
 
 input PostUpdateInput{
     itemType: String
-    locationL: String
+    location: String
     postDescribe: String
     rewardCoin: Int
     anonymous: Boolean
