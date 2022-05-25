@@ -21,19 +21,25 @@ import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.profile.*
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun YourProfileScreen(
     username: String,
     modifier: Modifier
 ) {
 
-    var tabPage by remember { mutableStateOf(0) }
+    val pagerState = rememberPagerState(pageCount = 2)
+    val scope = rememberCoroutineScope()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-    ){
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -119,18 +125,17 @@ fun YourProfileScreen(
         }
 
         ProfileTabBar(
-            tabPage = tabPage,
-            onTabSelected = {tabPage = it}
+            tabPage = pagerState.currentPage,
+            onTabSelected = {
+                scope.launch {
+                    pagerState.animateScrollToPage(it)
+                }
+            }
         )
 
-        if (tabPage == 0) {
+        HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
-                UserPostData = tempUserPostData,
-                modifier = Modifier
-            )
-        } else {
-            UserPostCardList(
-                UserPostData = tempUserPostData2,
+                tabPage = index,
                 modifier = Modifier
             )
         }

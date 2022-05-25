@@ -1,8 +1,6 @@
 package com.example.ss_team2.profile.myprofile
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -80,17 +78,11 @@ fun MyProfileScreen(
             onTabSelected = {tabPage = it}
         )
 
-        if (tabPage == 0) {
-            UserPostCardList(
-                UserPostData = tempUserPostData,
-                modifier = Modifier
-            )
-        } else {
-            UserPostCardList(
-                UserPostData = tempUserPostData2,
-                modifier = Modifier
-            )
-        }
+        UserPostCardList(
+            tabPage = tabPage,
+            modifier = Modifier
+        )
+
     }
 }
 

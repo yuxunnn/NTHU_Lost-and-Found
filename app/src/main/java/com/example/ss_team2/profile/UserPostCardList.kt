@@ -12,7 +12,10 @@ import androidx.compose.ui.unit.dp
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
+fun UserPostCardList(
+    tabPage: Int,
+    modifier: Modifier
+) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 10.dp, horizontal = 20.dp),
         modifier = modifier
@@ -20,7 +23,7 @@ fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
     ) {
         repeat(4){
 
-            items(UserPostData) { item ->
+            items(if (tabPage == 0) tempUserPostData else tempUserPostData2) { item ->
                 UserPostCard(
                     type = item.type,
                     image = item.image,
@@ -44,7 +47,7 @@ fun UserPostCardList(UserPostData: List<Post>, modifier: Modifier) {
 fun UserPostCardListPreview(){
     SSteam2Theme {
         UserPostCardList(
-            UserPostData = tempUserPostData,
+            tabPage  = 0,
             modifier = Modifier
         )
     }

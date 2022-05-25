@@ -17,12 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ProfileTabBar(
     tabPage: Int,
     onTabSelected: (tabPage: Int) -> Unit
 ) {
+
     TabRow(
         selectedTabIndex = tabPage,
         indicator = { tabPositions ->
