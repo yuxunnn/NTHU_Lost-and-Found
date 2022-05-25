@@ -7,9 +7,7 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +28,7 @@ fun YourProfileScreen(
     modifier: Modifier
 ) {
 
-    val onNewPost = remember { mutableStateOf(true) }
+    var tabPage by remember { mutableStateOf(0) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -120,17 +118,12 @@ fun YourProfileScreen(
             }
         }
 
-        ChangeListButton(
-            onNewPost = onNewPost.value,
-            onClickNew = {
-                onNewPost.value = true
-            },
-            onClickOld = {
-                onNewPost.value = false
-            }
+        ProfileTabBar(
+            tabPage = tabPage,
+            onTabSelected = {tabPage = it}
         )
 
-        if (onNewPost.value) {
+        if (tabPage == 0) {
             UserPostCardList(
                 UserPostData = tempUserPostData,
                 modifier = Modifier

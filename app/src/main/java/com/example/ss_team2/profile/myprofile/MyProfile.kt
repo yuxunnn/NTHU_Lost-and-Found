@@ -1,13 +1,13 @@
 package com.example.ss_team2.profile.myprofile
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +27,7 @@ fun MyProfileScreen(
     modifier: Modifier
 ) {
 
-    val onNewPost = remember { mutableStateOf(true)}
+    var tabPage by remember { mutableStateOf(0) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -75,17 +75,12 @@ fun MyProfileScreen(
             point = 520
         )
 
-        ChangeListButton(
-            onNewPost = onNewPost.value,
-            onClickNew = {
-                onNewPost.value = true
-            },
-            onClickOld = {
-                onNewPost.value = false
-            }
+        ProfileTabBar(
+            tabPage = tabPage,
+            onTabSelected = {tabPage = it}
         )
 
-        if (onNewPost.value) {
+        if (tabPage == 0) {
             UserPostCardList(
                 UserPostData = tempUserPostData,
                 modifier = Modifier
