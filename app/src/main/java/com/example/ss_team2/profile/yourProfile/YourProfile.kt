@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.profile.*
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -47,24 +48,10 @@ fun YourProfileScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            TopBarButton(
+                imageVector = Icons.Default.ArrowBack,
+                onClick = {}
+            )
             Text(
                 text = username,
                 fontSize = 32.sp,

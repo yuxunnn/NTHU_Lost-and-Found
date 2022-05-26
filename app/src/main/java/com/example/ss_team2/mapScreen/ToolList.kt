@@ -26,7 +26,7 @@ fun ToolList(modifier: Modifier) {
         repeat(5){
 
             items(toolList) {
-                image -> Tool(image = image)
+                image -> ToolButton(image = image)
             }
         }
     }

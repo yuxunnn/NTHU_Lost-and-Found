@@ -1,14 +1,16 @@
 package com.example.ss_team2.mapScreen
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateInt
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,13 +19,70 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.utility.TopBarButton
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.maps.android.compose.rememberCameraPositionState
+import kotlinx.coroutines.launch
+
+private val schoolPositionList: List<LatLng> = listOf(
+    LatLng(24.796216802267217, 120.99668480810016),
+    LatLng(24.786945096427186, 120.99749859318587),
+    LatLng(25.017473169825568, 121.5397521708148),
+    LatLng(24.988096573881222, 121.57738748320742)
+)
+private val schoolBoundList: List<LatLngBounds> = listOf(
+    LatLngBounds(
+        LatLng(24.785873962215856, 120.99683182522938),
+        LatLng(24.79756836250363, 120.98821252942336)
+    ),
+    LatLngBounds(
+        LatLng(24.785873962215856, 120.99683182522938),
+        LatLng(24.79756836250363, 120.98821252942336)
+    ),
+    LatLngBounds(
+        LatLng(24.785873962215856, 120.99683182522938),
+        LatLng(24.79756836250363, 120.98821252942336)
+    ),
+    LatLngBounds(
+        LatLng(24.785873962215856, 120.99683182522938),
+        LatLng(24.79756836250363, 120.98821252942336)
+    )
+)
+
+private val tempToolList: List<Tool> = listOf(
+)
+
+const val InitialZoom = 12f
 
 @Composable
 fun MapScreen(
     modifier: Modifier
 ) {
 
-    val currentSchool = remember { mutableStateOf(1) }
+    var currentSchool by remember { mutableStateOf(0) }
+
+    val flagTransition = updateTransition(targetState = currentSchool, label = "Flag indicator")
+    val flags: List<Int> = listOf(
+        flagTransition.animateInt(label = "Left school") { school ->
+            (school + 3) % 4
+        }.value,
+        flagTransition.animateInt(label = "Middle school") { school ->
+            school
+        }.value,
+        flagTransition.animateInt(label = "Right school") { school ->
+            (school + 1) % 4
+        }.value
+    )
+
+
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(schoolPositionList[0], InitialZoom)
+    }
+    val scope = rememberCoroutineScope()
+
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -32,70 +91,35 @@ fun MapScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-
+            TopBarButton(
+                imageVector = Icons.Default.ArrowBack,
+                onClick = {}
+            )
             Row {
-                SchoolFlag(
-                    school = if (currentSchool.value - 1 == 0) 4 else currentSchool.value - 1,
-                    currentSchool = currentSchool.value,
-                    onClick = {
-                        currentSchool.value =
-                            if (currentSchool.value - 1 == 0) 4 else currentSchool.value - 1
-                    },
-                    modifier = Modifier
-                )
-                SchoolFlag(
-                    school = currentSchool.value,
-                    currentSchool = currentSchool.value,
-                    onClick = { },
-                    modifier = Modifier.offset(y = 20.dp)
-                )
-                SchoolFlag(
-                    school = if (currentSchool.value + 1 > 4) 1 else currentSchool.value + 1,
-                    currentSchool = currentSchool.value,
-                    onClick = {
-                        currentSchool.value =
-                            if (currentSchool.value + 1 > 4) 1 else currentSchool.value + 1
-                    },
-                    modifier = Modifier
-                )
+                repeat(3) {
+                    SchoolFlag(
+                        school = flags[it],
+                        selected = it == 1,
+                        onClick = {
+                            scope.launch {
+                                cameraPositionState.animate(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        schoolPositionList[it],
+                                        InitialZoom
+                                    ),
+                                    durationMs = 1000
+                                )
+                            }
+                            currentSchool = it
+                        },
+                        modifier = Modifier.offset(y = if (it == 2) 20.dp else 0.dp)
+                    )
+                }
             }
-
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            TopBarButton(
+                imageVector = Icons.Default.ShoppingCart,
+                onClick = {}
+            )
         }
 
         Divider(
@@ -104,14 +128,20 @@ fun MapScreen(
             modifier = Modifier.padding(top = 12.dp)
         )
 
-        Map(modifier = Modifier.height(420.dp).fillMaxWidth())
+        Map(
+            cameraPositionState = cameraPositionState,
+            tools = tempToolList,
+            modifier = Modifier
+                .height(420.dp)
+                .fillMaxWidth()
+        )
 
         Divider(
             color = MaterialTheme.colors.onBackground,
             thickness = 2.dp,
             modifier = Modifier
         )
-        
+
         ToolList(modifier = Modifier)
     }
 }

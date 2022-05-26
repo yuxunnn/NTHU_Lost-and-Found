@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.profile.*
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -44,24 +46,10 @@ fun MyProfileScreen(
                 .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth()
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            TopBarButton(
+                imageVector = Icons.Default.ShoppingCart,
+                onClick = {}
+            )
             Text(
                 text = username,
                 fontSize = 32.sp,

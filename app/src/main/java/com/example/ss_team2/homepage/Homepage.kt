@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
@@ -19,11 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.utility.TopBarButton
 
 @Composable
 fun HomepageScreen(modifier: Modifier) {
 
-    val currentSchool = remember { mutableStateOf(1) }
+    val currentSchool = remember { mutableStateOf(0) }
 
     Column {
 
@@ -34,24 +36,10 @@ fun HomepageScreen(modifier: Modifier) {
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            TopBarButton(
+                imageVector = Icons.Default.ShoppingCart,
+                onClick = {}
+            )
             Text(
                 text = "頂大失物尋寶",
                 fontSize = 32.sp,
@@ -59,24 +47,10 @@ fun HomepageScreen(modifier: Modifier) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier
             )
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults
-                    .buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.onBackground
-                    ),
-                contentPadding = PaddingValues(all = 0.dp),
-                shape = RectangleShape,
-                modifier = Modifier
-                    .size(40.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Send,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            TopBarButton(
+                imageVector = Icons.Default.Send,
+                onClick = {}
+            )
         }
 
         Divider(
@@ -91,30 +65,14 @@ fun HomepageScreen(modifier: Modifier) {
                 .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth()
         ) {
-            SchoolFlag(
-                school = 1,
-                currentSchool = currentSchool.value,
-                onClick = { currentSchool.value = 1 },
-                modifier = Modifier
-            )
-            SchoolFlag(
-                school = 2,
-                currentSchool = currentSchool.value,
-                onClick = { currentSchool.value = 2 },
-                modifier = Modifier
-            )
-            SchoolFlag(
-                school = 3,
-                currentSchool = currentSchool.value,
-                onClick = { currentSchool.value = 3 },
-                modifier = Modifier
-            )
-            SchoolFlag(
-                school = 4,
-                currentSchool = currentSchool.value,
-                onClick = { currentSchool.value = 4 },
-                modifier = Modifier
-            )
+            repeat(4){
+                SchoolFlag(
+                    school = it,
+                    selected = currentSchool.value == it,
+                    onClick = { currentSchool.value = it},
+                    modifier = Modifier
+                )
+            }
         }
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,

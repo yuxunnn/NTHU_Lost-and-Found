@@ -1,5 +1,6 @@
 package com.example.ss_team2.homepage
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
@@ -9,6 +10,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,35 +24,34 @@ import com.example.ss_team2.ui.theme.*
 @Composable
 fun SchoolFlag(
     school: Int,
-    currentSchool: Int,
+    selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier
 ) {
 
-
-    val color: Color =
-        if (school != currentSchool) Color.LightGray
+    val color by animateColorAsState(targetValue =
+        if (!selected) Color.LightGray
         else if (MaterialTheme.colors.isLight) {
             when (school) {
-                1 -> NTHUFlag
-                2 -> NCTUFlag
-                3 -> NTUFlag
+                0 -> NTHUFlag
+                1 -> NCTUFlag
+                2 -> NTUFlag
                 else -> NCCUFlag
             }
         } else {
             when (school) {
-
-                1 -> NTHUFlagDark
-                2 -> NCTUFlagDark
-                3 -> NTUFlagDark
+                0 -> NTHUFlagDark
+                1 -> NCTUFlagDark
+                2 -> NTUFlagDark
                 else -> NCCUFlagDark
             }
         }
+    )
 
     val text: String = when (school) {
-        1 -> "清"
-        2 -> "交"
-        3 -> "台"
+        0 -> "清"
+        1 -> "交"
+        2 -> "台"
         else -> "政"
     }
 
