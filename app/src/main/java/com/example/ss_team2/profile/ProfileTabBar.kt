@@ -33,7 +33,7 @@ fun ProfileTabBar(
         },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 20.dp)
+            .padding(top = 20.dp, bottom = 12.dp)
     ) {
         ProfileTab(
             color = if (tabPage == 0) MaterialTheme.colors.primary else Color.LightGray,
