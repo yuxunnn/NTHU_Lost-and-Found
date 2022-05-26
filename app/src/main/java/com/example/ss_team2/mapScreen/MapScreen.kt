@@ -33,29 +33,12 @@ private val schoolPositionList: List<LatLng> = listOf(
     LatLng(25.017473169825568, 121.5397521708148),
     LatLng(24.988096573881222, 121.57738748320742)
 )
-private val schoolBoundList: List<LatLngBounds> = listOf(
-    LatLngBounds(
-        LatLng(24.785873962215856, 120.99683182522938),
-        LatLng(24.79756836250363, 120.98821252942336)
-    ),
-    LatLngBounds(
-        LatLng(24.785873962215856, 120.99683182522938),
-        LatLng(24.79756836250363, 120.98821252942336)
-    ),
-    LatLngBounds(
-        LatLng(24.785873962215856, 120.99683182522938),
-        LatLng(24.79756836250363, 120.98821252942336)
-    ),
-    LatLngBounds(
-        LatLng(24.785873962215856, 120.99683182522938),
-        LatLng(24.79756836250363, 120.98821252942336)
-    )
-)
+
 
 private val tempToolList: List<Tool> = listOf(
 )
 
-const val InitialZoom = 12f
+const val InitialZoom = 15f
 
 @Composable
 fun MapScreen(
@@ -104,15 +87,16 @@ fun MapScreen(
                             scope.launch {
                                 cameraPositionState.animate(
                                     CameraUpdateFactory.newLatLngZoom(
-                                        schoolPositionList[it],
+                                        schoolPositionList[flags[it]],
                                         InitialZoom
                                     ),
                                     durationMs = 1000
                                 )
                             }
-                            currentSchool = it
+                            currentSchool = flags[it]
                         },
-                        modifier = Modifier.offset(y = if (it == 2) 20.dp else 0.dp)
+                        modifier = Modifier
+                            .offset(y = if (it == 1) 20.dp else 0.dp)
                     )
                 }
             }
@@ -130,6 +114,7 @@ fun MapScreen(
 
         Map(
             cameraPositionState = cameraPositionState,
+            currentSchool = currentSchool,
             tools = tempToolList,
             modifier = Modifier
                 .height(420.dp)
