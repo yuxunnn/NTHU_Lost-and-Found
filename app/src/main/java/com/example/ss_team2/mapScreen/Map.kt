@@ -37,8 +37,6 @@ fun Map(
 ) {
     GoogleMap(
         properties = MapProperties(
-            mapType = MapType.HYBRID,
-            isTrafficEnabled = false,
             latLngBoundsForCameraTarget = schoolBoundList[currentSchool],
             minZoomPreference = 15f
         ),

@@ -1,10 +1,7 @@
 package com.example.ss_team2.mapScreen
 
 import android.content.res.Configuration
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.animateInt
-import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,9 +10,12 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -34,8 +34,8 @@ private val schoolPositionList: List<LatLng> = listOf(
     LatLng(24.988096573881222, 121.57738748320742)
 )
 
-
 private val tempToolList: List<Tool> = listOf(
+    Tool(image = 1, 24.79, 120.99)
 )
 
 const val InitialZoom = 15f
@@ -46,18 +46,37 @@ fun MapScreen(
 ) {
 
     var currentSchool by remember { mutableStateOf(0) }
-
     val flagTransition = updateTransition(targetState = currentSchool, label = "Flag indicator")
-    val flags: List<Int> = listOf(
-        flagTransition.animateInt(label = "Left school") { school ->
-            (school + 3) % 4
+
+    val offsetX: List<Dp> = listOf(0.dp, (-60).dp, 0.dp, 60.dp)
+    val offsetY: List<Dp> = listOf(20.dp, 0.dp, (-10).dp, 0.dp)
+    val flagOffsetX: List<Dp> = listOf(
+        flagTransition.animateDp(label = "NTHUX") { school ->
+            offsetX[school]
         }.value,
-        flagTransition.animateInt(label = "Middle school") { school ->
-            school
+        flagTransition.animateDp(label = "NCTUX") { school ->
+            offsetX[(school + 3) % 4]
         }.value,
-        flagTransition.animateInt(label = "Right school") { school ->
-            (school + 1) % 4
-        }.value
+        flagTransition.animateDp(label = "NTUX") { school ->
+            offsetX[(school + 2) % 4]
+        }.value,
+        flagTransition.animateDp(label = "NCCUX") { school ->
+            offsetX[(school + 1) % 4]
+        }.value,
+    )
+    val flagOffsetY: List<Dp> = listOf(
+        flagTransition.animateDp(label = "NTHUY") { school ->
+            offsetY[school]
+        }.value,
+        flagTransition.animateDp(label = "NCTUY") { school ->
+            offsetY[(school + 3) % 4]
+        }.value,
+        flagTransition.animateDp(label = "NTUY") { school ->
+            offsetY[(school + 2) % 4]
+        }.value,
+        flagTransition.animateDp(label = "NCCUY") { school ->
+            offsetY[(school + 1) % 4]
+        }.value,
     )
 
 
@@ -78,26 +97,27 @@ fun MapScreen(
                 imageVector = Icons.Default.ArrowBack,
                 onClick = {}
             )
-            Row {
-                repeat(3) {
-                    SchoolFlag(
-                        school = flags[it],
-                        selected = it == 1,
-                        onClick = {
-                            scope.launch {
-                                cameraPositionState.animate(
-                                    CameraUpdateFactory.newLatLngZoom(
-                                        schoolPositionList[flags[it]],
-                                        InitialZoom
-                                    ),
-                                    durationMs = 1000
-                                )
-                            }
-                            currentSchool = flags[it]
-                        },
-                        modifier = Modifier
-                            .offset(y = if (it == 1) 20.dp else 0.dp)
-                    )
+            Box(modifier = Modifier) {
+                repeat(4) {
+                    if (it != (currentSchool+2)%4){
+                        SchoolFlag(
+                            school = it,
+                            selected = it == currentSchool,
+                            onClick = {
+                                scope.launch {
+                                    cameraPositionState.animate(
+                                        update = CameraUpdateFactory.newLatLngZoom(
+                                            schoolPositionList[it],
+                                            InitialZoom
+                                        ),
+                                        durationMs = 1000,
+                                    )
+                                }
+                                currentSchool = it
+                            },
+                            modifier = Modifier.offset(x = flagOffsetX[it], y = flagOffsetY[it])
+                        )
+                    }
                 }
             }
             TopBarButton(
