@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SS-team2</string>
+
+    <string name="NTUflag">台大旗</string>
+    <string name="NTHUflag">清大旗</string>
+    <string name="NCTUflag">交大旗</string>
+    <string name="NCCUflag">政大旗</string>
+    <string name="Poopoo">大便</string>
+    <string name="Eraser">橡皮擦</string>
+    <string name="BNT">BNT</string>
+
+    <string name="NTUflagNote">台大專屬旗子</string>
+    <string name="NTHUflagNote">清大專屬旗子</string>
+    <string name="NCTUflagNote">交大專屬旗子</string>
+    <string name="NCCUflagNote">政大專屬旗子</string>
+    <string name="PoopooNote">要臭他們就用這個</string>
+    <string name="EraserNote">把髒東西擦掉</string>
+    <string name="BNTNote">記得打疫苗</string>
+
 </resources>

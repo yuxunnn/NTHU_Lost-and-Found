@@ -22,6 +22,7 @@ import com.example.ss_team2.whatYouLost.ObjectLabels
 import com.example.ss_team2.whatYouLost.ObjectLabelsElement
 import com.example.ss_team2.whatYouLost.objectLabels1
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 
 
@@ -32,10 +33,12 @@ fun TaskList(){
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         MoneyAndShop(money = "520")
         TaskCards()
+
+        //BottomNavigation
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, showSystemUi = true)
 @Composable
 fun TaskListPreview() {
     SSteam2Theme { TaskList() }
@@ -49,7 +52,7 @@ fun Title(){
     ) {
         Text(
             text = "任務清單",
-            fontSize = 40.sp
+            fontSize = 36.sp
         )
     }
 }
@@ -114,7 +117,7 @@ fun TaskCard(
         modifier = Modifier
             .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
             .height(72.dp),
-        shape = MaterialTheme.shapes.small,
+        shape = RoundedCornerShape(15.dp),
         elevation = 3.dp,    //shadow
         backgroundColor = Iris60
     ){
