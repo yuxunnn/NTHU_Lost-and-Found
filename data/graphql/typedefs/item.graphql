@@ -1,0 +1,18 @@
+# Types
+
+# UserItem
+type UserItem{
+    userName: String!
+    waterGun: Int!
+    board: Int!
+    eraser: Int!
+    shit: Int!
+    flag: Int!
+}
+
+# ShopItem
+type ShopItem{
+    itemType: ID!
+    itemDescribe: String!
+    itemPrice: Int!
+}

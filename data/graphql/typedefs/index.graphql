@@ -14,6 +14,10 @@ type Query {
   posts: [Post]
   postById(postId: ID!): Post
   postSearch(postType: String!, itemType: String!, location: String!): [Post]
+
+  # userItem
+  userItems: [UserItem]
+  userItem(userName: String!): UserItem
 }
 
 type Mutation{
@@ -24,4 +28,9 @@ type Mutation{
   createPost(post: PostCreateInput!): Post!
   updatePost(postId: ID!, post: PostUpdateInput!): Post!
   deletePost(postId: ID!): String!
+
+  # userItem
+  updateUserItem(userName: String!,itemType: String!, changeNum: Int!): UserItem!
+  createUserItem(userName: String!): UserItem!
+  deleteuserItem(userName: String!): String!
 }
