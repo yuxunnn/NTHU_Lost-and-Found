@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,7 +85,7 @@ fun YourProfileScreen(
                     .clip(CutCornerShape(size = 4.dp))
             ) {
                 Text(
-                    text = "封鎖",
+                    text = stringResource(R.string.yourProfile_block),
                     fontWeight = FontWeight.Bold,
                     color = Color.Red,
                     fontSize = 16.sp,
@@ -102,7 +103,7 @@ fun YourProfileScreen(
                     .clip(CutCornerShape(size = 4.dp))
             ) {
                 Text(
-                    text = "傳送訊息",
+                    text = stringResource(R.string.yourProfile_send),
                     fontWeight = FontWeight.Bold,
                     color = Color.Gray,
                     fontSize = 16.sp,

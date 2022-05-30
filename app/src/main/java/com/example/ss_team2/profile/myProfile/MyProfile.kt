@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.profile.*
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.utility.BottomBar
 import com.example.ss_team2.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -97,7 +98,9 @@ fun MyProfileScreen(
 @Composable
 fun MyProfilePreview() {
     SSteam2Theme {
-        Scaffold { padding ->
+        Scaffold (
+            bottomBar = { BottomBar(modifier = Modifier)}
+        ){ padding ->
             MyProfileScreen(
                 username = "frog_0219",
                 modifier = Modifier.padding(padding)

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SS-team2</string>
+
+    <string name="bottom_navigation_home">"主頁"</string>
+    <string name="bottom_navigation_mission">"任務"</string>
+    <string name="bottom_navigation_scoreboard">"積分榜"</string>
+    <string name="bottom_navigation_profile">"個人資訊"</string>
+    <string name="bottom_navigation_notification">"通知"</string>
+
+    <string name="yourProfile_block">"封鎖"</string>
+    <string name="yourProfile_send">"傳送訊息"</string>
+
 </resources>
