@@ -1,11 +1,9 @@
 package com.example.ss_team2.shop
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,13 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ss_team2.taskList.TaskCards
+import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
@@ -86,6 +83,7 @@ fun ItemCard(
     @DrawableRes drawable: Int,
     itemName: String,
     itemNote: String,
+    price: Int,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -140,31 +138,34 @@ fun ItemCardPreview() {
             ItemCard(
                 drawable = R.drawable.blue_flag,
                 modifier = Modifier.padding(8.dp),
-                itemName = R.string.NTUflag,
-                itemNote = R.string.NTUflagNote
+                itemName = stringResource(R.string.NTUflag),
+                itemNote = stringResource(R.string.NTUflagNote)
             )
     }
 }
 
-private val itemData = listOf(
-    R.string.NTUflag to R.string.NTUflagNote,
-    R.string.NTHUflag to R.string.NTHUflagNote,
-    R.string.NCTUflag to R.string.NCTUflagNote,
-    R.string.NCCUflag to R.string.NCCUflagNote,
-    R.string.Poopoo to R.string.PoopooNote,
-    R.string.Eraser to R.string.EraserNote,
-    R.string.BNT to R.string.BNTNote,
-).map{NameNotePair(it.first, it.second)}
+data class ItemData(val itemName: Int,val itemNote: Int,val itemprice: Int)
+
+private val itemDataList: List<ItemData> = listOf(
+    ItemData(R.string.NTUflag, R.string.NTUflagNote,500)
+    //R.string.NTHUflag to R.string.NTHUflagNote,
+    //R.string.NCTUflag to R.string.NCTUflagNote,
+    //R.string.NCCUflag to R.string.NCCUflagNote,
+    //R.string.Poopoo to R.string.PoopooNote,
+    //R.string.Eraser to R.string.EraserNote,
+    //R.string.BNT to R.string.BNTNote,
+)
 
 @Composable
 fun ItemCards() {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(itemData) { item ->
+        items(itemDataList) { item ->
             ItemCard(
-                itemName= itemData.first,
-                itemNote = itemData.second,
+                itemName= stringResource(item.itemName),
+                itemNote = stringResource(item.itemNote),
+                price = item.itemprice,
                 drawable = R.drawable.blue_flag //why bug?????
             )
         }
