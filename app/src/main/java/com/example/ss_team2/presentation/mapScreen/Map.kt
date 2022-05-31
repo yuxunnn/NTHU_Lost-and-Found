@@ -1,8 +1,7 @@
-package com.example.ss_team2.mapScreen
+package com.example.ss_team2.presentation.mapScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.*

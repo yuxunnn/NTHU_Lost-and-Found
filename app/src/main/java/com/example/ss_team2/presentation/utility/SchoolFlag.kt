@@ -1,4 +1,4 @@
-package com.example.ss_team2.homepage
+package com.example.ss_team2.presentation.homepage
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.height

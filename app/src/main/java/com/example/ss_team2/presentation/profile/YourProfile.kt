@@ -1,4 +1,4 @@
-package com.example.ss_team2.profile.yourProfile
+package com.example.ss_team2.presentation.profile
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.BorderStroke
@@ -20,9 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
-import com.example.ss_team2.profile.*
+import com.example.ss_team2.domain.model.User
+import com.example.ss_team2.domain.model.userRyan
 import com.example.ss_team2.ui.theme.SSteam2Theme
-import com.example.ss_team2.utility.TopBarButton
+import com.example.ss_team2.presentation.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -31,7 +32,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun YourProfileScreen(
-    username: String,
+    user: User,
     modifier: Modifier
 ) {
 
@@ -54,7 +55,7 @@ fun YourProfileScreen(
                 onClick = {}
             )
             Text(
-                text = username,
+                text = user.username,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -63,11 +64,11 @@ fun YourProfileScreen(
             Spacer(modifier = Modifier.size(32.dp))
         }
 
-        ProfileInfo(
-            image = R.drawable.your_image,
-            schoolName = "國立交通大學",
-            toolAmount = 2,
-            point = 90
+        PersonalInfo(
+            image = user.userImage,
+            schoolName = user.userSchool,
+            toolAmount = user.userToolAmount,
+            point = user.userPoint
         )
 
         Row(
@@ -124,6 +125,7 @@ fun YourProfileScreen(
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
                 tabPage = index,
+                userPostList = user.userPostList,
                 modifier = Modifier
             )
         }
@@ -133,20 +135,15 @@ fun YourProfileScreen(
 @Preview(
     showBackground = true,
     uiMode = UI_MODE_NIGHT_YES,
-    name = "YourProfilePreviewDark",
     showSystemUi = true
 )
-@Preview(
-    showBackground = true,
-    name = "YourProfilePreviewLight",
-    showSystemUi = true
-)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun YourProfilePreview() {
     SSteam2Theme {
         Scaffold { padding ->
             YourProfileScreen(
-                username = "ryan_910107",
+                user = userRyan,
                 modifier = Modifier.padding(padding)
             )
         }

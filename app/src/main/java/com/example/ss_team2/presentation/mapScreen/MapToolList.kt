@@ -1,4 +1,4 @@
-package com.example.ss_team2.mapScreen
+package com.example.ss_team2.presentation.mapScreen
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ private val toolList: List<Int> = listOf(
 )
 
 @Composable
-fun ToolList(modifier: Modifier) {
+fun MapToolList(modifier: Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -28,7 +28,7 @@ fun ToolList(modifier: Modifier) {
             .fillMaxWidth()
     ) {
         items(toolList) { image ->
-            ToolButton(image = image)
+            MapTool(image = image)
         }
     }
 }

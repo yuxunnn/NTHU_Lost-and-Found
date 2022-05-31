@@ -1,4 +1,4 @@
-package com.example.ss_team2.utility
+package com.example.ss_team2.presentation.utility
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons

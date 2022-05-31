@@ -1,4 +1,4 @@
-package com.example.ss_team2.profile
+package com.example.ss_team2.presentation.profile
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -11,10 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.example.ss_team2.R
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfileInfo(
+fun PersonalInfo(
     @DrawableRes image: Int,
     schoolName: String,
     toolAmount: Int,
@@ -52,7 +54,7 @@ fun ProfileInfo(
                 text = toolAmount.toString()
             )
             Text(
-                text = "擁有道具"
+                text = stringResource(id = R.string.own_tool)
             )
         }
         Column(
@@ -63,7 +65,7 @@ fun ProfileInfo(
                 text = point.toString()
             )
             Text(
-                text = "積分"
+                text = stringResource(id = R.string.point)
             )
         }
     }

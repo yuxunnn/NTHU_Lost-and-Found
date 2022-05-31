@@ -1,4 +1,4 @@
-package com.example.ss_team2.profile.myProfile
+package com.example.ss_team2.presentation.profile
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
@@ -13,11 +13,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ss_team2.R
-import com.example.ss_team2.profile.*
+import com.example.ss_team2.domain.model.User
+import com.example.ss_team2.domain.model.userFrog
 import com.example.ss_team2.ui.theme.SSteam2Theme
-import com.example.ss_team2.utility.BottomBar
-import com.example.ss_team2.utility.TopBarButton
+import com.example.ss_team2.presentation.utility.BottomBar
+import com.example.ss_team2.presentation.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MyProfileScreen(
-    username: String,
+    user: User,
     modifier: Modifier
 ) {
 
@@ -49,7 +49,7 @@ fun MyProfileScreen(
                 onClick = {}
             )
             Text(
-                text = username,
+                text = user.username,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -58,11 +58,11 @@ fun MyProfileScreen(
             Spacer(modifier = Modifier.size(32.dp))
         }
 
-        ProfileInfo(
-            image = R.drawable.my_image,
-            schoolName = "國立台灣大學",
-            toolAmount = 9,
-            point = 520
+        PersonalInfo(
+            image = user.userImage,
+            schoolName = user.userSchool,
+            toolAmount = user.userToolAmount,
+            point = user.userPoint
         )
 
         ProfileTabBar(
@@ -77,32 +77,27 @@ fun MyProfileScreen(
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
                 tabPage = index,
+                userPostList = user.userPostList,
                 modifier = Modifier
             )
         }
-
     }
 }
 
 @Preview(
     showBackground = true,
     uiMode = UI_MODE_NIGHT_YES,
-    name = "MyProfilePreviewDark",
     showSystemUi = true
 )
-@Preview(
-    showBackground = true,
-    name = "MyProfilePreviewLight",
-    showSystemUi = true
-)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MyProfilePreview() {
     SSteam2Theme {
-        Scaffold (
-            bottomBar = { BottomBar(modifier = Modifier)}
-        ){ padding ->
+        Scaffold(
+            bottomBar = { BottomBar(modifier = Modifier) }
+        ) { padding ->
             MyProfileScreen(
-                username = "frog_0219",
+                user = userFrog,
                 modifier = Modifier.padding(padding)
             )
         }

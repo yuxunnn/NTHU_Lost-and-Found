@@ -1,4 +1,4 @@
-package com.example.ss_team2.utility
+package com.example.ss_team2.presentation.utility
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize

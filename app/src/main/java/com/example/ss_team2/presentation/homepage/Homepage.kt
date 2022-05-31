@@ -1,4 +1,4 @@
-package com.example.ss_team2.homepage
+package com.example.ss_team2.presentation.homepage
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
@@ -16,9 +16,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ss_team2.ui.theme.SSteam2Theme
-import com.example.ss_team2.utility.BottomBar
-import com.example.ss_team2.utility.TopBarButton
+import com.example.ss_team2.presentation.utility.BottomBar
+import com.example.ss_team2.presentation.utility.TopBarButton
+import com.example.ss_team2.ui.theme.*
 
 @Composable
 fun HomepageScreen(modifier: Modifier) {
@@ -79,9 +79,21 @@ fun HomepageScreen(modifier: Modifier) {
                 .height(440.dp)
                 .fillMaxWidth()
         ) {
-            HomepageMainButton(type = 1, onClick = {})
-            HomepageMainButton(type = 2, onClick = {})
-            HomepageMainButton(type = 3, onClick = {})
+            HomepageMainButton(
+                text = "遺失",
+                color = if (MaterialTheme.colors.isLight) LostHint else LostHintDark,
+                onClick = {}
+            )
+            HomepageMainButton(
+                text = "撿到",
+                color = if (MaterialTheme.colors.isLight) FindHint else FindHintDark,
+                onClick = {}
+            )
+            HomepageMainButton(
+                text = "前往地圖",
+                color = if (MaterialTheme.colors.isLight) Iris else IrisDark,
+                onClick = {}
+            )
         }
     }
 
@@ -90,10 +102,9 @@ fun HomepageScreen(modifier: Modifier) {
 @Preview(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "HomepagePreviewDark",
     showSystemUi = true
 )
-@Preview(showBackground = true, name = "HomepagePreviewLight", showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomepagePreview() {
     SSteam2Theme {

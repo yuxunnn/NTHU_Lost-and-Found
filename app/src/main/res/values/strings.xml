@@ -10,4 +10,7 @@
     <string name="yourProfile_block">"封鎖"</string>
     <string name="yourProfile_send">"傳送訊息"</string>
 
+    <string name="own_tool">"擁有道具"</string>
+    <string name="point">"積分"</string>
+
 </resources>

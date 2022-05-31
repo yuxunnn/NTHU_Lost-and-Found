@@ -1,4 +1,4 @@
-package com.example.ss_team2.homepage
+package com.example.ss_team2.presentation.homepage
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
@@ -19,30 +19,10 @@ import com.example.ss_team2.ui.theme.*
 
 @Composable
 fun HomepageMainButton(
-    type: Int,
+    color: Color,
+    text: String,
     onClick: () -> Unit
 ) {
-    val color: Color =
-        if (MaterialTheme.colors.isLight) {
-            when (type) {
-                1 -> LostHint
-                2 -> FindHint
-                else -> Iris
-            }
-        } else {
-            when (type) {
-                1 -> LostHintDark
-                2 -> FindHint
-                else -> IrisDark
-            }
-        }
-
-    val text: String = when (type) {
-        1 -> "遺失"
-        2 -> "撿到"
-        else -> "前往地圖"
-    }
-
     Button(
         onClick = onClick,
         shape = RectangleShape,

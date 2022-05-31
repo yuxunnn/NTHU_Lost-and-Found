@@ -1,4 +1,4 @@
-package com.example.ss_team2.profile
+package com.example.ss_team2.presentation.profile
 
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
