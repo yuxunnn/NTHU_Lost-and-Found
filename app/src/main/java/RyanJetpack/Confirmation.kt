@@ -1,6 +1,7 @@
 package com.example.ss_team2
 
 
+import RyanJetpack.DrawableStringPair
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke

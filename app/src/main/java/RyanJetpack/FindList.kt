@@ -1,4 +1,4 @@
-package com.example.ss_team2
+package RyanJetpack
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
