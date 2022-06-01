@@ -10,8 +10,10 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.presentation.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -30,29 +32,15 @@ fun MapScreen(
     val offsetY: List<Dp> = listOf(20.dp, 0.dp, (-10).dp, 0.dp)
     val flagOffsetX: List<Dp> = listOf(
         flagTransition.animateDp(label = "NTHUX") { school -> offsetX[school] }.value,
-        flagTransition.animateDp(label = "NCTUX") { school ->
-            offsetX[(school + 3) % 4]
-        }.value,
-        flagTransition.animateDp(label = "NTUX") { school ->
-            offsetX[(school + 2) % 4]
-        }.value,
-        flagTransition.animateDp(label = "NCCUX") { school ->
-            offsetX[(school + 1) % 4]
-        }.value,
+        flagTransition.animateDp(label = "NCTUX") { school -> offsetX[(school + 3) % 4] }.value,
+        flagTransition.animateDp(label = "NTUX") { school -> offsetX[(school + 2) % 4] }.value,
+        flagTransition.animateDp(label = "NCCUX") { school -> offsetX[(school + 1) % 4] }.value,
     )
     val flagOffsetY: List<Dp> = listOf(
-        flagTransition.animateDp(label = "NTHUY") { school ->
-            offsetY[school]
-        }.value,
-        flagTransition.animateDp(label = "NCTUY") { school ->
-            offsetY[(school + 3) % 4]
-        }.value,
-        flagTransition.animateDp(label = "NTUY") { school ->
-            offsetY[(school + 2) % 4]
-        }.value,
-        flagTransition.animateDp(label = "NCCUY") { school ->
-            offsetY[(school + 1) % 4]
-        }.value,
+        flagTransition.animateDp(label = "NTHUY") { school -> offsetY[school] }.value,
+        flagTransition.animateDp(label = "NCTUY") { school -> offsetY[(school + 3) % 4] }.value,
+        flagTransition.animateDp(label = "NTUY") { school -> offsetY[(school + 2) % 4] }.value,
+        flagTransition.animateDp(label = "NCCUY") { school -> offsetY[(school + 1) % 4] }.value,
     )
 
     Column {

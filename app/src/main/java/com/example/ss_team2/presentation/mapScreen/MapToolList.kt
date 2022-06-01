@@ -12,13 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.R
 
-private val toolList: List<Int> = listOf(
-    R.drawable.nthu_flag,
-    R.drawable.poop
+data class Tool (val image: Int, val amount: Int)
+
+private val toolList: List<Tool> = listOf(
+    Tool(image = R.drawable.nthu_flag, amount = 0),
+    Tool(image = R.drawable.poop, amount = 998)
 )
 
 @Composable
-fun MapToolList(modifier: Modifier) {
+fun MapToolList(
+
+    modifier: Modifier
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -27,8 +32,8 @@ fun MapToolList(modifier: Modifier) {
             .padding(horizontal = 16.dp, vertical = 16.dp)
             .fillMaxWidth()
     ) {
-        items(toolList) { image ->
-            MapTool(image = image)
+        items(toolList) { tool ->
+            MapTool(image = tool.image, amount = tool.amount)
         }
     }
 }
