@@ -22,3 +22,4 @@ git checkout [branch_name]	取出指定分支
 
 git checkout [HASH_VALUE]	切換到指定的commit
 				該HASH_VALUE可透過git log查看複製粘貼
+55
