@@ -31,8 +31,14 @@ fun Shop(){
     Column() {
         Title(money = "520")
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
-        //ItemList()
+        ItemCards()
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun ShopPreview() {
+    SSteam2Theme { Shop() }
 }
 
 
@@ -83,48 +89,63 @@ fun ItemCard(
     @DrawableRes drawable: Int,
     itemName: String,
     itemNote: String,
-    price: Int,
+    itemPrice: Int,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = Modifier
             .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-            .height(72.dp),
+            .height(84.dp)
+            .fillMaxWidth(),
         shape = RoundedCornerShape(15.dp),
         elevation = 3.dp,    //shadow
-        backgroundColor = Iris60
+        backgroundColor = Color.White
     ) {
-        Row() {
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+        ) {
             Column() {
+                Spacer(modifier = Modifier.height(12.dp))
                 Image(
                     painter = painterResource(drawable),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(40.dp)
+                        .width(40.dp)
                 )
                 Text(
                     text = itemName
                 )
             }
             Text(
-                text = itemNote
+                text = itemNote,
+                modifier = Modifier.padding(top = 30.dp)
             )
+
             Column() {
                 Row() {
                     Icon(
                         imageVector = Icons.Default.AttachMoney,
                         contentDescription = null,
                         modifier = Modifier
-                            .size(50.dp)
+                            .size(32.dp)
                     )
                     Text(
-                        text = "520",
-                        fontSize = 36.sp //may bug
+                        text = itemPrice.toString(),
+                        fontSize = 25.sp //may bug
                     )
                 }
-                Button(onClick = {}, colors = ButtonDefaults.textButtonColors(
-                    backgroundColor = Color.Blue
-                )) {
-                    Text("購買")
+                Button(
+                    onClick = {}, colors = ButtonDefaults.textButtonColors(
+                        backgroundColor = Iris60
+                    ),
+                    modifier = Modifier.padding(start = 8.dp)
+                ) {
+                    Text(
+                        text = "購買",
+                        color = Color.White
+                    )
                 }
             }
         }
@@ -139,21 +160,27 @@ fun ItemCardPreview() {
                 drawable = R.drawable.blue_flag,
                 modifier = Modifier.padding(8.dp),
                 itemName = stringResource(R.string.NTUflag),
-                itemNote = stringResource(R.string.NTUflagNote)
+                itemNote = stringResource(R.string.NTUflagNote),
+                itemPrice = 500
             )
     }
 }
 
-data class ItemData(val itemName: Int,val itemNote: Int,val itemprice: Int)
+data class ItemData(
+    val itemName: Int,
+    val itemNote: Int,
+    val itemprice: Int,
+    @DrawableRes val itemDrawable: Int
+    )
 
 private val itemDataList: List<ItemData> = listOf(
-    ItemData(R.string.NTUflag, R.string.NTUflagNote,500)
-    //R.string.NTHUflag to R.string.NTHUflagNote,
-    //R.string.NCTUflag to R.string.NCTUflagNote,
-    //R.string.NCCUflag to R.string.NCCUflagNote,
-    //R.string.Poopoo to R.string.PoopooNote,
-    //R.string.Eraser to R.string.EraserNote,
-    //R.string.BNT to R.string.BNTNote,
+    ItemData(R.string.NTUflag, R.string.NTUflagNote,500, R.drawable.orange_flag),
+    ItemData(R.string.NTHUflag, R.string.NTHUflagNote,500, R.drawable.purple_flag),
+    ItemData(R.string.NCTUflag, R.string.NCTUflagNote,500, R.drawable.yellow_flag),
+    ItemData(R.string.NCCUflag, R.string.NCCUflagNote,500, R.drawable.blue_flag),
+    ItemData(R.string.Poopoo, R.string.PoopooNote,500,R.drawable.poopoo),
+    ItemData(R.string.Eraser, R.string.EraserNote,500,R.drawable.eraser),
+    ItemData(R.string.BNT, R.string.BNTNote,500,R.drawable.bnt)
 )
 
 @Composable
@@ -165,8 +192,8 @@ fun ItemCards() {
             ItemCard(
                 itemName= stringResource(item.itemName),
                 itemNote = stringResource(item.itemNote),
-                price = item.itemprice,
-                drawable = R.drawable.blue_flag //why bug?????
+                itemPrice = item.itemprice,
+                drawable = item.itemDrawable
             )
         }
     }
