@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.presentation.utility.BottomBar
+import com.example.ss_team2.presentation.utility.TopBar
 import com.example.ss_team2.presentation.utility.TopBarButton
 import com.example.ss_team2.ui.theme.*
 
@@ -27,29 +28,21 @@ fun HomepageScreen(modifier: Modifier) {
 
     Column {
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-        ) {
-            TopBarButton(
-                imageVector = Icons.Default.ShoppingCart,
-                onClick = {}
-            )
-            Text(
-                text = "頂大失物尋寶",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-            )
-            TopBarButton(
-                imageVector = Icons.Default.Send,
-                onClick = {}
-            )
-        }
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Default.ShoppingCart,
+                    onClick = {}
+                )
+            },
+            text = "頂大失物尋寶",
+            rightButton = {
+                TopBarButton(
+                    imageVector = Icons.Default.Send,
+                    onClick = {}
+                )
+            }
+        )
 
         Divider(
             color = MaterialTheme.colors.onBackground,
@@ -72,31 +65,9 @@ fun HomepageScreen(modifier: Modifier) {
                 )
             }
         }
-        Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .height(440.dp)
-                .fillMaxWidth()
-        ) {
-            HomepageMainButton(
-                text = "遺失",
-                color = if (MaterialTheme.colors.isLight) LostHint else LostHintDark,
-                onClick = {}
-            )
-            HomepageMainButton(
-                text = "撿到",
-                color = if (MaterialTheme.colors.isLight) FindHint else FindHintDark,
-                onClick = {}
-            )
-            HomepageMainButton(
-                text = "前往地圖",
-                color = if (MaterialTheme.colors.isLight) Iris else IrisDark,
-                onClick = {}
-            )
-        }
-    }
 
+        HomepageMainButtons()
+    }
 }
 
 @Preview(

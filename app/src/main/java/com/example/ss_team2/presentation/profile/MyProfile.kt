@@ -17,6 +17,7 @@ import com.example.ss_team2.domain.model.User
 import com.example.ss_team2.domain.model.userFrog
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.utility.BottomBar
+import com.example.ss_team2.presentation.utility.TopBar
 import com.example.ss_team2.presentation.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -37,26 +38,18 @@ fun MyProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-                .fillMaxWidth()
-        ) {
-            TopBarButton(
-                imageVector = Icons.Default.ShoppingCart,
-                onClick = {}
-            )
-            Text(
-                text = user.username,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-            )
-            Spacer(modifier = Modifier.size(32.dp))
-        }
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Default.ShoppingCart,
+                    onClick = {}
+                )
+            },
+            text = user.username,
+            rightButton = {
+                Spacer(modifier = Modifier.size(32.dp))
+            }
+        )
 
         PersonalInfo(
             image = user.userImage,

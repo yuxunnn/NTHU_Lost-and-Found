@@ -17,7 +17,7 @@ val userFrog = User(
     userSchool = "國立台灣大學",
     userPoint = 520,
     userToolAmount = 9,
-    userPostList = tempUserPostData
+    userPostList = listOf()
 )
 
 val userRyan = User(
@@ -26,5 +26,5 @@ val userRyan = User(
     userSchool = "國立交通大學",
     userPoint = 300,
     userToolAmount = 88,
-    userPostList = tempUserPostData2
+    userPostList = listOf()
 )

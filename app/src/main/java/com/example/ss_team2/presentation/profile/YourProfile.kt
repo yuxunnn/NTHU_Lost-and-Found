@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.domain.model.User
 import com.example.ss_team2.domain.model.userRyan
+import com.example.ss_team2.presentation.utility.TopBar
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.utility.TopBarButton
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -43,26 +45,18 @@ fun YourProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-        ) {
-            TopBarButton(
-                imageVector = Icons.Default.ArrowBack,
-                onClick = {}
-            )
-            Text(
-                text = user.username,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-            )
-            Spacer(modifier = Modifier.size(32.dp))
-        }
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Default.ArrowBack,
+                    onClick = {}
+                )
+            },
+            text = user.username,
+            rightButton = {
+                Spacer(modifier = Modifier.size(32.dp))
+            }
+        )
 
         PersonalInfo(
             image = user.userImage,
@@ -71,47 +65,7 @@ fun YourProfileScreen(
             point = user.userPoint
         )
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                onClick = {},
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.onBackground),
-                modifier = Modifier
-                    .width(140.dp)
-                    .height(40.dp)
-                    .clip(CutCornerShape(size = 4.dp))
-            ) {
-                Text(
-                    text = stringResource(R.string.yourProfile_block),
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Red,
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Button(
-                onClick = {},
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.onBackground),
-                modifier = Modifier
-                    .width(140.dp)
-                    .height(40.dp)
-                    .clip(CutCornerShape(size = 4.dp))
-            ) {
-                Text(
-                    text = stringResource(R.string.yourProfile_send),
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Gray,
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
+        ActionButton()
 
         ProfileTabBar(
             tabPage = pagerState.currentPage,
@@ -131,6 +85,52 @@ fun YourProfileScreen(
         }
     }
 }
+
+@Composable
+fun ActionButton(){
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Button(
+            onClick = {},
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
+            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.onBackground),
+            modifier = Modifier
+                .width(140.dp)
+                .height(40.dp)
+                .clip(CutCornerShape(size = 4.dp))
+        ) {
+            Text(
+                text = stringResource(R.string.yourProfile_block),
+                fontWeight = FontWeight.Bold,
+                color = Color.Red,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center
+            )
+        }
+        Button(
+            onClick = {},
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
+            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.onBackground),
+            modifier = Modifier
+                .width(140.dp)
+                .height(40.dp)
+                .clip(CutCornerShape(size = 4.dp))
+        ) {
+            Text(
+                text = stringResource(R.string.yourProfile_send),
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
 
 @Preview(
     showBackground = true,

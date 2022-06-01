@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.domain.model.Post
+import com.example.ss_team2.domain.model.tempUserPostData
 
 @Composable
 fun UserPostCardList(
@@ -21,28 +22,35 @@ fun UserPostCardList(
             .fillMaxWidth()
     ) {
         repeat(4){
-            items(userPostList){ item ->
-                if (tabPage == 0) {
-                    if (!item.done) {
-                        UserPostCard(
-                            type = item.type,
-                            image = item.image,
-                            what = item.what,
-                            where = item.where,
-                            modifier = Modifier
-                        )
-                    }
-                }else {
-                    if (item.done) {
-                        UserPostCard(
-                            type = item.type,
-                            image = item.image,
-                            what = item.what,
-                            where = item.where,
-                            modifier = Modifier
-                        )
-                    }
-                }
+            items(tempUserPostData){ item ->
+                UserPostCard(
+                    type = item.type,
+                    image = item.image,
+                    what = item.what,
+                    where = item.where,
+                    modifier = Modifier
+                )
+//                if (tabPage == 0) {
+//                    if (!item.done) {
+//                        UserPostCard(
+//                            type = item.type,
+//                            image = item.image,
+//                            what = item.what,
+//                            where = item.where,
+//                            modifier = Modifier
+//                        )
+//                    }
+//                }else {
+//                    if (item.done) {
+//                        UserPostCard(
+//                            type = item.type,
+//                            image = item.image,
+//                            what = item.what,
+//                            where = item.where,
+//                            modifier = Modifier
+//                        )
+//                    }
+//                }
             }
         }
     }
