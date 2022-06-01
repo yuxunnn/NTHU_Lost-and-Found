@@ -1,4 +1,4 @@
-package RyanJetpack
+package com.example.ss_team2.RyanJetpack
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable

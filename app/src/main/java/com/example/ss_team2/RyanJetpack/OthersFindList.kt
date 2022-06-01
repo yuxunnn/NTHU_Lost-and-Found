@@ -32,17 +32,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ss_team2.RyanJetpack.DrawableStringPair
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.Shapes
 import java.lang.ProcessBuilder.Redirect.to
 
 @Composable
-fun UserCardWithMoney(
+fun UserCard(
     modifier: Modifier=Modifier,
     @StringRes str: Int,
     @DrawableRes drawable: Int,
-    time: Int,
-    money: Int
+    time: Int
 ){
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -71,31 +71,112 @@ fun UserCardWithMoney(
                 fontSize = 8.sp
             )
         }
-        Text(
-            text = "+ $money$",
-            modifier = Modifier.width(40.dp),
-            fontSize = 12.sp,
-            textAlign = TextAlign.End
-        )
     }
 }
 
 @Composable
-fun LostListLazyScreen(
-    modifier: Modifier = Modifier,
+fun WhatAndWhereColElement2(
+    what: String,
+    where: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "What",
+            modifier = Modifier.padding(4.dp),
+            fontSize = 12.sp,
+            color = Color(66,70,80),
+            fontWeight = FontWeight.Bold
+        )
+        Surface(
+            modifier = modifier,
+            shape = MaterialTheme.shapes.small,
+            color = Color(66,70,80)
+        ){
+            Text(
+                text = what,
+                modifier = Modifier.padding(6.dp),
+                color = Color.White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        Text(
+            text = "Where",
+            modifier = Modifier.padding(4.dp),
+            fontSize = 12.sp,
+            color = Color(66,70,80),
+            fontWeight = FontWeight.Bold
+        )
+        Surface(
+            modifier = modifier,
+            shape = MaterialTheme.shapes.small,
+            color = Color(66,70,80)
+        ){
+            Text(
+                text = where,
+                modifier = Modifier.padding(6.dp),
+                color = Color.White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+@Composable
+fun ItemCard(
+    modifier: Modifier=Modifier,
+    @DrawableRes drawable: Int,
+    @StringRes description: Int,
+    @StringRes what: Int,
+    @StringRes where: Int
+){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(280.dp)
+            .background(Color(220,220,220)),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(36.dp)
+    ) {
+        Image(
+            painter = painterResource(drawable),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .height(280.dp)
+                .width(160.dp)
+                .clip(RectangleShape)
+                .padding(4.dp)
+        )
+        Column(modifier = Modifier) {
+            WhatAndWhereColElement2(what = stringResource(id = what),
+                where = stringResource(id = where))
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = stringResource(id = description), fontSize = 12.sp)
+        }
+
+    }
+}
+
+@Composable
+fun OthersFindListLazyScreen(
+    modifier: Modifier=Modifier,
     @StringRes str: Int,
     @DrawableRes userdrawable: Int,
     time: Int,
     @DrawableRes itemdrawable: Int,
     @StringRes description: Int,
     @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int
-){
+    @StringRes where: Int){
     LazyColumn(
         modifier = Modifier
     ) {
-        item{ UserCardWithMoney(str = str, drawable = userdrawable, time = time, money = money) }
+        item{ UserCard(str = str, drawable = userdrawable, time = time)}
         item{ ItemCard(drawable = itemdrawable, description = description, what = what, where = where) }
         item{ Spacer(modifier = Modifier.height(10.dp))}
         items(TestData){
@@ -105,7 +186,7 @@ fun LostListLazyScreen(
 }
 
 @Composable
-fun LostListHomeScreen(
+fun OthersFindListHomeScreen(
     modifier: Modifier = Modifier,
     @StringRes str: Int,
     @DrawableRes userdrawable: Int,
@@ -113,13 +194,12 @@ fun LostListHomeScreen(
     @DrawableRes itemdrawable: Int,
     @StringRes description: Int,
     @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int
+    @StringRes where: Int
 ) {
     Column(
         modifier = Modifier
     ) {
-        Text(text = stringResource(id = R.string.LostList),
+        Text(text = stringResource(id = R.string.FindList),
             fontWeight = FontWeight.Bold,
             color = Color(0x66,0x70,0x80),
             modifier = Modifier
@@ -131,33 +211,30 @@ fun LostListHomeScreen(
         Spacer(modifier = Modifier.height(16.dp))
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
-        LostListLazyScreen(
+        OthersFindListLazyScreen(
             str = str,
             userdrawable = userdrawable,
             time = time,
             itemdrawable = itemdrawable,
             description = description,
             what = what,
-            where = where,
-            money = money
+            where = where
         )
     }
 }
 
 @Composable
-fun LostListFinalScreen(modifier: Modifier = Modifier,
+fun OthersFindListFinalScreen(modifier: Modifier = Modifier,
                         @StringRes str: Int,
                         @DrawableRes userdrawable: Int,
                         time: Int,
                         @DrawableRes itemdrawable: Int,
                         @StringRes description: Int,
                         @StringRes what: Int,
-                        @StringRes where: Int,
-                        money: Int
-){
+                        @StringRes where: Int){
     Box(modifier = Modifier.fillMaxSize()){
-        LostListHomeScreen(str = str, time = time, userdrawable = userdrawable,
-            itemdrawable = itemdrawable, description = description, what = what, where = where, money = money)
+        OthersFindListHomeScreen(str = str, time = time, userdrawable = userdrawable,
+        itemdrawable = itemdrawable, description = description, what = what, where = where)
         Icon(
             Icons.Filled.ArrowBack,
             "",
@@ -173,14 +250,10 @@ fun LostListFinalScreen(modifier: Modifier = Modifier,
 private val TestData = listOf(
     R.drawable.ic_launcher_background to R.string.ball,
     R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball
 ).map { DrawableStringPair(it.first, it.second) }
 
 @Composable
-private fun OthersLostListBottomNavigation(modifier: Modifier = Modifier) {
+private fun OthersFindListBottomNavigation(modifier: Modifier = Modifier) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -201,12 +274,12 @@ private fun OthersLostListBottomNavigation(modifier: Modifier = Modifier) {
         BottomNavigationItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Person,
+                    imageVector = Icons.Default.Check,
                     contentDescription = null
                 )
             },
             label = {
-                Text("成功歸還")
+                Text("成功取回")
             },
             selected = false,
             onClick = {}
@@ -228,27 +301,26 @@ private fun OthersLostListBottomNavigation(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun OthersLostListApp(){
+fun OthersFindListApp(){
     Scaffold(
-        bottomBar = { OthersLostListBottomNavigation() }
+        bottomBar = { OthersFindListBottomNavigation() }
     ) {
-        LostListFinalScreen(
+        OthersFindListFinalScreen(
             str = R.string.home,
             userdrawable = R.drawable.ic_launcher_background,
             time = 20,
             itemdrawable = R.drawable.ic_launcher_foreground,
             description = R.string.description,
             what = R.string.ball,
-            where = R.string.home,
-            money = 20
+            where = R.string.home
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview4() {
+fun DefaultPreview3() {
     SSteam2Theme {
-        OthersLostListApp()
+        OthersFindListApp()
     }
 }
