@@ -23,3 +23,4 @@ val NTUFlag = Color(0xFFF24C27)
 val NTUFlagDark = Color(0xFFF24C27)
 val NCCUFlag = Color(0xFF2628F2)
 val NCCUFlagDark = Color(0xFF2628F2)
+val Iris60 = Color(0xFF7141C7) //just for testing
