@@ -4,15 +4,12 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.ss_team2.domain.model.User
 import com.example.ss_team2.domain.model.userFrog
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -41,7 +38,7 @@ fun MyProfileScreen(
         TopBar(
             leftButton = {
                 TopBarButton(
-                    imageVector = Icons.Default.ShoppingCart,
+                    imageVector = Icons.Default.Storefront,
                     onClick = {}
                 )
             },

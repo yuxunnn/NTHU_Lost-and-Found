@@ -7,8 +7,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -43,7 +43,7 @@ fun ProfileTabBar(
         )
         ProfileTab(
             color = if (tabPage == 1) MaterialTheme.colors.primary else Color.LightGray,
-            imageVector = Icons.Default.Star,
+            imageVector = Icons.Default.History,
             onClick = { onTabSelected(1) },
             modifier = Modifier
         )

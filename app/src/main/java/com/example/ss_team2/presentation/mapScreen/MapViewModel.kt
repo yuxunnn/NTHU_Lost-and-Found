@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ss_team2.R
 import com.example.ss_team2.domain.model.ToolMarker
-import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -83,15 +82,18 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun addMarker(latLng: LatLng) {
-        viewModelScope.launch {
-            _toolMarkers.value.add(
-                ToolMarker(
-                    image = R.drawable.poop,
-                    latitude = latLng.latitude,
-                    longitude = latLng.longitude
-                )
+    fun addMarker(latLng: LatLng, image: Int) {
+        _toolMarkers.value.add(
+            ToolMarker(
+                image = image,
+                latitude = latLng.latitude,
+                longitude = latLng.longitude
             )
-        }
+        )
+//        _cameraPositionState.value.move(
+//            update = CameraUpdateFactory.newLatLng(
+//                latLng
+//            )
+//        )
     }
 }
