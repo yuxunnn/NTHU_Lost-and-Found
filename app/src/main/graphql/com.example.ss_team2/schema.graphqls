@@ -1,0 +1,144 @@
+type Chat implements Timestamps {
+    send: String!
+    receive: String!
+    message: String!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+interface Timestamps {
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+scalar Date
+
+type Query {
+    version: String!
+    users: [User]
+    usersBySchool(userSchool: String!): [User]
+    userById(userId: ID!): User
+    userByName(userName: String!): User
+    posts: [Post]
+    postById(postId: ID!): Post
+    postSearch(postType: String!, itemType: String!, location: String!): [Post]
+    userItems: [UserItem]
+    userItem(userName: String!): UserItem
+    shopItems: [ShopItem]
+    shopItem(itemType: String!): ShopItem
+    ranking: [Ranking]
+    quests: [Quest]
+    quest(userName: String!): Quest
+    chats: [Chat]
+    chatsByReceive(receive: String!): [Chat]
+    chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
+}
+
+type Mutation {
+    createUser(user: UserCreateInput!): User!
+    updateCoin(userName: String!, changeCoin: Int!): User!
+    createPost(post: PostCreateInput!): Post!
+    updatePost(postId: ID!, post: PostUpdateInput!): Post!
+    deletePost(postId: ID!): String!
+    updateUserItem(userName: String!, itemType: String!, changeNum: Int!): UserItem!
+    createUserItem(userName: String!): UserItem!
+    deleteuserItem(userName: String!): String!
+    updateRanking: [Ranking]
+    createQuest(userName: String!): Quest!
+    updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest
+    createChat(send: String!, receive: String!, message: String!): String!
+}
+
+type UserItem {
+    userName: String!
+    waterGun: Int!
+    board: Int!
+    eraser: Int!
+    shit: Int!
+    flag: Int!
+}
+
+type ShopItem {
+    itemType: String!
+    itemPrice: Int!
+}
+
+type Post implements Timestamps {
+    postId: ID!
+    author: User!
+    postType: String!
+    itemType: String!
+    location: String!
+    postDescribe: String
+    hasDone: Boolean!
+    rewardCoin: Int!
+    anonymous: Boolean!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+input PostCreateInput {
+    author: String!
+    postType: String!
+    itemType: String!
+    location: String!
+    postDescribe: String
+    hasDone: Boolean!
+    rewardCoin: Int!
+    anonymous: Boolean!
+}
+
+input PostUpdateInput {
+    itemType: String
+    location: String
+    postDescribe: String
+    rewardCoin: Int
+    anonymous: Boolean
+}
+
+"""
+貼文(Post)：
+圖片(圖片) notyet
+作者(User)
+貼文類型(String)
+物品類型(String)
+地點(String)
+物品描述(String)
+是否取回(Boolean)
+聊天 notyet
+懸賞積分(Int)
+匿名(Boolean)
+時間(Time)
+"""
+type Quest {
+    userName: String!
+    quest1: Int!
+    quest2: Int!
+    quest3: Int!
+}
+
+type Ranking {
+    school: String!
+    score: Int!
+}
+
+type User implements Timestamps {
+    userId: ID!
+    userName: String!
+    userSchool: String!
+    userPhoneNumber: String!
+    userEmail: String!
+    userPassword: String!
+    userCoin: Int!
+    userHead: String
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+input UserCreateInput {
+    userName: String!
+    userSchool: String!
+    userPhoneNumber: String!
+    userEmail: String!
+    userPassword: String!
+}
