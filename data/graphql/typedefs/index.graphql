@@ -30,6 +30,11 @@ type Query {
   # Quest
   quests: [Quest]
   quest(userName: String!): Quest
+
+  # Chat
+  chats: [Chat]
+  chatsByReceive(receive: String!): [Chat]
+  chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
 }
 
 type Mutation{
@@ -53,4 +58,7 @@ type Mutation{
   # Quest
   createQuest(userName: String!): Quest!
   updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest
+
+  # Chat
+  createChat(send: String!, receive: String!, message: String!): String!
 }

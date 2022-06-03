@@ -1,0 +1,10 @@
+# Types
+type Chat implements Timestamps{
+    send: String!
+    receive: String!
+    message: String!
+
+    # Interface required
+    createdAt: Date!
+    updatedAt: Date!
+}

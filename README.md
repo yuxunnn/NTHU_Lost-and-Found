@@ -21,6 +21,7 @@
 
 通知：貼文
 
+聊天：發送者(String), 接受者(String), 訊息(String), 時間(Time)
 
 # 修改類
 
