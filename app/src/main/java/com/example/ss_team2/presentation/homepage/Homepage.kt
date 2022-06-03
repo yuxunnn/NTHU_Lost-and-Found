@@ -4,18 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.ss_team2.presentation.utility.BottomBar
 import com.example.ss_team2.presentation.utility.TopBar
 import com.example.ss_team2.presentation.utility.TopBarButton
@@ -31,14 +26,14 @@ fun HomepageScreen(modifier: Modifier) {
         TopBar(
             leftButton = {
                 TopBarButton(
-                    imageVector = Icons.Default.ShoppingCart,
+                    imageVector = Icons.Default.Storefront,
                     onClick = {}
                 )
             },
             text = "頂大失物尋寶",
             rightButton = {
                 TopBarButton(
-                    imageVector = Icons.Default.Send,
+                    imageVector = Icons.Default.Message,
                     onClick = {}
                 )
             }
@@ -52,7 +47,7 @@ fun HomepageScreen(modifier: Modifier) {
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = modifier
+            modifier = Modifier
                 .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth()
         ) {

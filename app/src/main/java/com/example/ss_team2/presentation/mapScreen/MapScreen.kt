@@ -6,14 +6,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.presentation.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -70,7 +68,7 @@ fun MapScreen(
                 }
             }
             TopBarButton(
-                imageVector = Icons.Default.ShoppingCart,
+                imageVector = Icons.Default.Storefront,
                 onClick = {}
             )
         }

@@ -8,7 +8,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 
-
 @Composable
 fun Map(
     viewModel: MapViewModel,
@@ -25,19 +24,19 @@ fun Map(
         cameraPositionState = cameraPositionState,
         modifier = modifier,
         onMapClick = {
-            viewModel.addMarker(it)
+            viewModel.addMarker(it, R.drawable.poopoo)
         }
     ) {
         toolMarkers.forEach {
             val position = LatLng(it.latitude, it.longitude)
-            val icon = BitmapDescriptorFactory.fromResource(R.drawable.poop)
+            val icon = BitmapDescriptorFactory.fromResource(it.image)
             Marker(
                 state = MarkerState(position = position),
-                icon = icon,
+//                icon = icon,
                 title = "frog_0219",
                 snippet = "國立台灣大學",
-                onClick = {false},
             )
         }
     }
+
 }

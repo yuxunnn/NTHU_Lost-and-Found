@@ -1,5 +1,6 @@
 package com.example.ss_team2.presentation.utility
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,7 +21,7 @@ fun TopBar(
     leftButton: @Composable (() -> Unit),
     text: String,
     rightButton: @Composable (() -> Unit)
-){
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -45,22 +46,13 @@ fun TopBarButton(
     imageVector: ImageVector,
     onClick: () -> Unit
 ) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults
-            .buttonColors(
-                backgroundColor = Color.Transparent,
-                contentColor = MaterialTheme.colors.onBackground
-            ),
-        contentPadding = PaddingValues(all = 0.dp),
-        shape = RectangleShape,
+    Icon(
+        imageVector = imageVector,
+        contentDescription = null,
         modifier = Modifier
             .size(40.dp)
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
+            .clickable(
+                onClick = onClick
+            )
+    )
 }
