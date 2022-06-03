@@ -1,0 +1,108 @@
+query PostById($postId: ID!) {
+    postById(postId: $postId) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}
+
+query PostSearch($postType: String!, $itemType: String!, $location: String!) {
+    postSearch(postType: $postType, itemType: $itemType, location: $location) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}
+
+mutation Mutation($post: PostCreateInput!) {
+    createPost(post: $post) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}
+
+mutation UpdatePost($postId: ID!, $post: PostUpdateInput!) {
+    updatePost(postId: $postId, post: $post) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}
+
+mutation DeletePost($postId: ID!) {
+    deletePost(postId: $postId)
+}
+

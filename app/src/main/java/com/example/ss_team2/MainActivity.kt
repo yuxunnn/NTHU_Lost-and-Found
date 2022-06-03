@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         val apolloClient = ApolloClient.Builder()
             .serverUrl("http://10.0.2.2:3000/graphql").build()
         lifecycleScope.launchWhenResumed {
-            val response = apolloClient.query(UserByIdQuery("1")).execute()
+            val response = apolloClient.query(UserByIdQuery("5")).execute()
             Log.d("Graphql", "Success: ${response.data}")
         }
     }

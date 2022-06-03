@@ -1,0 +1,107 @@
+query UserById($userId: ID!) {
+    userById(userId: $userId) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}
+
+query UserByName($userName: String!) {
+    userByName(userName: $userName) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}
+
+query UserItem($userName: String!) {
+    userItem(userName: $userName) {
+        userName
+        waterGun
+        board
+        eraser
+        shit
+        flag
+    }
+}
+
+mutation CreateUser($user: UserCreateInput!) {
+    createUser(user: $user) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userPassword
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}
+
+mutation UpdateCoin($userName: String!, $changeCoin: Int!) {
+    updateCoin(userName: $userName, changeCoin: $changeCoin) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}
+
+mutation CreateUserItem($userName: String!) {
+    createUserItem(userName: $userName) {
+        userName
+        waterGun
+        board
+        eraser
+        shit
+        flag
+    }
+}
+
+mutation UpdateUserItem($userName: String!, $itemType: String!, $changeNum: Int!) {
+    updateUserItem(userName: $userName, itemType: $itemType, changeNum: $changeNum) {
+        userName
+        waterGun
+        board
+        eraser
+        shit
+        flag
+    }
+}
+
+mutation CreateQuest($userName: String!) {
+    createQuest(userName: $userName) {
+        userName
+        quest1
+        quest2
+        quest3
+    }
+}
+
+mutation UpdateQuest($userName: String!, $questId: String!, $updateNum: Int!) {
+    updateQuest(userName: $userName, questId: $questId, updateNum: $updateNum) {
+        userName
+        quest1
+        quest2
+        quest3
+    }
+}

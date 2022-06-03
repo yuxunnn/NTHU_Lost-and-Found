@@ -1,0 +1,13 @@
+query ShopItems {
+    shopItems {
+        itemType
+        itemPrice
+    }
+}
+
+query ShopItem($itemType: String!) {
+    shopItem(itemType: $itemType) {
+        itemType
+        itemPrice
+    }
+}
