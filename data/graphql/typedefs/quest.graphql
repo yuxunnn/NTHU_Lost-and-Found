@@ -1,0 +1,7 @@
+# Types
+type Quest{
+    userName: String!
+    quest1: Int!
+    quest2: Int!
+    quest3: Int!
+}

@@ -7,6 +7,7 @@ type Query {
 
   # User
   users: [User]
+  usersBySchool(userSchool: String!): [User]
   userById(userId: ID!): User
   userByName(userName: String!): User
 
@@ -15,22 +16,41 @@ type Query {
   postById(postId: ID!): Post
   postSearch(postType: String!, itemType: String!, location: String!): [Post]
 
-  # userItem
+  # UserItem
   userItems: [UserItem]
   userItem(userName: String!): UserItem
+
+  # ShopItem
+  shopItems: [ShopItem]
+  shopItem(itemType: String!): ShopItem
+
+  # Ranking
+  ranking: [Ranking]
+
+  # Quest
+  quests: [Quest]
+  quest(userName: String!): Quest
 }
 
 type Mutation{
   # User
   createUser(user: UserCreateInput!): User!
+  updateCoin(userName:String!, changeCoin: Int!): User!
 
   # Post
   createPost(post: PostCreateInput!): Post!
   updatePost(postId: ID!, post: PostUpdateInput!): Post!
   deletePost(postId: ID!): String!
 
-  # userItem
+  # UserItem
   updateUserItem(userName: String!,itemType: String!, changeNum: Int!): UserItem!
   createUserItem(userName: String!): UserItem!
   deleteuserItem(userName: String!): String!
+
+  # Ranking
+  updateRanking: [Ranking]
+
+  # Quest
+  createQuest(userName: String!): Quest!
+  updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest
 }

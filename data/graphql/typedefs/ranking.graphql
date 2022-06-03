@@ -1,0 +1,5 @@
+# Types
+type Ranking{
+    school: String!
+    score: Int!
+}

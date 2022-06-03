@@ -7,6 +7,12 @@ const userMutations = {
     const user = await UserModel.selectUserById(connectPool, userId)
 
     return user
+  },
+  updateCoin: async (_, args) => {
+    const userName = await UserModel.updateCoin(connectPool, args.userName, args.changeCoin)
+    const user = await UserModel.selectUserByName(connectPool, userName)
+
+    return user
   }
 }
 

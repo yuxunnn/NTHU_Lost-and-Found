@@ -6,6 +6,8 @@ type User implements Timestamps{
     userPhoneNumber: String!
     userEmail: String!
     userPassword: String!
+    userCoin: Int!
+    userHead: String
 
     # Interface required
     createdAt: Date!

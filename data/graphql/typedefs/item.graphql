@@ -12,7 +12,6 @@ type UserItem{
 
 # ShopItem
 type ShopItem{
-    itemType: ID!
-    itemDescribe: String!
+    itemType: String!
     itemPrice: Int!
 }

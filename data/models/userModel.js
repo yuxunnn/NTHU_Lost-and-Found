@@ -40,6 +40,19 @@ export default class UserModel {
     }
   }
 
+  static async selectUsersBySchool(conn, userSchool) {
+    const _userSchool = userSchool
+
+    try {
+      const query = `SELECT * FROM user WHERE userSchool = '${_userSchool}'`
+      const [rows, fields] = await conn.execute(query)
+
+      return rows
+    } catch (err) {
+      console.error(`[ERROR] userModel.selectUsersBySchool :\n ${err}`)
+    }
+  }
+
   static async createUser(conn, args) {
     const _userName = args.userName
     const _userSchool = args.userSchool
@@ -55,6 +68,26 @@ export default class UserModel {
       return rows.insertId
     } catch (err) {
       console.error(`[ERROR] UserModel.createUser :\n ${err}`)
+    }
+  }
+
+  static async updateCoin(conn, userName, changeCoin) {
+    const _userName = userName
+    const _changeCoin = changeCoin
+    const user = await this.selectUserByName(conn, _userName)
+    const userCoin = user.userCoin
+    const newCoin = userCoin + _changeCoin
+
+    if (changeCoin == 0) throw new Error("changeCoin is zero.")
+    if (newCoin < 0) throw new Error("userCoin will less than zero. Update failed")
+
+    try {
+      const query = `UPDATE user SET userCoin = '${newCoin}' WHERE userName = '${_userName}'`
+      const [rows, fields] = await conn.execute(query)
+
+      return _userName
+    } catch (err) {
+      console.error(`[ERROR] UserModel.updateCoin :\n ${err}`)
     }
   }
 }
