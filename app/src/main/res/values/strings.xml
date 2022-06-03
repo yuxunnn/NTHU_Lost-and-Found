@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">SS-team2</string>
+
+    <string name="bottom_navigation_home">"主頁"</string>
+    <string name="bottom_navigation_mission">"任務"</string>
+    <string name="bottom_navigation_scoreboard">"積分榜"</string>
+    <string name="bottom_navigation_profile">"個人資訊"</string>
+    <string name="bottom_navigation_notification">"通知"</string>
+
+    <string name="yourProfile_block">"封鎖"</string>
+    <string name="yourProfile_send">"傳送訊息"</string>
+
+    <string name="own_tool">"擁有道具"</string>
+    <string name="point">"積分"</string>
+
+    <string name="home">home</string>
+    <string name="ball">ball</string>
+    <string name="description">"描述..."</string>
+    <string name="NotRead">"未讀"</string>
+    <string name="Read">"已讀"</string>
+    <string name="Notification">"通知"</string>
+    <string name="LostList">"遺失物貼文"</string>
+    <string name="FindList">"撿到物貼文"</string>
+    <string name="Loser">"我是遺失方"</string>
+    <string name="Finder">"我是撿到方"</string>
+    <string name="MyPost">"我的貼文"</string>
+    <string name="EditPost">"編輯貼文"</string>
+    <string name="Confirm">"完成確認"</string>
+    <string name="AddFindList">"新增撿到貼文"</string>
+    <string name="AddLostList">"新增遺失貼文"</string>
+    <string name="Click">"點擊"</string>
+
+    <string name="NTUflag">"台大旗"</string>
+    <string name="NTHUflag">"清大旗"</string>
+    <string name="NCTUflag">"交大旗"</string>
+    <string name="NCCUflag">"政大旗"</string>
+    <string name="Poopoo">"大便"</string>
+    <string name="Eraser">"橡皮擦"</string>
+    <string name="BNT">BNT</string>
+
+    <string name="NTUflagNote">"台大專屬旗子"</string>
+    <string name="NTHUflagNote">"清大專屬旗子"</string>
+    <string name="NCTUflagNote">"交大專屬旗子"</string>
+    <string name="NCCUflagNote">"政大專屬旗子"</string>
+    <string name="PoopooNote">"要臭他們就用這個"</string>
+    <string name="EraserNote">"把髒東西擦掉"</string>
+    <string name="BNTNote">"記得打疫苗"</string>
+
+</resources>
