@@ -34,7 +34,7 @@ fun Dialog() {
         TheFriend(Name = "yuxun")
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         DialogSurface()
-        TextInput()
+        //TextInput()
     }
 }
 
@@ -51,7 +51,9 @@ fun TheFriend(
     Name : String
 ){
     Row(
-        Modifier.fillMaxWidth().padding(10.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
     ){
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
@@ -142,7 +144,7 @@ private val MessageList = listOf(
 @Composable
 fun DialogSurface(){
     Surface(
-        modifier = Modifier.height(640.dp)
+        modifier = Modifier.fillMaxHeight()
     ){
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
@@ -151,6 +153,7 @@ fun DialogSurface(){
                 MsgCard(sender = item.sender,msg = item.msgContent, myName = "using")
             }
         }
+        TextInput()
     }
 }
 
@@ -169,14 +172,15 @@ fun TextInput(){
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
+        Alignment.Bottom
     ){
         TextField(
             value = myTextInput,
             onValueChange = { myTextInput = it },
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier
-                .width(420.dp)
+                .fillMaxWidth()
                 .padding(5.dp),
             trailingIcon = {
                 Icon(
