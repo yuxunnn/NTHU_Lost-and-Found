@@ -28,3 +28,8 @@
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
+updateQuest的回傳改成!
+Query: shopItem, chat
+Mutation:
+password比對
+mapItem

@@ -37,6 +37,15 @@ query UserItem($userName: String!) {
     }
 }
 
+query Quest($userName: String!) {
+    quest(userName: $userName) {
+        userName
+        quest1
+        quest2
+        quest3
+    }
+}
+
 mutation CreateUser($user: UserCreateInput!) {
     createUser(user: $user) {
         userId
