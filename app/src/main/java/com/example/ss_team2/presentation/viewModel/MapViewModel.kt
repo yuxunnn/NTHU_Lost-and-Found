@@ -49,7 +49,7 @@ class MapViewModel : ViewModel() {
 
     val school: StateFlow<Int> = _school
     val properties: StateFlow<MapProperties> = _properties
-    val toolMarkers: StateFlow<List<ToolMarker>> = _toolMarkers
+    val toolMarkers: StateFlow<MutableList<ToolMarker>> = _toolMarkers
     val cameraPositionState: StateFlow<CameraPositionState> = _cameraPositionState
 
     init {
@@ -82,17 +82,16 @@ class MapViewModel : ViewModel() {
     }
 
     fun addMarker(latLng: LatLng, image: Int) {
-        _toolMarkers.value.add(
-            ToolMarker(
-                image = image,
-                latitude = latLng.latitude,
-                longitude = latLng.longitude
+        viewModelScope.launch {
+            val newValue = _toolMarkers.value
+            newValue.add(
+                ToolMarker(
+                    image = image,
+                    latitude = latLng.latitude,
+                    longitude = latLng.longitude
+                )
             )
-        )
-//        _cameraPositionState.value.move(
-//            update = CameraUpdateFactory.newLatLng(
-//                latLng
-//            )
-//        )
+            _toolMarkers.value = newValue
+        }
     }
 }

@@ -1,2 +1,36 @@
-package com.example.ss_team2.presentation.viewModel
-
+//package com.example.ss_team2.presentation.viewModel
+//
+//import androidx.lifecycle.ViewModel
+//import androidx.lifecycle.viewModelScope
+//import com.example.ss_team2.domain.use_case.chat.ChatUseCase
+//import kotlinx.coroutines.flow.MutableStateFlow
+//import kotlinx.coroutines.flow.StateFlow
+//import kotlinx.coroutines.launch
+//
+//class ChatViewModel : ViewModel() {
+//    private val chatUseCase = ChatUseCase()
+//
+//    private val _chats = MutableStateFlow()
+//    val chats: StateFlow<List<Chat>> = _chats
+//
+//    private val _chat = MutableStateFlow()
+//    val chat = StateFlow<Chat> = _chat
+//
+//    fun chatsByReceive(receiver: String) {
+//        viewModelScope.launch {
+//            _chats.value = chatUseCase.chatsByReceive(receiver)
+//        }
+//    }
+//
+//    fun chatsByReceiveAndSend(receiver: String, sender: String) {
+//        viewModelScope.launch {
+//            _chat.value = chatUseCase.chatsByReceiveAndSend(receiver, sender)
+//        }
+//    }
+//
+//    fun createChat(receiver: String, sender: String, message: String) {
+//        viewModelScope.launch {
+//            _chat.value = chatUseCase.createChat(receiver, sender, message)
+//        }
+//    }
+//}

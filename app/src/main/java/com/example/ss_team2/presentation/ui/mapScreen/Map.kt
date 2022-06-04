@@ -30,10 +30,10 @@ fun Map(
     ) {
         toolMarkers.forEach {
             val position = LatLng(it.latitude, it.longitude)
-            val icon = BitmapDescriptorFactory.fromResource(it.image)
+            val icon = BitmapDescriptorFactory.fromResource(R.drawable.poop_60)
             Marker(
                 state = MarkerState(position = position),
-//                icon = icon,
+                icon = icon,
                 title = "frog_0219",
                 snippet = "國立台灣大學",
             )
