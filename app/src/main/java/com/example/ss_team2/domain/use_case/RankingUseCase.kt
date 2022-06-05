@@ -8,7 +8,7 @@ class RankingUseCase {
         return rankingRepository.Ranking()
     }
 
-    suspend fun updateRanking(): {
+    suspend fun updateRanking() {
         rankingRepository.updateRanking()
     }
 }
