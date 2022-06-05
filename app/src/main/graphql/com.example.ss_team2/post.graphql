@@ -50,7 +50,7 @@ query PostSearch($postType: String!, $itemType: String!, $location: String!) {
     }
 }
 
-mutation Mutation($post: PostCreateInput!) {
+mutation CreatePost($post: PostCreateInput!) {
     createPost(post: $post) {
         postId
         author {

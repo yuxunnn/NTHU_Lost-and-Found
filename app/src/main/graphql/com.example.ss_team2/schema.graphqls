@@ -45,7 +45,7 @@ type Mutation {
     deleteuserItem(userName: String!): String!
     updateRanking: [Ranking]
     createQuest(userName: String!): Quest!
-    updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest
+    updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
     createChat(send: String!, receive: String!, message: String!): String!
 }
 
@@ -61,6 +61,22 @@ type UserItem {
 type ShopItem {
     itemType: String!
     itemPrice: Int!
+}
+
+type MapItem {
+    itemType: String!
+    latitude: Float!
+    longitude: Float!
+    ownerName: String!
+    ownerSchool: String!
+}
+
+input MapItemCreateInput {
+    itemType: String!
+    latitude: Float!
+    longitude: Float!
+    ownerName: String!
+    ownerSchool: String!
 }
 
 type Post implements Timestamps {
@@ -96,20 +112,6 @@ input PostUpdateInput {
     anonymous: Boolean
 }
 
-"""
-貼文(Post)：
-圖片(圖片) notyet
-作者(User)
-貼文類型(String)
-物品類型(String)
-地點(String)
-物品描述(String)
-是否取回(Boolean)
-聊天 notyet
-懸賞積分(Int)
-匿名(Boolean)
-時間(Time)
-"""
 type Quest {
     userName: String!
     quest1: Int!

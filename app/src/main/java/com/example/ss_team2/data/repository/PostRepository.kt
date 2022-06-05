@@ -1,10 +1,11 @@
 package com.example.ss_team2.data.repository
 
 import com.apollographql.apollo3.ApolloClient
-import com.example.ss_team2.PostByIdQuery
-import com.example.ss_team2.PostSearchQuery
+import com.example.ss_team2.*
 import com.example.ss_team2.data.data_source.Post
 import com.example.ss_team2.data.data_source.User
+import com.example.ss_team2.type.PostCreateInput
+import com.example.ss_team2.type.PostUpdateInput
 
 class PostRepository {
 
@@ -97,5 +98,80 @@ class PostRepository {
         return postList
     }
 
-    
+    // Mutations
+
+    suspend fun createPost(newPost: PostCreateInput): Post {
+        val response = apolloClient.mutation(CreatePostMutation(newPost)).execute()
+        println("Response = ${response.data?.createPost}")
+
+        val data = response.data!!.createPost
+        val author = data!!.author
+        val user = User(
+            author.userId,
+            author.userName,
+            author.userSchool,
+            author.userPhoneNumber,
+            author.userEmail,
+            "",
+            author.userCoin,
+            author.userHead,
+            author.createdAt,
+            author.updatedAt
+        )
+
+        return Post(
+            data.postId,
+            user,
+            data.postType,
+            data.itemType,
+            data.location,
+            data.postDescribe,
+            data.hasDone,
+            data.rewardCoin,
+            data.anonymous,
+            data.createdAt,
+            data.updatedAt
+        )
+    }
+
+    suspend fun updatePost(postId: String, modifyPost: PostUpdateInput): Post {
+        val response = apolloClient.mutation(UpdatePostMutation(postId, modifyPost)).execute()
+        println("Response = ${response.data?.updatePost}")
+
+        val data = response.data!!.updatePost
+        val author = data!!.author
+        val user = User(
+            author.userId,
+            author.userName,
+            author.userSchool,
+            author.userPhoneNumber,
+            author.userEmail,
+            "",
+            author.userCoin,
+            author.userHead,
+            author.createdAt,
+            author.updatedAt
+        )
+
+        return Post(
+            data.postId,
+            user,
+            data.postType,
+            data.itemType,
+            data.location,
+            data.postDescribe,
+            data.hasDone,
+            data.rewardCoin,
+            data.anonymous,
+            data.createdAt,
+            data.updatedAt
+        )
+    }
+
+    suspend fun deletePost(postId: String): String{
+        val response = apolloClient.mutation(DeletePostMutation(postId)).execute()
+        println("MySQL = ${response.data?.deletePost}")
+
+        return response.data!!.deletePost
+    }
 }

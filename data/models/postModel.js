@@ -103,7 +103,7 @@ export default class PostModel {
             const query = `DELETE FROM post WHERE postId = '${_postId}'`
             const [rows, fields] = await conn.query(query)
 
-            return `Delete user ${_postId} successfull!`
+            return `Delete post ${_postId} successfull!`
         } catch (err) {
             console.error(`[ERROR] PostModel.deletePost :\n ${err}`)
         }

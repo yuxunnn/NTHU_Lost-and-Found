@@ -15,3 +15,20 @@ type ShopItem{
     itemType: String!
     itemPrice: Int!
 }
+
+# MapItem
+type MapItem{
+    itemType: String!
+    latitude: Float!
+    longitude: Float!
+    ownerName: String!
+    ownerSchool: String!
+}
+
+input MapItemCreateInput{
+    itemType: String!
+    latitude: Float!
+    longitude: Float!
+    ownerName: String!
+    ownerSchool: String!
+}

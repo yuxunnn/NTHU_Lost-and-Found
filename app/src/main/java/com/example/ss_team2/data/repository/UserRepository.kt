@@ -187,19 +187,18 @@ class UserRepository {
             userQuest.quest3
         )
     }
-//
-//    //mutation UpdateQuest($userName: String!, $questId: String!, $updateNum: Int!) {
-//    suspend fun  updateUserQuest(userName: String, questId: String, updateNum: Int): Quest{
-//        val response = apolloClient.mutation(UpdateQuestMutation(userName,questId,updateNum)).execute()
-//        println("MySQL Response = ${response.data!!.updateQuest}")
-//
-//        val userQuest = response.data!!.updateQuest
-//
-//        return Quest(
-//            userQuest.userName,
-//            userQuest.quest1,
-//            userQuest.quest2,
-//            userQuest.quest3
-//        )
-//    }
+
+    suspend fun  updateUserQuest(userName: String, questId: String, updateNum: Int): Quest{
+        val response = apolloClient.mutation(UpdateQuestMutation(userName,questId,updateNum)).execute()
+        println("MySQL Response = ${response.data!!.updateQuest}")
+
+        val userQuest = response.data!!.updateQuest
+
+        return Quest(
+            userQuest.userName,
+            userQuest.quest1,
+            userQuest.quest2,
+            userQuest.quest3
+        )
+    }
 }
