@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
         val shopItemRepository = ShopItemRepository()
         val chatRepository = ChatRepository()
         val mapItemRepository = MapItemRepository()
+        val rankingRepository = RankingRepository()
         var postList: MutableList<Post>
         var post: Post
         var user: User?
@@ -76,6 +77,7 @@ class MainActivity : ComponentActivity() {
             "Ryanke",
             "NTHU"
         )
+        var rankingList: MutableList<Ranking>
         lifecycleScope.launchWhenResumed {
 //            postList = postRepository.searchPost("lost","學生證", "新齋")
 //            Log.d("Granphql", "Response: $postList")
@@ -102,8 +104,12 @@ class MainActivity : ComponentActivity() {
 //            chatsList = chatRepository.getChatByBoth("kristen012","huiyuiui")
 //            Log.d("graphql", "Android Response:$chatsList")
 
-            mapItemList = mapItemRepository.createMapItem(mapItemCreateInput)
-            Log.d("graphql", "Android Response:$mapItemList")
+//            mapItemList = mapItemRepository.createMapItem(mapItemCreateInput)
+//            Log.d("graphql", "Android Response:$mapItemList")
+
+            rankingList = rankingRepository.updateRanking()
+            Log.d("graphql", "Android Response:$rankingList")
+
         }
     }
 }

@@ -1,0 +1,14 @@
+query Ranking {
+    ranking {
+        school
+        score
+    }
+}
+
+mutation UpdateRanking {
+    updateRanking {
+        school
+        score
+    }
+}
+
