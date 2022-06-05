@@ -35,6 +35,9 @@ type Query {
   chats: [Chat]
   chatsByReceive(receive: String!): [Chat]
   chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
+
+  # MapItem
+  mapItems: [MapItem]
 }
 
 type Mutation{
@@ -61,4 +64,7 @@ type Mutation{
 
   # Chat
   createChat(send: String!, receive: String!, message: String!): String!
+
+  # MapItem
+  createMapItem(mapItem: MapItemCreateInput!): [MapItem]
 }

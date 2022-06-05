@@ -9,11 +9,9 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Optional
 import com.example.ss_team2.UserByIdQuery
 import com.example.ss_team2.data.data_source.*
-import com.example.ss_team2.data.repository.ChatRepository
-import com.example.ss_team2.data.repository.PostRepository
-import com.example.ss_team2.data.repository.ShopItemRepository
-import com.example.ss_team2.data.repository.UserRepository
+import com.example.ss_team2.data.repository.*
 import com.example.ss_team2.domain.use_case.UserUseCase
+import com.example.ss_team2.type.MapItemCreateInput
 import com.example.ss_team2.type.PostCreateInput
 import com.example.ss_team2.type.PostUpdateInput
 import com.example.ss_team2.type.UserCreateInput
@@ -41,6 +39,7 @@ class MainActivity : ComponentActivity() {
         val userRepository = UserRepository()
         val shopItemRepository = ShopItemRepository()
         val chatRepository = ChatRepository()
+        val mapItemRepository = MapItemRepository()
         var postList: MutableList<Post>
         var post: Post
         var user: User?
@@ -69,6 +68,14 @@ class MainActivity : ComponentActivity() {
         var shopItem: ShopItem
         var chatsList: MutableList<Chat>
         var rtn: String
+        var mapItemList: MutableList<MapItem>
+        val mapItemCreateInput = MapItemCreateInput(
+            "flag",
+            25.017424480809552,
+            121.54099837500733,
+            "Ryanke",
+            "NTHU"
+        )
         lifecycleScope.launchWhenResumed {
 //            postList = postRepository.searchPost("lost","學生證", "新齋")
 //            Log.d("Granphql", "Response: $postList")
@@ -92,9 +99,11 @@ class MainActivity : ComponentActivity() {
 
 //              rtn = chatRepository.createChat("huiyuiui","kristen012","記得要做mapItem")
 
-            chatsList = chatRepository.getChatByBoth("kristen012","huiyuiui")
-            Log.d("graphql", "Android Response:$chatsList")
+//            chatsList = chatRepository.getChatByBoth("kristen012","huiyuiui")
+//            Log.d("graphql", "Android Response:$chatsList")
 
+            mapItemList = mapItemRepository.createMapItem(mapItemCreateInput)
+            Log.d("graphql", "Android Response:$mapItemList")
         }
     }
 }

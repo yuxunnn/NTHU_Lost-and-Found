@@ -21,14 +21,14 @@ type MapItem{
     itemType: String!
     latitude: Float!
     longitude: Float!
-    ownerName: String!
-    ownerSchool: String!
+    userName: String!
+    userSchool: String!
 }
 
 input MapItemCreateInput{
     itemType: String!
     latitude: Float!
     longitude: Float!
-    ownerName: String!
-    ownerSchool: String!
+    userName: String!
+    userSchool: String!
 }

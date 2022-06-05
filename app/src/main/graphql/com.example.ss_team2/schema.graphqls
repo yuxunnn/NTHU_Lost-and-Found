@@ -32,6 +32,7 @@ type Query {
     chats: [Chat]
     chatsByReceive(receive: String!): [Chat]
     chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
+    mapItems: [MapItem]
 }
 
 type Mutation {
@@ -47,6 +48,7 @@ type Mutation {
     createQuest(userName: String!): Quest!
     updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
     createChat(send: String!, receive: String!, message: String!): String!
+    createMapItem(mapItem: MapItemCreateInput!): [MapItem]
 }
 
 type UserItem {
@@ -67,16 +69,16 @@ type MapItem {
     itemType: String!
     latitude: Float!
     longitude: Float!
-    ownerName: String!
-    ownerSchool: String!
+    userName: String!
+    userSchool: String!
 }
 
 input MapItemCreateInput {
     itemType: String!
     latitude: Float!
     longitude: Float!
-    ownerName: String!
-    ownerSchool: String!
+    userName: String!
+    userSchool: String!
 }
 
 type Post implements Timestamps {

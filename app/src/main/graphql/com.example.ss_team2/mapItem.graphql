@@ -1,0 +1,19 @@
+query MapItems {
+    mapItems {
+        itemType
+        latitude
+        longitude
+        userName
+        userSchool
+    }
+}
+
+mutation CreateMapItem($mapItem: MapItemCreateInput!) {
+    createMapItem(mapItem: $mapItem) {
+        itemType
+        latitude
+        longitude
+        userName
+        userSchool
+    }
+}

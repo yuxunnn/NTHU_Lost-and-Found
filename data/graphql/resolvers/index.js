@@ -6,6 +6,7 @@ import { shopItemQueries } from './shopItem'
 import { rankingQueries, rankingMutaions } from './ranking'
 import { questQueries, questMutations } from './quest'
 import { chatQueries, chatMutations } from './chat'
+import { mapItemQueries, mapItemMutations } from './mapItem'
 
 const resolvers = {
   Query: {
@@ -16,7 +17,8 @@ const resolvers = {
     ...shopItemQueries,
     ...rankingQueries,
     ...questQueries,
-    ...chatQueries
+    ...chatQueries,
+    ...mapItemQueries
   },
   Mutation: {
     ...userMutations,
@@ -24,7 +26,8 @@ const resolvers = {
     ...userItemMutations,
     ...rankingMutaions,
     ...questMutations,
-    ...chatMutations
+    ...chatMutations,
+    ...mapItemMutations
   }
 }
 
