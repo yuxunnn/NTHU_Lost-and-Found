@@ -18,6 +18,8 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.ui.graphics.Color
+import com.example.ss_team2.ui.theme.Iris60
 
 @Composable
 fun WhatYouLost(){
@@ -28,7 +30,7 @@ fun WhatYouLost(){
         Spacer(modifier = Modifier.height(40.dp))
         ObjectLabels()
         Spacer(modifier = Modifier.height(160.dp))
-        NextBotton()
+        NextButton()
     }
 }
 
@@ -126,8 +128,7 @@ fun ObjectLabelsElementPreview() {
 }
 
 
-val objectLabels1 = listOf("雨傘", "錢包", "文具", "學生證")
-val objectLabels2 = listOf("腳踏車", "襪子", "水壺", "耳機")
+
 
 @Composable
 fun ObjectLabels(
@@ -162,11 +163,28 @@ fun ObjectLabelsPreview() {
 }
 
 @Composable
-fun NextBotton(){
+fun NextButton(){
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        ObjectLabelsElement(text = "下一步")
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.textButtonColors(
+                backgroundColor = Iris60
+            ),
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
+            Text(
+                text = "下一步",
+                color = Color.White
+            )
+        }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun NextButtonPreview() {
+    SSteam2Theme { NextButton()}
 }
