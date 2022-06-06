@@ -19,6 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.domain.model.User
 import com.example.ss_team2.domain.model.userRyan
@@ -34,7 +36,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun YourProfileScreen(
     user: User,
-    modifier: Modifier
+    modifier: Modifier,
+    navController: NavController
 ) {
 
     val pagerState = rememberPagerState(pageCount = 2)
@@ -79,7 +82,8 @@ fun YourProfileScreen(
             UserPostCardList(
                 tabPage = index,
                 userPostList = user.userPostList,
-                modifier = Modifier
+                modifier = Modifier,
+                navController = navController
             )
         }
     }
@@ -143,7 +147,8 @@ fun YourProfilePreview() {
         Scaffold { padding ->
             YourProfileScreen(
                 user = userRyan,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding),
+                navController = rememberNavController()
             )
         }
     }

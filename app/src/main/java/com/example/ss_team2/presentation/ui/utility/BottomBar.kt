@@ -6,10 +6,12 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 
 @Composable
-fun BottomBar(modifier: Modifier = Modifier) {
+fun BottomBar(modifier: Modifier = Modifier, navController: NavController) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -24,8 +26,10 @@ fun BottomBar(modifier: Modifier = Modifier) {
             label = {
                 Text(stringResource(R.string.bottom_navigation_home))
             },
-            selected = true,
-            onClick = {}
+            selected = false,
+            onClick = {
+                navController.navigate(route = Screen.Home.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -38,7 +42,9 @@ fun BottomBar(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.bottom_navigation_mission))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Quest.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -51,7 +57,9 @@ fun BottomBar(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.bottom_navigation_scoreboard))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Rank.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -64,7 +72,9 @@ fun BottomBar(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.bottom_navigation_profile))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Profile.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -77,7 +87,9 @@ fun BottomBar(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.bottom_navigation_notification))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Notification.route)
+            }
         )
     }
 }

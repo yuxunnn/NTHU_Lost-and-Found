@@ -20,6 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -27,9 +29,11 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 
 
 @Composable
-fun Shop(){
+fun Shop(
+    navController: NavController
+){
     Column() {
-        Title(money = "520")
+        Title(money = "520", navController = navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         ItemCards()
     }
@@ -38,14 +42,15 @@ fun Shop(){
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun ShopPreview() {
-    SSteam2Theme { Shop() }
+    SSteam2Theme { Shop(navController = rememberNavController()) }
 }
 
 
 @Composable
 fun Title(
     modifier: Modifier = Modifier,
-    money: String
+    money: String,
+    navController: NavController
 ){
     Row(
         Modifier.fillMaxWidth(),
@@ -56,7 +61,9 @@ fun Title(
             modifier = Modifier
                 .size(50.dp)
                 .padding(start = 8.dp)
-                .clickable() {}
+                .clickable() {
+                    navController.popBackStack()
+                }
         )
         Text(
             text = "購買道具",
@@ -78,11 +85,6 @@ fun Title(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TitlePreview() {
-    SSteam2Theme { Title(money = "520") }
-}
 
 @Composable
 fun ItemCard(

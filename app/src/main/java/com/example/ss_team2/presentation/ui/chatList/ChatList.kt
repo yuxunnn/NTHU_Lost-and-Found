@@ -22,16 +22,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun ChatList () {
+fun ChatList (
+    navController: NavController
+) {
     Column {
-        Title()
+        Title(navController = navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         SearchBar()
-        ChatRooms()
+        ChatRooms(navController = navController)
     }
 }
 
@@ -39,13 +45,14 @@ fun ChatList () {
 @Composable
 fun ChatListPreview(){
     SSteam2Theme() {
-        ChatList()
+        ChatList(navController = rememberNavController())
     }
 }
 
 @Composable
 fun Title(
     modifier: Modifier = Modifier,
+    navController: NavController
 ){
     Row(
         Modifier.fillMaxWidth(),
@@ -56,7 +63,9 @@ fun Title(
             modifier = Modifier
                 .size(50.dp)
                 .padding(start = 8.dp)
-                .clickable() {}
+                .clickable() {
+                    navController.popBackStack()
+                }
         )
         Text(
             text = "聊天室",
@@ -66,11 +75,6 @@ fun Title(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TitlePreview() {
-    SSteam2Theme { Title() }
-}
 
 @Composable
 fun SearchBar(
@@ -79,7 +83,9 @@ fun SearchBar(
     var SearchingText by remember { mutableStateOf("") }
     // Implement composable here
     Row(
-        Modifier.fillMaxWidth().padding(20.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         TextField(
@@ -116,10 +122,15 @@ fun SearchBarPreview(){
 fun ChatRoom(
     firstSentence : String,
     friendname : String,
-    newestTime: String
+    newestTime: String,
+    navController: NavController
 ){
     Surface(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                navController.navigate(route = Screen.ChatRoom.route)
+            }
     ) {
         Row() {
             Image(
@@ -164,7 +175,8 @@ fun ChatRoomPreview(){
         ChatRoom(
             "你好",
             "notyuxun",
-            "10:11"
+            "10:11",
+            navController = rememberNavController()
         )
     }
 }
@@ -184,12 +196,18 @@ private val FriendList: List<Friend> = listOf(
 @Composable
 fun ChatRooms(
     modifier: Modifier = Modifier,
+    navController: NavController
 ){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
         items(FriendList){ item ->
-            ChatRoom(firstSentence = item.LastSentence, friendname = item.Name, newestTime = item.Time)
+            ChatRoom(
+                firstSentence = item.LastSentence,
+                friendname = item.Name,
+                newestTime = item.Time,
+                navController = navController
+            )
         }
     }
 }
@@ -198,6 +216,6 @@ fun ChatRooms(
 @Composable
 fun ChatRoomsPreview(){
     SSteam2Theme {
-        ChatRooms()
+        ChatRooms(navController = rememberNavController())
     }
 }

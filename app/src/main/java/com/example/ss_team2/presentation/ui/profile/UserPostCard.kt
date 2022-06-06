@@ -22,6 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.FindHint
 import com.example.ss_team2.ui.theme.FindHintDark
 import com.example.ss_team2.ui.theme.LostHint
@@ -33,7 +35,8 @@ fun UserPostCard(
     @DrawableRes image: Int,
     what: String,
     where: List<String>,
-    modifier: Modifier
+    modifier: Modifier,
+    navController: NavController
 ) {
     Surface(
         shape = RoundedCornerShape(10.dp),
@@ -43,7 +46,9 @@ fun UserPostCard(
                 color = Color.LightGray,
                 shape = RoundedCornerShape(10.dp)
             )
-            .clickable {}
+            .clickable {
+                navController.navigate(route = Screen.MyPost.route)
+            }
             .fillMaxWidth()
     ) {
         Row(

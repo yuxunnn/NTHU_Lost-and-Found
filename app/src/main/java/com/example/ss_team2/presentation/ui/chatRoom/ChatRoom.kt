@@ -20,13 +20,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun Dialog() {
+fun Dialog(navController: NavController) {
     Column {
-        TheFriend(Name = "yuxun")
+        TheFriend(Name = "yuxun", navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         DialogSurface()
         //TextInput()
@@ -37,13 +39,14 @@ fun Dialog() {
 @Composable
 fun DialogPreview(){
     SSteam2Theme {
-        Dialog()
+        Dialog(navController = rememberNavController())
     }
 }
 
 @Composable
 fun TheFriend(
-    Name : String
+    Name : String,
+    navController: NavController
 ){
     Row(
         Modifier
@@ -56,7 +59,9 @@ fun TheFriend(
             modifier = Modifier
                 .size(50.dp)
                 .padding(start = 8.dp)
-                .clickable() {}
+                .clickable() {
+                    navController.popBackStack()
+                }
         )
 
         Image(
@@ -86,7 +91,7 @@ fun TheFriend(
 @Composable
 fun TheFriendPreview(){
     SSteam2Theme() {
-        TheFriend("hui._.yuiui")
+        TheFriend("hui._.yuiui", navController = rememberNavController())
     }
 }
 

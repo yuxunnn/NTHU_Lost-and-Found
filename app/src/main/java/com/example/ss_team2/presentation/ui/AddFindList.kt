@@ -28,7 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -196,7 +198,8 @@ fun AddFindListHomeScreen(
 fun AddFindListFinalScreen(modifier: Modifier = Modifier,
                            @DrawableRes userdrawable: Int,
                            @StringRes username: Int,
-                           time: Int
+                           time: Int,
+                           navController: NavController
 ){
     Box(modifier = Modifier.fillMaxSize()){
         AddFindListHomeScreen(
@@ -206,11 +209,19 @@ fun AddFindListFinalScreen(modifier: Modifier = Modifier,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {}
+                .clickable {
+                    navController.popBackStack()
+                }
                 .padding(16.dp)
         )
         Button(
-            onClick = {},
+            onClick = {
+                navController.navigate(route = Screen.FindList.route){
+                    popUpTo(Screen.FindList.route){
+                        inclusive = true
+                    }
+                }
+            },
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(8.dp)
@@ -220,10 +231,13 @@ fun AddFindListFinalScreen(modifier: Modifier = Modifier,
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview8() {
-    SSteam2Theme {
-        AddFindListFinalScreen(userdrawable = R.drawable.ic_launcher_foreground, username = R.string.Finder, time = 20)
-    }
+fun AddFindList(
+    navController: NavController
+){
+    AddFindListFinalScreen(userdrawable = R.drawable.ic_launcher_foreground,
+        username = R.string.Finder,
+        time = 20,
+        navController = navController
+    )
 }

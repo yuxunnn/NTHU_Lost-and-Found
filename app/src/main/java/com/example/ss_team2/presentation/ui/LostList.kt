@@ -27,7 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -37,14 +40,17 @@ fun PostPreviewElementWithMoney(
     @StringRes what: Int,
     @StringRes where: Int,
     @StringRes ItemText: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ){
     OutlinedButton(
         modifier = Modifier
             .width(335.dp)
             .height(145.dp),
         shape = RoundedCornerShape(12),
-        onClick = {},
+        onClick = {
+                  navController.navigate(route = Screen.OthersLostList.route)
+        },
         border = BorderStroke(1.dp, Color(0x66,0x70,0x80))
     ) {
         Row(
@@ -79,25 +85,31 @@ fun PostPreviewElementWithMoney(
 }
 
 @Composable
-fun LazyScreenWithMoney(modifier: Modifier = Modifier) {
+fun LazyScreenWithMoney(modifier: Modifier = Modifier, navController: NavController) {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(8.dp),
         verticalArrangement = Arrangement.spacedBy((8.dp))
     ) {
         items(PostPreviewData){
-                item -> PostPreviewElementWithMoney(drawable = item.drawable, what = item.text, where = item.text, ItemText = item.text, money = 20)
+                item -> PostPreviewElementWithMoney(
+            drawable = item.drawable, what = item.text,
+            where = item.text,
+            ItemText = item.text,
+            money = 20,
+            navController = navController
+        )
         }
     }
 }
 
 @Composable
-fun HomeScreenWithMoney(modifier: Modifier=Modifier){
+fun HomeScreenWithMoney(modifier: Modifier=Modifier, navController: NavController){
     Column(modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.Finder),
+        Text(text = stringResource(id = R.string.Loser),
             fontWeight = FontWeight.Bold,
             color = Color(0x66,0x70,0x80),
             modifier = Modifier
@@ -115,21 +127,23 @@ fun HomeScreenWithMoney(modifier: Modifier=Modifier){
             where = stringResource(id = R.string.home)
         )
         Spacer(modifier = Modifier.height(10.dp))
-        LazyScreenWithMoney()
+        LazyScreenWithMoney(navController = navController)
     }
 
 }
 
 @Composable
-fun FinalScreenWithMoney(modifier: Modifier = Modifier){
+fun FinalScreenWithMoney(modifier: Modifier = Modifier, navController: NavController){
     Box(modifier = Modifier.fillMaxSize()){
-        HomeScreenWithMoney()
+        HomeScreenWithMoney(navController = navController)
         OutlinedButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(100.dp)
                 .padding(12.dp),
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.AddLostList.route)
+            },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
         ){
@@ -140,7 +154,9 @@ fun FinalScreenWithMoney(modifier: Modifier = Modifier){
                 .align(Alignment.BottomStart)
                 .size(100.dp)
                 .padding(12.dp),
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.Home.route)
+            },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
         ){
@@ -161,6 +177,6 @@ private val PostPreviewData = listOf(
 @Composable
 fun DefaultPreview2() {
     SSteam2Theme {
-        FinalScreenWithMoney()
+        FinalScreenWithMoney(navController = rememberNavController())
     }
 }

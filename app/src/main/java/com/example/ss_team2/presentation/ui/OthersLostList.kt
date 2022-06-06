@@ -26,6 +26,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.DrawableStringPair
 import com.example.ss_team2.presentation.ui.ItemCard
 import com.example.ss_team2.presentation.ui.UserCard
@@ -149,7 +153,8 @@ fun LostListFinalScreen(modifier: Modifier = Modifier,
                         @StringRes description: Int,
                         @StringRes what: Int,
                         @StringRes where: Int,
-                        money: Int
+                        money: Int,
+                        navController: NavController
 ){
     Box(modifier = Modifier.fillMaxSize()){
         LostListHomeScreen(str = str, time = time, userdrawable = userdrawable,
@@ -159,7 +164,9 @@ fun LostListFinalScreen(modifier: Modifier = Modifier,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {}
+                .clickable {
+                    navController.popBackStack()
+                }
                 .padding(16.dp)
         )
 
@@ -176,7 +183,10 @@ private val TestData = listOf(
 ).map { DrawableStringPair(it.first, it.second) }
 
 @Composable
-private fun OthersLostListBottomNavigation(modifier: Modifier = Modifier) {
+private fun OthersLostListBottomNavigation(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -218,15 +228,17 @@ private fun OthersLostListBottomNavigation(modifier: Modifier = Modifier) {
                 Text("發送訊息")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.ChatRoom.route)
+            }
         )
     }
 }
 
 @Composable
-fun OthersLostListApp(){
+fun OthersLostListApp(navController: NavController){
     Scaffold(
-        bottomBar = { OthersLostListBottomNavigation() }
+        bottomBar = { OthersLostListBottomNavigation(navController = navController) }
     ) {
         LostListFinalScreen(
             str = R.string.home,
@@ -236,7 +248,8 @@ fun OthersLostListApp(){
             description = R.string.description,
             what = R.string.ball,
             where = R.string.home,
-            money = 20
+            money = 20,
+            navController = navController
         )
     }
 }
@@ -245,6 +258,6 @@ fun OthersLostListApp(){
 @Composable
 fun DefaultPreview4() {
     SSteam2Theme {
-        OthersLostListApp()
+        OthersLostListApp(navController = rememberNavController())
     }
 }

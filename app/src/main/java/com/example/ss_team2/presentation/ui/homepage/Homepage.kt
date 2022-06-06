@@ -11,13 +11,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
 import com.example.ss_team2.ui.theme.*
 
 @Composable
-fun HomepageScreen(modifier: Modifier) {
+fun HomepageScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
 
     val currentSchool = remember { mutableStateOf(0) }
 
@@ -27,14 +33,18 @@ fun HomepageScreen(modifier: Modifier) {
             leftButton = {
                 TopBarButton(
                     imageVector = Icons.Default.Storefront,
-                    onClick = {}
+                    onClick = {
+                        navController.navigate(route = Screen.Shop.route)
+                    }
                 )
             },
             text = "頂大失物尋寶",
             rightButton = {
                 TopBarButton(
                     imageVector = Icons.Default.Message,
-                    onClick = {}
+                    onClick = {
+                        navController.navigate(route = Screen.ChatList.route)
+                    }
                 )
             }
         )
@@ -61,23 +71,19 @@ fun HomepageScreen(modifier: Modifier) {
             }
         }
 
-        HomepageMainButtons()
+        HomepageMainButtons(navController = navController)
     }
 }
 
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showSystemUi = true
-)
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomepagePreview() {
+fun Homepage(
+    navController: NavController
+) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier) }
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) { padding ->
-            HomepageScreen(modifier = Modifier.padding(padding))
+            HomepageScreen(modifier = Modifier.padding(padding), navController = navController)
         }
     }
 }

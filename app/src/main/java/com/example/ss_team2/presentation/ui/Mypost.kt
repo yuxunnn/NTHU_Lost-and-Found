@@ -31,15 +31,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.Shapes
 import java.lang.ProcessBuilder.Redirect.to
 
 
 @Composable
-fun MyPostApp(){
+fun MyPostApp(
+    navController: NavController
+){
     Scaffold(
-        bottomBar = { MyPostBottomNavigation() }
+        bottomBar = { MyPostBottomNavigation(navController = navController) }
     ) {
         MyPostFinalScreen(
             str = R.string.home,
@@ -49,7 +54,8 @@ fun MyPostApp(){
             description = R.string.description,
             what = R.string.ball,
             where = R.string.home,
-            money = 20
+            money = 20,
+            navController = navController
         )
     }
 }
@@ -103,7 +109,8 @@ fun MyPostFinalScreen(modifier: Modifier = Modifier,
                         @StringRes description: Int,
                         @StringRes what: Int,
                         @StringRes where: Int,
-                        money: Int
+                        money: Int,
+                        navController: NavController
 ){
     Box(modifier = Modifier.fillMaxSize()){
         MyPostHomeScreen(str = str, time = time, userdrawable = userdrawable,
@@ -113,7 +120,9 @@ fun MyPostFinalScreen(modifier: Modifier = Modifier,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {}
+                .clickable {
+                    navController.popBackStack()
+                }
                 .padding(16.dp)
         )
 
@@ -121,7 +130,10 @@ fun MyPostFinalScreen(modifier: Modifier = Modifier,
 }
 
 @Composable
-private fun MyPostBottomNavigation(modifier: Modifier = Modifier) {
+private fun MyPostBottomNavigation(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -137,7 +149,9 @@ private fun MyPostBottomNavigation(modifier: Modifier = Modifier) {
                 Text("編輯")
             },
             selected = true,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.EditPost.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -150,7 +164,9 @@ private fun MyPostBottomNavigation(modifier: Modifier = Modifier) {
                 Text("已找回")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Confirmation.route)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -172,6 +188,6 @@ private fun MyPostBottomNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview6() {
     SSteam2Theme {
-        MyPostApp()
+        MyPostApp(navController = rememberNavController())
     }
 }
