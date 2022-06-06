@@ -170,6 +170,7 @@ fun ObjectLabelsPreview() {
 fun NextButton(
     navController: NavController
 ){
+
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
@@ -190,3 +191,4 @@ fun NextButton(
         }
     }
 }
+
