@@ -3,7 +3,7 @@ package com.example.ss_team2.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ss_team2.data.data_source.MapItem
-import com.example.ss_team2.domain.use_case.map.MapUseCase
+import com.example.ss_team2.domain.use_case.MapUseCase
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng

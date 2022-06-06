@@ -14,3 +14,18 @@ data class Post(
     val createdAt: Any,
     val updatedAt:Any
 )
+
+val emptyPost = Post (
+    postId = "",
+    author = emptyUser,
+    postType = "",
+    itemType = "",
+    location = "",
+    postDescribe = "",
+    hasDone = false,
+    rewardCoin = 0,
+    anonymous =  false,
+
+    createdAt = 0,
+    updatedAt = 0,
+)
