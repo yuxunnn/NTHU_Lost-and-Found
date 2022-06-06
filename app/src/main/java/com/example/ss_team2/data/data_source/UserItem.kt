@@ -8,3 +8,12 @@ data class UserItem(
     val shit: Int,
     val flag: Int
 )
+
+val emptyUserItem = UserItem(
+    userName = "",
+    waterGun = 0,
+    board = 0,
+    eraser = 0,
+    shit = 0,
+    flag = 0
+)

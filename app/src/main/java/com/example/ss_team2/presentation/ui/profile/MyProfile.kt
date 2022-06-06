@@ -10,16 +10,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.ss_team2.domain.model.User
-import com.example.ss_team2.domain.model.userFrog
+import com.example.ss_team2.R
+import com.example.ss_team2.domain.model.tempUserPostData
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -28,10 +29,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MyProfileScreen(
-    user: User,
     modifier: Modifier = Modifier,
+    userViewModel: UserViewModel = viewModel(),
     navController: NavController
 ) {
+
+    val myUser by userViewModel.user.collectAsState()
+    val myUserItem by userViewModel.userItem.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = 2)
     val scope = rememberCoroutineScope()
@@ -49,17 +53,17 @@ fun MyProfileScreen(
                     }
                 )
             },
-            text = user.username,
+            text = myUser.userName,
             rightButton = {
                 Spacer(modifier = Modifier.size(32.dp))
             }
         )
 
         PersonalInfo(
-            image = user.userImage,
-            schoolName = user.userSchool,
-            toolAmount = user.userToolAmount,
-            point = user.userPoint
+            image = R.drawable.my_image,
+            schoolName = myUser.userSchool,
+            toolAmount = myUserItem.board + myUserItem.eraser + myUserItem.flag + myUserItem.shit + myUserItem.waterGun,
+            point = myUser.userCoin
         )
 
         ProfileTabBar(
@@ -74,7 +78,7 @@ fun MyProfileScreen(
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
                 tabPage = index,
-                userPostList = user.userPostList,
+                userPostList = tempUserPostData,
                 modifier = Modifier,
                 navController = navController
             )
@@ -92,7 +96,6 @@ fun MyProfile(
             bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
             MyProfileScreen(
-                user = userFrog,
                 modifier = Modifier,
                 navController = navController
             )
@@ -114,7 +117,6 @@ fun MyProfilePreview() {
             bottomBar = { BottomBar(modifier = Modifier, navController = rememberNavController()) }
         ) { padding ->
             MyProfileScreen(
-                user = userFrog,
                 modifier = Modifier.padding(padding),
                 navController = rememberNavController()
             )

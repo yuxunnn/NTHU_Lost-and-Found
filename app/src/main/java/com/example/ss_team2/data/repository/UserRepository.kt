@@ -14,11 +14,11 @@ class UserRepository {
 
 // Queries
 
-    suspend fun getUserById(userId: String): User? {
+    suspend fun getUserById(userId: String): User {
         val response = apolloClient.query(UserByIdQuery(userId = userId)).execute()
         //println("Response = ${response.data?.userById}")
 
-        if(response.data == null) return null
+//        if(response.data == null) return null
 
         val user = response.data!!.userById
 

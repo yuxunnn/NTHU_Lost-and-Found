@@ -19,14 +19,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
-import com.example.ss_team2.domain.model.User
-import com.example.ss_team2.domain.model.userRyan
+import com.example.ss_team2.domain.model.tempUserPostData2
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -35,10 +36,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun YourProfileScreen(
-    user: User,
     modifier: Modifier,
+    userViewModel: UserViewModel = viewModel(),
     navController: NavController
 ) {
+
+    val otherUser by userViewModel.user.collectAsState()
+    val otherUserItem by userViewModel.userItem.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = 2)
     val scope = rememberCoroutineScope()
@@ -54,17 +58,17 @@ fun YourProfileScreen(
                     onClick = {}
                 )
             },
-            text = user.username,
+            text = otherUser.userName,
             rightButton = {
                 Spacer(modifier = Modifier.size(32.dp))
             }
         )
 
         PersonalInfo(
-            image = user.userImage,
-            schoolName = user.userSchool,
-            toolAmount = user.userToolAmount,
-            point = user.userPoint
+            image = R.drawable.your_image,
+            schoolName = otherUser.userSchool,
+            toolAmount = otherUserItem.board + otherUserItem.eraser + otherUserItem.flag + otherUserItem.shit + otherUserItem.waterGun,
+            point = otherUser.userCoin
         )
 
         ActionButton()
@@ -81,7 +85,7 @@ fun YourProfileScreen(
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
                 tabPage = index,
-                userPostList = user.userPostList,
+                userPostList = tempUserPostData2,
                 modifier = Modifier,
                 navController = navController
             )
@@ -90,7 +94,7 @@ fun YourProfileScreen(
 }
 
 @Composable
-fun ActionButton(){
+fun ActionButton() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -146,7 +150,6 @@ fun YourProfilePreview() {
     SSteam2Theme {
         Scaffold { padding ->
             YourProfileScreen(
-                user = userRyan,
                 modifier = Modifier.padding(padding),
                 navController = rememberNavController()
             )

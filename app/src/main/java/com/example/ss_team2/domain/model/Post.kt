@@ -1,6 +1,8 @@
 package com.example.ss_team2.domain.model
 
 import com.example.ss_team2.R
+import com.example.ss_team2.data.data_source.User
+import com.example.ss_team2.data.data_source.emptyUser
 import java.time.LocalDateTime
 
 data class Post(
@@ -34,7 +36,7 @@ val tempUserPostData: List<Post> = listOf(
         done = false,
         bounty = 20,
         time = LocalDateTime.of(2022, 6, 1, 12, 20),
-        owner = userFrog
+        owner = emptyUser
     ),
     Post(
         type = 1,
@@ -45,7 +47,7 @@ val tempUserPostData: List<Post> = listOf(
         done = true,
         bounty = 20,
         time = LocalDateTime.of(2022, 6, 1, 12, 20),
-        owner = userFrog
+        owner = emptyUser
     )
 )
 
@@ -59,7 +61,7 @@ val tempUserPostData2: List<Post> = listOf(
         done = false,
         bounty = 20,
         time = LocalDateTime.of(2022, 6, 1, 12, 20),
-        owner = userRyan
+        owner = emptyUser
     ),
     Post(
         type = 1,
@@ -70,6 +72,6 @@ val tempUserPostData2: List<Post> = listOf(
         done = true,
         bounty = 20,
         time = LocalDateTime.of(2022, 6, 1, 12, 20),
-        owner = userRyan
+        owner = emptyUser
     )
 )
