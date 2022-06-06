@@ -34,7 +34,7 @@ fun ChatList (
     navController: NavController
 ) {
     Column {
-        Title()
+        Title(navController = navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         SearchBar()
         ChatRooms(navController = navController)
@@ -52,6 +52,7 @@ fun ChatListPreview(){
 @Composable
 fun Title(
     modifier: Modifier = Modifier,
+    navController: NavController
 ){
     Row(
         Modifier.fillMaxWidth(),
@@ -62,7 +63,9 @@ fun Title(
             modifier = Modifier
                 .size(50.dp)
                 .padding(start = 8.dp)
-                .clickable() {}
+                .clickable() {
+                    navController.popBackStack()
+                }
         )
         Text(
             text = "聊天室",
@@ -72,11 +75,6 @@ fun Title(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TitlePreview() {
-    SSteam2Theme { Title() }
-}
 
 @Composable
 fun SearchBar(
