@@ -14,12 +14,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
-import com.example.ss_team2.domain.model.tempUserPostData
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 fun MyProfileScreen(
     modifier: Modifier = Modifier,
     userViewModel: UserViewModel = viewModel(),
+    postViewModel: PostViewModel = viewModel(),
     navController: NavController
 ) {
 
@@ -78,7 +79,7 @@ fun MyProfileScreen(
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
                 tabPage = index,
-                userPostList = tempUserPostData,
+                postViewModel = postViewModel,
                 modifier = Modifier,
                 navController = navController
             )

@@ -1,13 +1,11 @@
 package com.example.ss_team2.presentation.ui.profile
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -17,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.ss_team2.R
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -31,13 +30,13 @@ import com.example.ss_team2.ui.theme.LostHintDark
 
 @Composable
 fun UserPostCard(
-    type: Int,
-    @DrawableRes image: Int,
     what: String,
-    where: List<String>,
+    where: String,
+    type: String,
     modifier: Modifier,
     navController: NavController
 ) {
+
     Surface(
         shape = RoundedCornerShape(10.dp),
         modifier = modifier
@@ -56,14 +55,14 @@ fun UserPostCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = image),
+                painter = painterResource(id = R.drawable.umbrella1),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(72.dp)
             )
             PostInfo(
                 text = "What",
-                tags = listOf(what),
+                tags = what,
                 modifier = Modifier
                     .offset(x = 20.dp)
                     .width(60.dp)
@@ -86,7 +85,7 @@ fun UserPostCard(
 @Composable
 fun PostInfo(
     text: String,
-    tags: List<String>,
+    tags: String,
     modifier: Modifier
 ) {
     Column(modifier = modifier) {
@@ -99,9 +98,9 @@ fun PostInfo(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            items(tags) { location ->
+            item {
                 Text(
-                    text = location,
+                    text = tags,
                     style = MaterialTheme.typography.h6,
                     fontSize = 12.sp,
                 )
@@ -112,17 +111,17 @@ fun PostInfo(
 
 @Composable
 fun PostTypeHint(
-    type: Int,
+    type: String,
     modifier: Modifier
 ) {
     val color: Color =
         if (MaterialTheme.colors.isLight) {
-            if (type == 0) FindHint else LostHint
+            if (type == "Lost") FindHint else LostHint
         } else {
-            if (type == 0) FindHintDark else LostHintDark
+            if (type == "Lost") FindHintDark else LostHintDark
         }
 
-    val text: String = if (type == 0) "撿" else "遺"
+    val text: String = if (type == "Lost") "撿" else "遺"
 
     Box(
         contentAlignment = Alignment.Center,

@@ -1,9 +1,7 @@
 package com.example.ss_team2.domain.use_case
 
-import android.location.Location
 import com.example.ss_team2.data.data_source.Post
 import com.example.ss_team2.data.repository.PostRepository
-
 import com.example.ss_team2.type.PostCreateInput
 import com.example.ss_team2.type.PostUpdateInput
 
@@ -20,8 +18,8 @@ class PostUseCase {
     }
 
     //應該不用return東西吧?
-    suspend fun createPost(postcreateInput: PostCreateInput): Post{
-        return postRepository.createPost(postcreateInput)
+    suspend fun createPost(postCreateInput: PostCreateInput): Post{
+        return postRepository.createPost(postCreateInput)
     }
 
     suspend fun updatePost(postId: String, postUpdateInput: PostUpdateInput){
