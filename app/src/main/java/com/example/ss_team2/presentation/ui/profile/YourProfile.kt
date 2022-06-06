@@ -42,8 +42,8 @@ fun YourProfileScreen(
     navController: NavController
 ) {
 
-    val otherUser by userViewModel.user.collectAsState()
-    val otherUserItem by userViewModel.userItem.collectAsState()
+    val otherUser by userViewModel.otherUser.collectAsState()
+    val otherUserItem by userViewModel.otherUserItem.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = 2)
     val scope = rememberCoroutineScope()

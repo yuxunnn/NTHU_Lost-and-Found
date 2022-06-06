@@ -89,13 +89,24 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             _toolMarkers.value = mapUseCase.addMarker(
                 MapItem(
-                    itemType = "",
+                    itemType = itemType,
                     latitude = latLng.latitude,
                     longitude = latLng.longitude,
                     userName = userName,
                     userSchool = userSchool
                 )
             )
+//            val new = _toolMarkers.value.toMutableList()
+//            new.add(
+//                MapItem(
+//                    itemType = itemType,
+//                    latitude = latLng.latitude,
+//                    longitude = latLng.longitude,
+//                    userName = userName,
+//                    userSchool = userSchool
+//                )
+//            )
+//            _toolMarkers.value = new
         }
     }
 }

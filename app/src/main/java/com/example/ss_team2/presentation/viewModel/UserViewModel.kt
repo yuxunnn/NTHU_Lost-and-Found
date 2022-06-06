@@ -17,6 +17,9 @@ class UserViewModel : ViewModel() {
 
     private val userUseCase = UserUseCase()
 
+    private val _selectedItem = MutableStateFlow("")
+    val selectedItem:StateFlow<String> = _selectedItem
+
     private val _user = MutableStateFlow(emptyUser)
     val user: StateFlow<User> = _user
     private val _userItem = MutableStateFlow(emptyUserItem)
@@ -30,6 +33,14 @@ class UserViewModel : ViewModel() {
         viewModelScope.launch {
             _user.value = userUseCase.getUserByName("huiyuiui")
             _otherUser.value = userUseCase.getUserByName("Ryanke")
+            _userItem.value = UserItem(userName = "huiyuiui", 10, 9, 8, 7, 6)
+            _otherUserItem.value = UserItem(userName = "Ryanke", 10, 9, 8, 8, 9)
+        }
+    }
+
+    fun changeSelectedItem(selectedItem: String){
+        viewModelScope.launch {
+            _selectedItem.value = selectedItem
         }
     }
 
