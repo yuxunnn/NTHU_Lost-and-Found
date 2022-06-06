@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ss_team2.domain.model.ToolMarker
+import com.example.ss_team2.domain.use_case.map.MapUseCase
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -42,14 +43,16 @@ const val InitialZoom = 15f
 
 class MapViewModel : ViewModel() {
 
+    private val mapUseCase = MapUseCase()
+
     private val _school = MutableStateFlow(0)
     private val _properties = MutableStateFlow(MapProperties())
     private val _cameraPositionState = MutableStateFlow(CameraPositionState())
-    private val _toolMarkers = MutableStateFlow(mutableListOf<ToolMarker>())
+    private val _toolMarkers = MutableStateFlow(listOf<ToolMarker>())
 
     val school: StateFlow<Int> = _school
     val properties: StateFlow<MapProperties> = _properties
-    val toolMarkers: StateFlow<MutableList<ToolMarker>> = _toolMarkers
+    val toolMarkers: StateFlow<List<ToolMarker>> = _toolMarkers
     val cameraPositionState: StateFlow<CameraPositionState> = _cameraPositionState
 
     init {
@@ -62,6 +65,7 @@ class MapViewModel : ViewModel() {
                     InitialZoom
                 ),
             )
+            _toolMarkers.value = mapUseCase.getMarkers()
         }
     }
 
@@ -81,17 +85,17 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun addMarker(latLng: LatLng, image: Int) {
+    fun addMarker(image: Int, latLng: LatLng, userName: String, userSchool: String) {
         viewModelScope.launch {
-            val newValue = _toolMarkers.value
-            newValue.add(
+            _toolMarkers.value = mapUseCase.addMarker(
                 ToolMarker(
                     image = image,
                     latitude = latLng.latitude,
-                    longitude = latLng.longitude
+                    longitude = latLng.longitude,
+                    userName = userName,
+                    userSchool = userSchool
                 )
             )
-            _toolMarkers.value = newValue
         }
     }
 }
