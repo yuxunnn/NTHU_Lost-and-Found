@@ -20,11 +20,15 @@ import androidx.compose.ui.unit.toSize
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
 
 
 @Composable
-fun RegisterPage (){
+fun RegisterPage (
+    navController: NavController
+){
     Column {
         Title()
         UserName()
@@ -33,17 +37,10 @@ fun RegisterPage (){
         UserEmail()
         UserPassword()
         UploadPhotoButton()
-        FinalButton()
+        FinalButton(navController)
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun RegisterPagePreview(){
-    SSteam2Theme {
-        RegisterPage()
-    }
-}
 
 
 @Composable
@@ -391,7 +388,9 @@ fun UploadPhotoButtonPreview() {
 }
 
 @Composable
-fun FinalButton(){
+fun FinalButton(
+    navController: NavController
+){
     Row(
         Modifier
             .fillMaxWidth()
@@ -402,7 +401,13 @@ fun FinalButton(){
             Modifier.width(100.dp)
         ) {
             Button(
-                onClick = {}, colors = ButtonDefaults.textButtonColors(
+                onClick = {
+                          navController.navigate(route = Screen.First.route){
+                              popUpTo(Screen.First.route){
+                                  inclusive = true
+                              }
+                          }
+                }, colors = ButtonDefaults.textButtonColors(
                     backgroundColor = Iris60
                 ),
                 modifier = Modifier
@@ -419,10 +424,3 @@ fun FinalButton(){
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun FinalButtonPreview() {
-    SSteam2Theme() {
-        FinalButton()
-    }
-}

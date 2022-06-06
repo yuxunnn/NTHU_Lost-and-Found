@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.MapViewModel
 import com.example.ss_team2.presentation.ui.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -21,7 +24,8 @@ import com.example.ss_team2.presentation.ui.utility.TopBarButton
 @Composable
 fun MapScreen(
     viewModel: MapViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
-    modifier: Modifier
+    modifier: Modifier =Modifier,
+    navController: NavController
 ) {
 
     val currentSchool: Int by viewModel.school.collectAsState()
@@ -70,7 +74,9 @@ fun MapScreen(
             }
             TopBarButton(
                 imageVector = Icons.Default.Storefront,
-                onClick = {}
+                onClick = {
+                    navController.navigate(route = Screen.Shop.route)
+                }
             )
         }
 
@@ -108,7 +114,8 @@ fun MapPreview() {
     SSteam2Theme {
         Scaffold { padding ->
             MapScreen(
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding),
+                navController = rememberNavController()
             )
         }
     }

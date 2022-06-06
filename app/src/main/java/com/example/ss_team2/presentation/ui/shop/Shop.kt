@@ -56,7 +56,9 @@ fun Title(
             modifier = Modifier
                 .size(50.dp)
                 .padding(start = 8.dp)
-                .clickable() {}
+                .clickable() {
+
+                }
         )
         Text(
             text = "購買道具",

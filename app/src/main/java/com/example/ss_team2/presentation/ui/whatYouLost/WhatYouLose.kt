@@ -18,24 +18,30 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.ss_team2.presentation.navigation.Screen
 
 @Composable
-fun WhatYouLost(){
+fun WhatYouLost(
+    navController: NavController
+){
     Column() {
         Lastpage()
         Spacer(modifier = Modifier.height(40.dp))
         SearchBar()
         Spacer(modifier = Modifier.height(40.dp))
-        ObjectLabels()
+        ObjectLabels(navController = navController)
         Spacer(modifier = Modifier.height(160.dp))
-        NextBotton()
+        WhatYouLostNextBotton(navController = navController)
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun WhatYouLostPreview() {
-    SSteam2Theme { WhatYouLost() }
+    SSteam2Theme { WhatYouLost(navController = rememberNavController()) }
 }
 
 @Composable
@@ -84,7 +90,7 @@ fun SearchBar(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(min = 56.dp)
-                .padding(start = 8.dp,end = 8.dp)
+                .padding(start = 8.dp, end = 8.dp)
         )
     }
 }
@@ -98,10 +104,15 @@ fun SearchBarPreview() {
 @Composable
 fun ObjectLabelsElement(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    navController: NavController
 ){
     Card(
-        modifier = Modifier.padding(8.dp).clickable {  },
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable {
+
+            },
         shape = MaterialTheme.shapes.small,
         elevation = 3.dp    //shadow
     ){
@@ -119,19 +130,14 @@ fun ObjectLabelsElement(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ObjectLabelsElementPreview() {
-    SSteam2Theme { ObjectLabelsElement(Modifier.padding(8.dp), "雨傘") }
-}
-
 
 val objectLabels1 = listOf("雨傘", "錢包", "文具", "學生證")
 val objectLabels2 = listOf("腳踏車", "襪子", "水壺", "耳機")
 
 @Composable
 fun ObjectLabels(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ){
     Column() {
         LazyRow(
@@ -140,7 +146,7 @@ fun ObjectLabels(
             modifier = modifier.fillMaxWidth()
         ) {
             items(objectLabels1) { item ->
-                ObjectLabelsElement(Modifier, item)
+                ObjectLabelsElement(Modifier, item, navController)
             }
         }
         LazyRow(
@@ -149,24 +155,22 @@ fun ObjectLabels(
             modifier = modifier.fillMaxWidth()
         ) {
             items(objectLabels2) { item ->
-                ObjectLabelsElement(Modifier, item)
+                ObjectLabelsElement(Modifier, item, navController = navController)
             }
         }
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ObjectLabelsPreview() {
-    SSteam2Theme { ObjectLabels()}
-}
 
 @Composable
-fun NextBotton(){
+fun WhatYouLostNextBotton(
+    navController: NavController
+){
     Row(
-        Modifier.fillMaxWidth(),
+        Modifier
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        ObjectLabelsElement(text = "下一步")
+        ObjectLabelsElement(text = "下一步", navController = navController)
     }
 }

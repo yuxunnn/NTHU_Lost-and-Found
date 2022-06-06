@@ -11,35 +11,40 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun FirstPage(){
+fun FirstPage(
+    navController: NavController
+){
     Column() {
         Spacer(modifier = Modifier.height(120.dp))
         Title()
         Spacer(modifier = Modifier.height(240.dp))
-        FirstButton()
+        FirstButton(navController)
         Spacer(modifier = Modifier.height(40.dp))
-        SecondButton()
+        SecondButton(navController)
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun FirstPagePreview(){
-    SSteam2Theme {FirstPage()}
-}
+
 
 
 @Composable
-fun FirstButton(){
+fun FirstButton(
+    navController: NavController
+){
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ){
         Button(
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.Register.route)
+            },
             shape = RoundedCornerShape(35.dp),
             modifier = Modifier
                 .width(300.dp)
@@ -56,20 +61,20 @@ fun FirstButton(){
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun FirstButtonPreview(){
-    SSteam2Theme {FirstButton()}
-}
+
 
 @Composable
-fun SecondButton(){
+fun SecondButton(
+    navController: NavController
+){
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ){
         Button(
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.Login.route)
+            },
             shape = RoundedCornerShape(35.dp),
             modifier = Modifier
                 .width(300.dp)
@@ -82,12 +87,6 @@ fun SecondButton(){
             )
         }
     }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun SecondButtonPreview(){
-    SSteam2Theme {SecondButton()}
 }
 
 @Composable

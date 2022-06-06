@@ -1,4 +1,4 @@
-package com.example.ss_team2.presentation.ui.welcomPage
+package com.example.ss_team2.presentation.ui.welcome
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,16 +9,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun Welcome (){
+fun Welcome (
+    navController: NavController
+){
     Column() {
         Title()
         LoginEmail()
         LoginPassword()
-        LoginButton()
+        LoginButton(navController = navController)
         ForgotPassword()
     }
 }
@@ -27,7 +32,7 @@ fun Welcome (){
 @Composable
 fun WelcomePreview(){
     SSteam2Theme() {
-        Welcome()
+        Welcome(navController = rememberNavController())
     }
 }
 
@@ -166,7 +171,7 @@ fun LoginPreview() {
 }
 
 @Composable
-fun LoginButton(){
+fun LoginButton(navController: NavController){
     Row(
         Modifier
             .fillMaxWidth()
@@ -177,7 +182,10 @@ fun LoginButton(){
             Modifier.width(350.dp)
         ) {
             Button(
-                onClick = {}, colors = ButtonDefaults.textButtonColors(
+                onClick = {
+                          navController.navigate(route = Screen.Home.route)
+                }, 
+                colors = ButtonDefaults.textButtonColors(
                     backgroundColor = Iris60
                 ),
                 modifier = Modifier
@@ -191,14 +199,6 @@ fun LoginButton(){
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun LoginButtonPreview() {
-    SSteam2Theme() {
-        LoginButton()
     }
 }
 

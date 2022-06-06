@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyProfileScreen(
     user: User,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
 
     val pagerState = rememberPagerState(pageCount = 2)

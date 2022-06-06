@@ -16,10 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
+import com.example.ss_team2.presentation.navigation.LOST_GRAPH_ROUTE
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.*
 
 @Composable
-fun HomepageMainButtons(){
+fun HomepageMainButtons(
+    navController: NavController
+){
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -30,17 +36,23 @@ fun HomepageMainButtons(){
         HomepageMainButton(
             text = "遺失",
             color = if (MaterialTheme.colors.isLight) LostHint else LostHintDark,
-            onClick = {}
+            onClick = {
+                navController.navigate(LOST_GRAPH_ROUTE)
+            }
         )
         HomepageMainButton(
             text = "撿到",
             color = if (MaterialTheme.colors.isLight) FindHint else FindHintDark,
-            onClick = {}
+            onClick = {
+                navController.navigate(FIND_GRAPH_ROUTE)
+            }
         )
         HomepageMainButton(
             text = "前往地圖",
             color = if (MaterialTheme.colors.isLight) Iris else IrisDark,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.Map.route)
+            }
         )
     }
 }
