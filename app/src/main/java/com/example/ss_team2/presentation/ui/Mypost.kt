@@ -42,7 +42,7 @@ import java.lang.ProcessBuilder.Redirect.to
 @Composable
 fun MyPostApp(
     navController: NavController
-){
+) {
     Scaffold(
         bottomBar = { MyPostBottomNavigation(navController = navController) }
     ) {
@@ -75,9 +75,10 @@ fun MyPostHomeScreen(
     Column(
         modifier = Modifier
     ) {
-        Text(text = stringResource(id = R.string.MyPost),
+        Text(
+            text = stringResource(id = R.string.MyPost),
             fontWeight = FontWeight.Bold,
-            color = Color(0x66,0x70,0x80),
+            color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
                 .paddingFromBaseline(top = 16.dp)
                 .fillMaxWidth(),
@@ -85,7 +86,7 @@ fun MyPostHomeScreen(
             fontSize = 32.sp
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
+        Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         LostListLazyScreen(
             str = str,
@@ -101,20 +102,29 @@ fun MyPostHomeScreen(
 }
 
 @Composable
-fun MyPostFinalScreen(modifier: Modifier = Modifier,
-                        @StringRes str: Int,
-                        @DrawableRes userdrawable: Int,
-                        time: Int,
-                        @DrawableRes itemdrawable: Int,
-                        @StringRes description: Int,
-                        @StringRes what: Int,
-                        @StringRes where: Int,
-                        money: Int,
-                        navController: NavController
-){
-    Box(modifier = Modifier.fillMaxSize()){
-        MyPostHomeScreen(str = str, time = time, userdrawable = userdrawable,
-            itemdrawable = itemdrawable, description = description, what = what, where = where, money = money)
+fun MyPostFinalScreen(
+    modifier: Modifier = Modifier,
+    @StringRes str: Int,
+    @DrawableRes userdrawable: Int,
+    time: Int,
+    @DrawableRes itemdrawable: Int,
+    @StringRes description: Int,
+    @StringRes what: Int,
+    @StringRes where: Int,
+    money: Int,
+    navController: NavController
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        MyPostHomeScreen(
+            str = str,
+            time = time,
+            userdrawable = userdrawable,
+            itemdrawable = itemdrawable,
+            description = description,
+            what = what,
+            where = where,
+            money = money
+        )
         Icon(
             Icons.Filled.ArrowBack,
             "",
