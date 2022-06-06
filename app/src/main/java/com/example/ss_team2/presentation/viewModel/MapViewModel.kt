@@ -2,7 +2,7 @@ package com.example.ss_team2.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ss_team2.domain.model.ToolMarker
+import com.example.ss_team2.data.data_source.MapItem
 import com.example.ss_team2.domain.use_case.map.MapUseCase
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -48,11 +48,11 @@ class MapViewModel : ViewModel() {
     private val _school = MutableStateFlow(0)
     private val _properties = MutableStateFlow(MapProperties())
     private val _cameraPositionState = MutableStateFlow(CameraPositionState())
-    private val _toolMarkers = MutableStateFlow(listOf<ToolMarker>())
+    private val _toolMarkers = MutableStateFlow(listOf<MapItem>())
 
     val school: StateFlow<Int> = _school
     val properties: StateFlow<MapProperties> = _properties
-    val toolMarkers: StateFlow<List<ToolMarker>> = _toolMarkers
+    val toolMarkers: StateFlow<List<MapItem>> = _toolMarkers
     val cameraPositionState: StateFlow<CameraPositionState> = _cameraPositionState
 
     init {
@@ -85,11 +85,11 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun addMarker(image: Int, latLng: LatLng, userName: String, userSchool: String) {
+    fun addMarker(itemType: String, latLng: LatLng, userName: String, userSchool: String) {
         viewModelScope.launch {
             _toolMarkers.value = mapUseCase.addMarker(
-                ToolMarker(
-                    image = image,
+                MapItem(
+                    itemType = "",
                     latitude = latLng.latitude,
                     longitude = latLng.longitude,
                     userName = userName,

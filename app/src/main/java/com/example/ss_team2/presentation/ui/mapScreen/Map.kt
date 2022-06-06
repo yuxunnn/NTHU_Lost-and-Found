@@ -3,7 +3,7 @@ package com.example.ss_team2.presentation.ui.mapScreen
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.ss_team2.R
-import com.example.ss_team2.domain.model.ToolMarker
+import com.example.ss_team2.data.data_source.MapItem
 import com.example.ss_team2.presentation.viewModel.MapViewModel
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -15,7 +15,7 @@ fun Map(
     modifier: Modifier
 ) {
 
-    val toolMarkers: List<ToolMarker> by viewModel.toolMarkers.collectAsState()
+    val toolMarkers: List<MapItem> by viewModel.toolMarkers.collectAsState()
     val properties: MapProperties by viewModel.properties.collectAsState()
     val cameraPositionState: CameraPositionState by viewModel.cameraPositionState.collectAsState()
 
@@ -25,7 +25,12 @@ fun Map(
         cameraPositionState = cameraPositionState,
         modifier = modifier,
         onMapClick = {
-            viewModel.addMarker(it, R.drawable.poopoo)
+            viewModel.addMarker(
+                itemType = "",
+                latLng = it,
+                userName = "teste",
+                userSchool = "hello"
+            )
         }
     ) {
         toolMarkers.forEach {
@@ -34,8 +39,8 @@ fun Map(
             Marker(
                 state = MarkerState(position = position),
                 icon = icon,
-                title = "frog_0219",
-                snippet = "國立台灣大學",
+                title = it.userName,
+                snippet = it.userSchool,
             )
         }
     }
