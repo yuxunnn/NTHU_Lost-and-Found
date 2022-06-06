@@ -56,7 +56,13 @@ fun MapScreen(
         ) {
             TopBarButton(
                 imageVector = Icons.Default.ArrowBack,
-                onClick = {}
+                onClick = {
+                    navController.navigate(route = Screen.Home.route) {
+                        popUpTo(Screen.First.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
             Box(modifier = Modifier) {
                 repeat(4) {

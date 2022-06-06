@@ -18,34 +18,32 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.ui.theme.Iris60
 
 @Composable
 fun WhatYouLost(
     navController: NavController
 ){
     Column() {
-        Lastpage()
+        Lastpage(navController)
         Spacer(modifier = Modifier.height(40.dp))
         SearchBar()
         Spacer(modifier = Modifier.height(40.dp))
-        ObjectLabels(navController = navController)
+        ObjectLabels()
         Spacer(modifier = Modifier.height(160.dp))
-        WhatYouLostNextBotton(navController = navController)
+        NextButton(navController)
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun WhatYouLostPreview() {
-    SSteam2Theme { WhatYouLost(navController = rememberNavController()) }
-}
+
 
 @Composable
-fun Lastpage(){
+fun Lastpage(
+    navController: NavController
+){
     //var enabled = true  //test
     Icon(
         imageVector = Icons.Default.ArrowBackIos,
@@ -53,7 +51,9 @@ fun Lastpage(){
         modifier = Modifier
             .size(48.dp)
             .padding(start = 8.dp)
-            .clickable() {}
+            .clickable() {
+                navController.popBackStack()
+            }
     )
 }
 
@@ -90,7 +90,7 @@ fun SearchBar(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(min = 56.dp)
-                .padding(start = 8.dp, end = 8.dp)
+                .padding(start = 8.dp,end = 8.dp)
         )
     }
 }
@@ -104,15 +104,10 @@ fun SearchBarPreview() {
 @Composable
 fun ObjectLabelsElement(
     modifier: Modifier = Modifier,
-    text: String,
-    navController: NavController
+    text: String
 ){
     Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .clickable {
-
-            },
+        modifier = Modifier.padding(8.dp).clickable {  },
         shape = MaterialTheme.shapes.small,
         elevation = 3.dp    //shadow
     ){
@@ -130,14 +125,18 @@ fun ObjectLabelsElement(
     }
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun ObjectLabelsElementPreview() {
+    SSteam2Theme { ObjectLabelsElement(Modifier.padding(8.dp), "雨傘") }
+}
 
-val objectLabels1 = listOf("雨傘", "錢包", "文具", "學生證")
-val objectLabels2 = listOf("腳踏車", "襪子", "水壺", "耳機")
+
+
 
 @Composable
 fun ObjectLabels(
-    modifier: Modifier = Modifier,
-    navController: NavController
+    modifier: Modifier = Modifier
 ){
     Column() {
         LazyRow(
@@ -146,7 +145,7 @@ fun ObjectLabels(
             modifier = modifier.fillMaxWidth()
         ) {
             items(objectLabels1) { item ->
-                ObjectLabelsElement(Modifier, item, navController)
+                ObjectLabelsElement(Modifier, item)
             }
         }
         LazyRow(
@@ -155,22 +154,39 @@ fun ObjectLabels(
             modifier = modifier.fillMaxWidth()
         ) {
             items(objectLabels2) { item ->
-                ObjectLabelsElement(Modifier, item, navController = navController)
+                ObjectLabelsElement(Modifier, item)
             }
         }
     }
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun ObjectLabelsPreview() {
+    SSteam2Theme { ObjectLabels()}
+}
 
 @Composable
-fun WhatYouLostNextBotton(
+fun NextButton(
     navController: NavController
 ){
     Row(
-        Modifier
-            .fillMaxWidth(),
+        Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        ObjectLabelsElement(text = "下一步", navController = navController)
+        Button(
+            onClick = {
+                      navController.navigate(route = Screen.WhereYouLost.route)
+            },
+            colors = ButtonDefaults.textButtonColors(
+                backgroundColor = Iris60
+            ),
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
+            Text(
+                text = "下一步",
+                color = Color.White
+            )
+        }
     }
 }

@@ -18,25 +18,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
+import com.example.ss_team2.presentation.ui.utility.BottomBar
 
 
 @Composable
-fun TaskList(){
+fun TaskList(navController: NavController){
     Column {
         Title()
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
-        MoneyAndShop(money = "520")
+        MoneyAndShop(money = "520", navController = navController)
         TaskCards()
 
         //BottomNavigation
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, showSystemUi = true)
-@Composable
-fun TaskListPreview() {
-    SSteam2Theme { TaskList() }
-}
 
 @Composable
 fun Title(){
@@ -60,7 +60,8 @@ fun TitlePreview() {
 @Composable
 fun MoneyAndShop(
     modifier: Modifier = Modifier,
-    money: String
+    money: String,
+    navController: NavController
 ){
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -83,7 +84,9 @@ fun MoneyAndShop(
             contentDescription = null,
             modifier = Modifier
                 .size(60.dp)
-                .clickable() {}
+                .clickable() {
+                    navController.navigate(route = Screen.Shop.route)
+                }
         )
     }
 }
@@ -91,7 +94,7 @@ fun MoneyAndShop(
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun MoneyAndShopPreview() {
-    SSteam2Theme { MoneyAndShop(money = "520") }
+    SSteam2Theme { MoneyAndShop(money = "520", navController = rememberNavController()) }
 }
 
 var tasks = listOf(
@@ -176,6 +179,20 @@ fun TaskCards(
         }
     }
 }
+
+@Composable
+fun Quest(
+    navController: NavController
+) {
+    SSteam2Theme {
+        Scaffold(
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
+        ) {
+            TaskList(navController = navController)
+        }
+    }
+}
+
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.ss_team2.domain.model.Post
 import com.example.ss_team2.domain.model.tempUserPostData
 
@@ -14,7 +15,8 @@ import com.example.ss_team2.domain.model.tempUserPostData
 fun UserPostCardList(
     tabPage: Int,
     userPostList: List<Post>,
-    modifier: Modifier
+    modifier: Modifier,
+    navController: NavController
 ) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 10.dp, horizontal = 20.dp),
@@ -28,7 +30,8 @@ fun UserPostCardList(
                     image = item.image,
                     what = item.what,
                     where = item.where,
-                    modifier = Modifier
+                    modifier = Modifier,
+                    navController
                 )
 //                if (tabPage == 0) {
 //                    if (!item.done) {

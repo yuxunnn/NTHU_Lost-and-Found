@@ -1,4 +1,4 @@
-package com.example.ss_team2
+package com.example.ss_team2.presentation.ui
 
 
 
@@ -29,8 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ss_team2.presentation.ui.DrawableStringPair
-import com.example.ss_team2.presentation.ui.ItemCard
+import androidx.navigation.NavController
+import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -79,7 +79,8 @@ fun ConfirmationFinalScreen(modifier: Modifier = Modifier,
                             @StringRes description: Int,
                             @StringRes what: Int,
                             @StringRes where: Int, 
-                            money: Int
+                            money: Int,
+                            navController: NavController
 ){
     Box(modifier = Modifier.fillMaxSize()){
         ConfirmationHomeScreen(
@@ -93,7 +94,9 @@ fun ConfirmationFinalScreen(modifier: Modifier = Modifier,
                 .padding(16.dp)
         )
         Button(
-            onClick = {},
+            onClick = {
+                  navController.popBackStack()
+            },
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(8.dp)
@@ -158,18 +161,24 @@ private val TestData = listOf(
 ).map { DrawableStringPair(it.first, it.second) }
 
 
-
+@Composable
+fun Confirmation(
+    navController: NavController
+){
+    ConfirmationFinalScreen(
+        itemdrawable = R.drawable.ic_launcher_foreground,
+        description = R.string.description,
+        what = R.string.ball,
+        where = R.string.home,
+        money = 20,
+        navController = navController
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview7() {
     SSteam2Theme {
-        ConfirmationFinalScreen(
-            itemdrawable = R.drawable.ic_launcher_foreground,
-            description = R.string.description,
-            what = R.string.ball,
-            where = R.string.home,
-            money = 20
-        )
+
     }
 }

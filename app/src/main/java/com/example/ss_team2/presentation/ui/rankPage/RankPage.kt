@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,7 +15,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ss_team2.R
+
+import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
+import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -62,12 +67,16 @@ fun TitlePreview(){
 @Composable
 fun TopButtons(){
     Row(
-        Modifier.fillMaxWidth().padding(top = 20.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ){
         Button(
             onClick = { /*TODO*/ },
-            modifier = Modifier.height(50.dp).width(80.dp)
+            modifier = Modifier
+                .height(50.dp)
+                .width(80.dp)
         ) {
             Text(
                 text = "本週",
@@ -77,7 +86,9 @@ fun TopButtons(){
 
         Button(
             onClick = { /*TODO*/ },
-            modifier = Modifier.height(50.dp).width(80.dp)
+            modifier = Modifier
+                .height(50.dp)
+                .width(80.dp)
         ) {
             Text(
                 text = "累積",
@@ -87,7 +98,9 @@ fun TopButtons(){
 
         Button(
             onClick = { /*TODO*/ },
-            modifier = Modifier.height(50.dp).width(80.dp)
+            modifier = Modifier
+                .height(50.dp)
+                .width(80.dp)
         ) {
             Text(
                 text = "本月",
@@ -118,13 +131,17 @@ fun Podium(
 ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 30.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable.podium),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.height(200.dp).size(500.dp)
+                modifier = Modifier
+                    .height(200.dp)
+                    .size(500.dp)
             )
 
             Row(
@@ -195,7 +212,9 @@ fun TrashCan(
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth().padding(top = 50.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 50.dp)
     ) {
         Image(
             painter = painterResource(R.drawable.trashcan),
@@ -222,6 +241,19 @@ fun TrashCan(
 
         }
 
+    }
+}
+
+@Composable
+fun Rank(
+    navController: NavController
+) {
+    SSteam2Theme {
+        Scaffold(
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
+        ) {
+            RankPage()
+        }
     }
 }
 

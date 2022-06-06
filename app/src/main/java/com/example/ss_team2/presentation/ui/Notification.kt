@@ -33,7 +33,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ss_team2.presentation.ui.DrawableStringPair
+import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
+import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.Shapes
 import java.lang.ProcessBuilder.Redirect.to
@@ -232,6 +235,20 @@ fun NotificationFinalScreen(modifier: Modifier= Modifier){
         NotificationLazyScreen()
     }
 }
+
+@Composable
+fun Notification(
+    navController: NavController
+) {
+    SSteam2Theme {
+        Scaffold(
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
+        ) {
+            NotificationFinalScreen()
+        }
+    }
+}
+
 
 
 private val TestData = listOf(

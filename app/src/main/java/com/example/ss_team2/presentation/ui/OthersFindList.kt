@@ -28,7 +28,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -133,7 +136,7 @@ fun ItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(280.dp)
-            .background(Color(220,220,220)),
+            .background(Color(220, 220, 220)),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(36.dp)
     ) {
@@ -225,7 +228,9 @@ fun OthersFindListFinalScreen(modifier: Modifier = Modifier,
                         @DrawableRes itemdrawable: Int,
                         @StringRes description: Int,
                         @StringRes what: Int,
-                        @StringRes where: Int){
+                        @StringRes where: Int,
+                        navController: NavController
+){
     Box(modifier = Modifier.fillMaxSize()){
         OthersFindListHomeScreen(str = str, time = time, userdrawable = userdrawable,
         itemdrawable = itemdrawable, description = description, what = what, where = where)
@@ -234,7 +239,9 @@ fun OthersFindListFinalScreen(modifier: Modifier = Modifier,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {}
+                .clickable {
+                    navController.popBackStack()
+                }
                 .padding(16.dp)
         )
 
@@ -247,7 +254,10 @@ private val TestData = listOf(
 ).map { DrawableStringPair(it.first, it.second) }
 
 @Composable
-private fun OthersFindListBottomNavigation(modifier: Modifier = Modifier) {
+private fun OthersFindListBottomNavigation(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -289,15 +299,19 @@ private fun OthersFindListBottomNavigation(modifier: Modifier = Modifier) {
                 Text("發送訊息")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.ChatRoom.route)
+            }
         )
     }
 }
 
 @Composable
-fun OthersFindListApp(){
+fun OthersFindListApp(
+    navController: NavController
+){
     Scaffold(
-        bottomBar = { OthersFindListBottomNavigation() }
+        bottomBar = { OthersFindListBottomNavigation(navController = navController) }
     ) {
         OthersFindListFinalScreen(
             str = R.string.home,
@@ -306,7 +320,8 @@ fun OthersFindListApp(){
             itemdrawable = R.drawable.ic_launcher_foreground,
             description = R.string.description,
             what = R.string.ball,
-            where = R.string.home
+            where = R.string.home,
+            navController = navController
         )
     }
 }
@@ -315,6 +330,6 @@ fun OthersFindListApp(){
 @Composable
 fun DefaultPreview3() {
     SSteam2Theme {
-        OthersFindListApp()
+        OthersFindListApp(navController = rememberNavController())
     }
 }

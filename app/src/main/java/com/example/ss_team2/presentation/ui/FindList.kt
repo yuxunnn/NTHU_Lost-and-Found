@@ -27,7 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
@@ -101,7 +104,9 @@ fun WhatAndWhereRowElement(
             fontWeight = FontWeight.Bold
         )
         Button(
-            modifier = modifier.width(80.dp).height(40.dp),
+            modifier = modifier
+                .width(80.dp)
+                .height(40.dp),
             shape = RoundedCornerShape(15),
             colors = ButtonDefaults.outlinedButtonColors(
                 contentColor =  Color.White,
@@ -126,7 +131,9 @@ fun WhatAndWhereRowElement(
             fontWeight = FontWeight.Bold
         )
         Button(
-            modifier = modifier.width(80.dp).height(40.dp),
+            modifier = modifier
+                .width(80.dp)
+                .height(40.dp),
             shape = RoundedCornerShape(15),
             colors = ButtonDefaults.outlinedButtonColors(
                 contentColor =  Color.White,
@@ -151,14 +158,17 @@ fun PostPreviewElement(
     @StringRes what: Int,
     @StringRes where: Int,
     @StringRes ItemText: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ){
     OutlinedButton(
         modifier = Modifier
             .width(335.dp)
             .height(145.dp),
         shape = RoundedCornerShape(12),
-        onClick = {},
+        onClick = {
+                navController.navigate(route = Screen.OthersFindList.route)
+        },
         border = BorderStroke(1.dp, Color(0x66,0x70,0x80))
     ) {
         Row(
@@ -186,25 +196,30 @@ fun PostPreviewElement(
 }
 
 @Composable
-fun FindListLazyScreen(modifier: Modifier = Modifier) {
+fun FindListLazyScreen(modifier: Modifier = Modifier, navController: NavController) {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(8.dp),
         verticalArrangement = Arrangement.spacedBy((8.dp))
     ) {
         items(PostPreviewData){
-                item -> PostPreviewElement(drawable = item.drawable, what = item.text, where = item.text, ItemText = item.text)
+                item -> PostPreviewElement(drawable = item.drawable,
+            what = item.text,
+            where = item.text,
+            ItemText = item.text,
+            navController = navController
+        )
         }
     }
 }
 
 @Composable
-fun FindListHomeScreen(modifier: Modifier=Modifier){
+fun FindListHomeScreen(modifier: Modifier=Modifier, navController: NavController){
     Column(modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.Loser),
+        Text(text = stringResource(id = R.string.Finder),
             fontWeight = FontWeight.Bold,
             color = Color(0x66,0x70,0x80),
             modifier = Modifier
@@ -222,21 +237,26 @@ fun FindListHomeScreen(modifier: Modifier=Modifier){
             where = stringResource(id = R.string.home)
         )
         Spacer(modifier = Modifier.height(10.dp))
-        FindListLazyScreen()
+        FindListLazyScreen(navController = navController)
     }
 
 }
 
 @Composable
-fun FindListFinalScreen(modifier: Modifier = Modifier){
+fun FindListFinalScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+){
     Box(modifier = Modifier.fillMaxSize()){
-        FindListHomeScreen()
+        FindListHomeScreen(navController = navController)
         OutlinedButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(100.dp)
                 .padding(12.dp),
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.AddFindList.route)
+            },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
         ){
@@ -247,7 +267,9 @@ fun FindListFinalScreen(modifier: Modifier = Modifier){
                 .align(Alignment.BottomStart)
                 .size(100.dp)
                 .padding(12.dp),
-            onClick = {},
+            onClick = {
+                      navController.navigate(route = Screen.Home.route)
+            },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
         ){
@@ -273,6 +295,6 @@ data class DrawableStringPair(
 @Composable
 fun DefaultPreview() {
     SSteam2Theme {
-        FindListFinalScreen()
+        FindListFinalScreen(navController = rememberNavController())
     }
 }

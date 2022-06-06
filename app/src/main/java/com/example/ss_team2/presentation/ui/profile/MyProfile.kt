@@ -10,8 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.domain.model.User
 import com.example.ss_team2.domain.model.userFrog
+import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
@@ -25,7 +29,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyProfileScreen(
     user: User,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
 
     val pagerState = rememberPagerState(pageCount = 2)
@@ -39,7 +44,9 @@ fun MyProfileScreen(
             leftButton = {
                 TopBarButton(
                     imageVector = Icons.Default.Storefront,
-                    onClick = {}
+                    onClick = {
+                        navController.navigate(route = Screen.Shop.route)
+                    }
                 )
             },
             text = user.username,
@@ -68,11 +75,31 @@ fun MyProfileScreen(
             UserPostCardList(
                 tabPage = index,
                 userPostList = user.userPostList,
-                modifier = Modifier
+                modifier = Modifier,
+                navController = navController
             )
         }
     }
 }
+
+
+@Composable
+fun MyProfile(
+    navController: NavController
+) {
+    SSteam2Theme {
+        Scaffold(
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
+        ) {
+            MyProfileScreen(
+                user = userFrog,
+                modifier = Modifier,
+                navController = navController
+            )
+        }
+    }
+}
+
 
 @Preview(
     showBackground = true,
@@ -84,11 +111,12 @@ fun MyProfileScreen(
 fun MyProfilePreview() {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier) }
+            bottomBar = { BottomBar(modifier = Modifier, navController = rememberNavController()) }
         ) { padding ->
             MyProfileScreen(
                 user = userFrog,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding),
+                navController = rememberNavController()
             )
         }
     }

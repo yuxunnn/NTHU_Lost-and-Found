@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
+import com.example.ss_team2.presentation.navigation.LOST_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
 

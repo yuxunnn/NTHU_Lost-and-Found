@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.navigation
 const val ROOT_GRAPH_ROUTE = "root"
 const val LOST_GRAPH_ROUTE = "lost"
 const val FIND_GRAPH_ROUTE = "find"
+const val BOTTOM_GRAPH_ROUTE = "bottom"
 
 sealed class Screen (val route: String) {
     object First: Screen(route = "first_screen")
@@ -15,7 +16,6 @@ sealed class Screen (val route: String) {
     object WhereYouFind: Screen(route = "whereyoufind_screen")
     object LostList: Screen(route = "lostlist_screen")
     object FindList: Screen(route = "findlist_screen")
-    object AddPost: Screen(route = "addpost_screen")
     object OthersFindList: Screen(route = "othersfindlist_screen")
     object OthersLostList: Screen(route = "otherslostlist_screen")
     object ChatRoom: Screen(route = "chatroom_screen")
@@ -26,4 +26,9 @@ sealed class Screen (val route: String) {
     object AddLostList: Screen(route = "addlostlist_screen")
     object Confirmation: Screen(route = "confirmation_screen")
     object EditPost: Screen(route = "editpost_screen")
+    object MyPost: Screen(route = "mypost_screen")
+    object Profile: Screen(route = "profile_screen")
+    object Quest: Screen(route = "quest_screen")
+    object Rank: Screen(route = "rank_screen")
+    object Notification: Screen(route = "notification_screen")
 }

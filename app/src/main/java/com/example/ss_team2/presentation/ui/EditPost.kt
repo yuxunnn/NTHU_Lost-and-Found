@@ -20,6 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.AnonymousUserCard
 import com.example.ss_team2.presentation.ui.EditItemCard
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -80,7 +83,8 @@ fun EditPostHomeScreen(
 @Composable
 fun EditPostFinalScreen(modifier: Modifier = Modifier,
                            @DrawableRes userdrawable: Int,
-                           @StringRes username: Int
+                           @StringRes username: Int,
+                            navController: NavController
 ){
     Box(modifier = Modifier.fillMaxSize()){
         EditPostHomeScreen(
@@ -90,11 +94,19 @@ fun EditPostFinalScreen(modifier: Modifier = Modifier,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {}
+                .clickable {
+                    navController.popBackStack()
+                }
                 .padding(16.dp)
         )
         Button(
-            onClick = {},
+            onClick = {
+                navController.navigate(route = Screen.MyPost.route){
+                    popUpTo(Screen.MyPost.route){
+                        inclusive = true
+                    }
+                }
+            },
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(8.dp)
@@ -104,12 +116,25 @@ fun EditPostFinalScreen(modifier: Modifier = Modifier,
     }
 }
 
+@Composable
+fun EditPost(
+    navController: NavController
+){
+    EditPostFinalScreen(
+        userdrawable = R.drawable.ic_launcher_foreground,
+        username = R.string.Finder,
+        navController = navController
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview10() {
     SSteam2Theme {
         EditPostFinalScreen(
-            userdrawable = R.drawable.ic_launcher_foreground, username = R.string.Finder
+            userdrawable = R.drawable.ic_launcher_foreground,
+            username = R.string.Finder,
+            navController = rememberNavController()
         )
     }
 }

@@ -75,14 +75,15 @@ fun HomepageScreen(
     }
 }
 
-/*@Composable
-fun Homepage() {
+@Composable
+fun Homepage(
+    navController: NavController
+) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier) }
+            bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) { padding ->
-            HomepageScreen(modifier = Modifier.padding(padding))
+            HomepageScreen(modifier = Modifier.padding(padding), navController = navController)
         }
     }
 }
-*/

@@ -5,13 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
-import com.example.ss_team2.presentation.navigation.LOST_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.AddFindList
 import com.example.ss_team2.presentation.ui.FindListFinalScreen
-import com.example.ss_team2.presentation.ui.WhatYouFind
-import com.example.ss_team2.presentation.ui.WhereYouFind
-import com.example.ss_team2.presentation.ui.WhereYouLost
-import com.example.ss_team2.presentation.ui.whatYouLost.WhatYouLost
+import com.example.ss_team2.presentation.ui.OthersFindListApp
+import com.example.ss_team2.presentation.ui.whatYouFind.WhatYouFind
+import com.example.ss_team2.presentation.ui.whereYouFind.WhereYouFind
+
 
 fun NavGraphBuilder.findNavGraph(
     navController: NavController
@@ -33,7 +33,17 @@ fun NavGraphBuilder.findNavGraph(
         composable(
             route = Screen.FindList.route
         ){
-            FindListFinalScreen()
+            FindListFinalScreen(navController = navController)
+        }
+        composable(
+            route = Screen.AddFindList.route
+        ){
+            AddFindList(navController = navController)
+        }
+        composable(
+            route = Screen.OthersFindList.route
+        ){
+            OthersFindListApp(navController = navController)
         }
     }
 }
