@@ -104,7 +104,12 @@ fun LazyScreenWithMoney(modifier: Modifier = Modifier, navController: NavControl
 }
 
 @Composable
-fun HomeScreenWithMoney(modifier: Modifier=Modifier, navController: NavController){
+fun HomeScreenWithMoney(
+    modifier: Modifier=Modifier,
+    navController: NavController,
+    what: String,
+    where: String
+){
     Column(modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -123,8 +128,8 @@ fun HomeScreenWithMoney(modifier: Modifier=Modifier, navController: NavControlle
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
         WhatAndWhereRowElement(
-            what = stringResource(id = R.string.ball),
-            where = stringResource(id = R.string.home)
+            what = what,
+            where = where
         )
         Spacer(modifier = Modifier.height(10.dp))
         LazyScreenWithMoney(navController = navController)
@@ -133,16 +138,26 @@ fun HomeScreenWithMoney(modifier: Modifier=Modifier, navController: NavControlle
 }
 
 @Composable
-fun FinalScreenWithMoney(modifier: Modifier = Modifier, navController: NavController){
+fun FinalScreenWithMoney(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    what: String,
+    where: String
+){
     Box(modifier = Modifier.fillMaxSize()){
-        HomeScreenWithMoney(navController = navController)
+        HomeScreenWithMoney(navController = navController, what = what, where = where)
         OutlinedButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(100.dp)
                 .padding(12.dp),
             onClick = {
-                      navController.navigate(route = Screen.AddLostList.route)
+                      navController.navigate(
+                          route = Screen.AddLostList.passWhatAndWhere(
+                              what = what,
+                              where = where
+                          )
+                      )
             },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
@@ -173,10 +188,3 @@ private val PostPreviewData = listOf(
     R.drawable.umbrella to R.string.home
 ).map { DrawableStringPair(it.first, it.second) }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-    SSteam2Theme {
-        FinalScreenWithMoney(navController = rememberNavController())
-    }
-}

@@ -25,7 +25,8 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun WhereYouLost(
-    navController: NavController
+    navController: NavController,
+    what: String
 ){
     Column() {
         Lastpage(navController)
@@ -34,7 +35,7 @@ fun WhereYouLost(
         Spacer(modifier = Modifier.height(40.dp))
         LocationLabels()
         Spacer(modifier = Modifier.height(160.dp))
-        NextButton(navController = navController)
+        NextButton(navController = navController, what = what)
     }
 }
 
@@ -168,7 +169,8 @@ fun LocationLabelsPreview() {
 
 @Composable
 fun NextButton(
-    navController: NavController
+    navController: NavController,
+    what: String
 ){
     Row(
         Modifier.fillMaxWidth(),
@@ -176,7 +178,10 @@ fun NextButton(
     ) {
         Button(
             onClick = {
-                    navController.navigate(route = Screen.LostList.route)
+                    navController.navigate(route = Screen.LostList.passWhatAndWhere(
+                        what = what,
+                        where = "qq"
+                    ))
             },
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = Iris60

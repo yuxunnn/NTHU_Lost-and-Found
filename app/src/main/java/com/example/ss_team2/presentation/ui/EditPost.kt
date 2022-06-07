@@ -32,6 +32,8 @@ fun EditPostHomeScreen(
     modifier: Modifier = Modifier,
     @DrawableRes userdrawable: Int,
     @StringRes username: Int,
+    what: String,
+    where: String
 ) {
     Column(
         modifier = Modifier
@@ -49,7 +51,7 @@ fun EditPostHomeScreen(
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         AnonymousUserCard(str = username, drawable = userdrawable)
-        EditItemCard()
+        EditItemCard(what = what, where = where)
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             onValueChange = { },
@@ -84,11 +86,17 @@ fun EditPostHomeScreen(
 fun EditPostFinalScreen(modifier: Modifier = Modifier,
                            @DrawableRes userdrawable: Int,
                            @StringRes username: Int,
-                            navController: NavController
+                            navController: NavController,
+                        what: String,
+                        where: String
 ){
     Box(modifier = Modifier.fillMaxSize()){
         EditPostHomeScreen(
-            username = username, userdrawable = userdrawable)
+            username = username,
+            userdrawable = userdrawable,
+            what = what,
+            where = where
+        )
         Icon(
             Icons.Filled.Close,
             "",
@@ -118,23 +126,15 @@ fun EditPostFinalScreen(modifier: Modifier = Modifier,
 
 @Composable
 fun EditPost(
-    navController: NavController
+    navController: NavController,
+    what: String,
+    where: String
 ){
     EditPostFinalScreen(
         userdrawable = R.drawable.ic_launcher_foreground,
         username = R.string.Finder,
-        navController = navController
+        navController = navController,
+        what = what,
+        where = where
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview10() {
-    SSteam2Theme {
-        EditPostFinalScreen(
-            userdrawable = R.drawable.ic_launcher_foreground,
-            username = R.string.Finder,
-            navController = rememberNavController()
-        )
-    }
 }
