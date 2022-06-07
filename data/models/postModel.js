@@ -33,12 +33,25 @@ export default class PostModel {
 
         try {
             // Retrun Post List By Keyword
-            const query = `SELECT * FROM post WHERE postType = '${_postType}' AND itemType = '${_itemType}' AND location = '${_location}'`
-            const [row, fields] = await conn.execute(query)
+            const query = `SELECT * FROM post WHERE postType = '${_postType}' AND itemType = '${_itemType}' AND location = '${_location}' ORDER BY updatedAt DESC`
+            const [rows, fields] = await conn.execute(query)
 
-            return row
+            return rows
         } catch (err) {
             console.error(`[ERROR] PostModel.searchPost :\n ${err}`)
+        }
+    }
+
+    static async selectUserPosts(conn, author) {
+        const _author = author
+
+        try {
+            const query = `SELECT * FROM post WHERE author = '${_author}' ORDER BY createdAt DESC`
+            const [rows, fields] = await conn.execute(query)
+
+            return rows
+        } catch (err) {
+            console.error(`[ERROR] PostModel.selectUserPosts :\n ${err}`)
         }
     }
 
@@ -47,6 +60,7 @@ export default class PostModel {
         const _postType = args.postType
         const _itemType = args.itemType
         const _location = args.location
+        const _itemImage = args.itemImage
         const _postDescribe = args.postDescribe
         const _hasDone = args.hasDone ? 'Y' : 'N'
         const _rewardCoin = args.rewardCoin
@@ -54,7 +68,7 @@ export default class PostModel {
 
         try {
             // Create Post
-            const query = `INSERT INTO post (author, postType, itemType, location, postDescribe, hasDone, rewardCoin, anonymous) VALUES ('${_author}', '${_postType}', '${_itemType}', '${_location}', '${_postDescribe}', '${_hasDone}', '${_rewardCoin}', '${_anonymous}')`
+            const query = `INSERT INTO post (author, postType, itemType, location, itemImage, postDescribe, hasDone, rewardCoin, anonymous) VALUES ('${_author}', '${_postType}', '${_itemType}', '${_location}', '${_itemImage}', '${_postDescribe}', '${_hasDone}', '${_rewardCoin}', '${_anonymous}')`
             const [rows, fields] = await conn.execute(query)
 
             return rows.insertId
@@ -76,19 +90,21 @@ export default class PostModel {
 
         let _itemType = originPost.itemType
         let _location = originPost.location
+        let _itemImage = originPost.itemImage
         let _postDescribe = originPost.postDescribe
         let _rewardCoin = originPost.rewardCoin
         let _anonymous = originPost.anonymous
 
         if ('itemType' in modifyPost) _itemType = modifyPost.itemType
         if ('location' in modifyPost) _location = modifyPost.location
+        if ('itemImage' in modifyPost) _itemImage = modifyPost.itemImage
         if ('postDescribe' in modifyPost) _postDescribe = modifyPost.postDescribe
         if ('rewardCoin' in modifyPost) _rewardCoin = modifyPost.rewardCoin
         if ('anonymous' in modifyPost) _anonymous = modifyPost.anonymous
 
         try {
-            const query = `UPDATE post SET itemType = '${_itemType}', location = '${_location}', postDescribe = '${_postDescribe}', rewardCoin = '${_rewardCoin}', anonymous = '${_anonymous}' WHERE postId = '${_postId}'`
-            const [row, fields] = await conn.execute(query)
+            const query = `UPDATE post SET itemType = '${_itemType}', location = '${_location}', itemImage = '${_itemImage}', postDescribe = '${_postDescribe}', rewardCoin = '${_rewardCoin}', anonymous = '${_anonymous}' WHERE postId = '${_postId}'`
+            const [rows, fields] = await conn.execute(query)
 
             return _postId
         } catch (err) {

@@ -29,11 +29,12 @@ query UserByName($userName: String!) {
 query UserItem($userName: String!) {
     userItem(userName: $userName) {
         userName
-        waterGun
-        board
-        eraser
+        orangeFlag
+        purpleFlag
+        yellowFlag
+        blueFlag
         shit
-        flag
+        vaccine
     }
 }
 
@@ -78,22 +79,24 @@ mutation UpdateCoin($userName: String!, $changeCoin: Int!) {
 mutation CreateUserItem($userName: String!) {
     createUserItem(userName: $userName) {
         userName
-        waterGun
-        board
-        eraser
+        orangeFlag
+        purpleFlag
+        yellowFlag
+        blueFlag
         shit
-        flag
+        vaccine
     }
 }
 
 mutation UpdateUserItem($userName: String!, $itemType: String!, $changeNum: Int!) {
     updateUserItem(userName: $userName, itemType: $itemType, changeNum: $changeNum) {
         userName
-        waterGun
-        board
-        eraser
+        orangeFlag
+        purpleFlag
+        yellowFlag
+        blueFlag
         shit
-        flag
+        vaccine
     }
 }
 

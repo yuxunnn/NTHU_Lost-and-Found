@@ -1,0 +1,6 @@
+# Types
+
+type Helper{
+    postId: String!
+    helperName: String!
+}

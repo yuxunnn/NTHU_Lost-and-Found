@@ -64,11 +64,12 @@ class UserRepository {
 
         return UserItem(
             userItem!!.userName,
-            userItem.waterGun,
-            userItem.board,
-            userItem.eraser,
+            userItem.orangeFlag,
+            userItem.purpleFlag,
+            userItem.yellowFlag,
+            userItem.blueFlag,
             userItem.shit,
-            userItem.flag
+            userItem.vaccine
         )
     }
 
@@ -149,12 +150,13 @@ class UserRepository {
         val userItem = response.data!!.createUserItem
 
         return UserItem(
-            userItem.userName,
-            userItem.waterGun,
-            userItem.board,
-            userItem.eraser,
+            userItem!!.userName,
+            userItem.orangeFlag,
+            userItem.purpleFlag,
+            userItem.yellowFlag,
+            userItem.blueFlag,
             userItem.shit,
-            userItem.flag
+            userItem.vaccine
         )
     }
 
@@ -165,12 +167,13 @@ class UserRepository {
         val userItem = response.data!!.updateUserItem
 
         return UserItem(
-            userItem.userName,
-            userItem.waterGun,
-            userItem.board,
-            userItem.eraser,
+            userItem!!.userName,
+            userItem.orangeFlag,
+            userItem.purpleFlag,
+            userItem.yellowFlag,
+            userItem.blueFlag,
             userItem.shit,
-            userItem.flag
+            userItem.vaccine
         )
     }
 

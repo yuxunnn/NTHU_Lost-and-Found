@@ -1,0 +1,10 @@
+query PostHelpers($postId: String!) {
+    postHelpers(postId: $postId) {
+        postId
+        helperName
+    }
+}
+
+mutation CreatePostHelper($postId: String!, $helperName: String!) {
+    createPostHelper(postId: $postId, helperName: $helperName)
+}

@@ -16,7 +16,7 @@ class ShopItemRepository {
         println("MySQL Response = ${response.data?.shopItems}")
 
         val data = response.data?.shopItems
-        var shopItemsList: MutableList<ShopItem> = arrayListOf()
+        val shopItemsList: MutableList<ShopItem> = arrayListOf()
 
         data?.forEach { shopItem ->
             shopItemsList.add(ShopItem(shopItem!!.itemType, shopItem!!.itemPrice))
@@ -24,7 +24,7 @@ class ShopItemRepository {
         return shopItemsList
     }
 
-    suspend fun getShopItemByType(itemType: String): ShopItem{
+    suspend fun getShopItemByType(itemType: Int): ShopItem{
         val response = apolloClient.query(ShopItemQuery(itemType)).execute()
         println("MySQL Response = ${response.data?.shopItem}")
 

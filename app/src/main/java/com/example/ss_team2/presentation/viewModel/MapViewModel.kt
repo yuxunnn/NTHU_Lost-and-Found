@@ -85,11 +85,11 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun addMarker(itemType: String, latLng: LatLng, userName: String, userSchool: String) {
+    fun addMarker(itemType: Int, latLng: LatLng, userName: String, userSchool: String) {
         viewModelScope.launch {
             _toolMarkers.value = mapUseCase.addMarker(
                 MapItem(
-                    itemType = "",
+                    itemType = itemType,
                     latitude = latLng.latitude,
                     longitude = latLng.longitude,
                     userName = userName,

@@ -17,8 +17,7 @@ class PostUseCase {
         return postRepository.searchPost(postType, ItemType, Location)
     }
 
-    //應該不用return東西吧?
-    suspend fun createPost(postCreateInput: PostCreateInput): Post{
+    suspend fun createPost(postCreateInput: PostCreateInput): MutableList<Post>{
         return postRepository.createPost(postCreateInput)
     }
 

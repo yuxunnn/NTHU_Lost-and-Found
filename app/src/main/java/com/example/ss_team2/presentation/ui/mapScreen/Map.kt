@@ -26,7 +26,7 @@ fun Map(
         modifier = modifier,
         onMapClick = {
             viewModel.addMarker(
-                itemType = "",
+                itemType = R.drawable.poop_60,
                 latLng = it,
                 userName = "teste",
                 userSchool = "hello"
