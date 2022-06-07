@@ -35,124 +35,6 @@ import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
-@Composable
-fun WhatAndWhereColElement(
-    what: String,
-    where: String,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "What",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 10.sp,
-            color = Color(66, 70, 80),
-            fontWeight = FontWeight.Bold
-        )
-        Surface(
-            modifier = modifier.paddingFromBaseline(top = 0.dp, bottom = 20.dp),
-            shape = MaterialTheme.shapes.small,
-            color = Color(66, 70, 80)
-        ) {
-            Text(
-                text = what,
-                modifier = Modifier.padding(6.dp),
-                color = Color.White,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Text(
-            text = "Where",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 10.sp,
-            color = Color(66, 70, 80),
-            fontWeight = FontWeight.Bold
-        )
-        Surface(
-            modifier = modifier,
-            shape = MaterialTheme.shapes.small,
-            color = Color(66, 70, 80)
-        ) {
-            Text(
-                text = where,
-                modifier = Modifier.padding(6.dp),
-                color = Color.White,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
-@Composable
-fun WhatAndWhereRowElement(
-    what: String,
-    where: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = "What",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 16.sp,
-            color = Color(0x66, 0x70, 0x80),
-            fontWeight = FontWeight.Bold
-        )
-        Button(
-            modifier = modifier
-                .width(80.dp)
-                .height(40.dp),
-            shape = RoundedCornerShape(15),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color.White,
-                backgroundColor = Color(0x66, 0x70, 0x80)
-            ),
-            onClick = {}
-        ) {
-            Text(
-                text = what,
-                modifier = Modifier,
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Spacer(modifier = Modifier.width(60.dp))
-        Text(
-            text = "Where",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 16.sp,
-            color = Color(0x66, 0x70, 0x80),
-            fontWeight = FontWeight.Bold
-        )
-        Button(
-            modifier = modifier
-                .width(80.dp)
-                .height(40.dp),
-            shape = RoundedCornerShape(15),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color.White,
-                backgroundColor = Color(0x66, 0x70, 0x80)
-            ),
-            onClick = {}
-        ) {
-            Text(
-                text = where,
-                modifier = Modifier,
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
 
 @Composable
 fun PostPreviewElement(
@@ -277,7 +159,6 @@ fun FindListFinalScreen(
             postViewModel = postViewModel,
             navController = navController
         )
-
         PostListButton(
             icon = Icons.Default.Add,
             onClick = { navController.navigate(route = Screen.AddFindList.route) },

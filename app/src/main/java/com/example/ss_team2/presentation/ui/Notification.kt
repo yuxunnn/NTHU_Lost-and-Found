@@ -45,7 +45,7 @@ fun SearchBar(
             )
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color(238,241,244)
+            backgroundColor = Color(238, 241, 244)
         ),
         modifier = modifier
             .fillMaxWidth()
@@ -56,12 +56,12 @@ fun SearchBar(
 
 @Composable
 fun ReadElement(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     @StringRes str: Int,
     @DrawableRes itemdrawable: Int,
     @DrawableRes userdrawable: Int,
     time: Int
-){
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,12 +106,12 @@ fun ReadElement(
 
 @Composable
 fun NotReadElement(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     @StringRes str: Int,
     @DrawableRes itemdrawable: Int,
     @DrawableRes userdrawable: Int,
     time: Int
-){
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -157,61 +157,66 @@ fun NotReadElement(
 
 @Composable
 fun NotificationLazyScreen(
-    modifier: Modifier=Modifier
-){
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         modifier = Modifier
     ) {
-        item{ Text(text = stringResource(id = R.string.NotRead),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66,0x70,0x80),
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .padding(4.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Start,
-            fontSize = 16.sp
-        )
+        item {
+            Text(
+                text = stringResource(id = R.string.NotRead),
+                fontWeight = FontWeight.Bold,
+                color = Color(0x66, 0x70, 0x80),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .padding(4.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Start,
+                fontSize = 16.sp
+            )
         }
-        items(TestData){
-                item -> NotReadElement(
-            str = item.text,
-            itemdrawable = item.drawable,
-            userdrawable = item.drawable,
-            time = 20
-        )
+//        items(TestData) { item ->
+////            NotReadElement(
+////                str = item.text,
+////                itemdrawable = item.drawable,
+////                userdrawable = item.drawable,
+////                time = 20
+////            )
+//        }
+        item {
+            Text(
+                text = stringResource(id = R.string.Read),
+                fontWeight = FontWeight.Bold,
+                color = Color(0x66, 0x70, 0x80),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .padding(4.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Start,
+                fontSize = 16.sp
+            )
         }
-        item{ Text(text = stringResource(id = R.string.Read),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66,0x70,0x80),
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .padding(4.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Start,
-            fontSize = 16.sp
-        )
-        }
-        items(TestData){
-                item -> ReadElement(
-            str = item.text,
-            itemdrawable = item.drawable,
-            userdrawable = item.drawable,
-            time = 20
-        )
-        }
+//        items(TestData) { item ->
+////            ReadElement(
+////                str = item.text,
+////                itemdrawable = item.drawable,
+////                userdrawable = item.drawable,
+////                time = 20
+////            )
+//        }
     }
 }
 
 @Composable
-fun NotificationFinalScreen(modifier: Modifier= Modifier){
+fun NotificationFinalScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Text(text = stringResource(id = R.string.Notification),
+        Text(
+            text = stringResource(id = R.string.Notification),
             fontWeight = FontWeight.Bold,
-            color = Color(0x66,0x70,0x80),
+            color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
                 .paddingFromBaseline(top = 16.dp)
                 .padding(8.dp)
@@ -220,9 +225,9 @@ fun NotificationFinalScreen(modifier: Modifier= Modifier){
             fontSize = 32.sp
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
+        Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
         SearchBar()
-        NotificationLazyScreen()
+//        NotificationLazyScreen()
     }
 }
 
@@ -234,22 +239,15 @@ fun Notification(
         Scaffold(
             bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
-            NotificationFinalScreen()
+//            NotificationFinalScreen()
         }
     }
 }
-
-
-
-private val TestData = listOf(
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-).map { DrawableStringPair(it.first, it.second) }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview5() {
     SSteam2Theme {
-        NotificationFinalScreen()
+//        NotificationFinalScreen()
     }
 }

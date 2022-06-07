@@ -1,14 +1,11 @@
 package com.example.ss_team2.presentation.ui
 
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
@@ -37,43 +34,6 @@ import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
-
-@Composable
-fun UserCard(
-    modifier: Modifier = Modifier,
-    @StringRes str: Int,
-    @DrawableRes drawable: Int,
-    time: Int
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        Image(
-            painter = painterResource(drawable),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(60.dp)
-                .padding(8.dp)
-                .clip(CircleShape)
-        )
-        Column(modifier = Modifier) {
-            Text(
-                text = stringResource(id = str),
-                fontSize = 12.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = ("$time 分鐘前"),
-                color = Color.Gray,
-                fontSize = 8.sp
-            )
-        }
-    }
-}
 
 @Composable
 fun WhatAndWhereColElement2(

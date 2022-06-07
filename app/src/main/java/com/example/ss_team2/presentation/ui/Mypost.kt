@@ -1,7 +1,5 @@
 package com.example.ss_team2
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -18,45 +16,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.LostListLazyScreen
+import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 
 @Composable
-fun MyPostApp(
-    navController: NavController
-) {
-    Scaffold(
-        bottomBar = { MyPostBottomNavigation(navController = navController) }
-    ) {
-        MyPostFinalScreen(
-            str = R.string.home,
-            userdrawable = R.drawable.ic_launcher_background,
-            time = 20,
-            itemdrawable = R.drawable.ic_launcher_foreground,
-            description = R.string.description,
-            what = R.string.ball,
-            where = R.string.home,
-            money = 20,
-            navController = navController
-        )
-    }
-}
-
-@Composable
 fun MyPostHomeScreen(
-    modifier: Modifier = Modifier,
-    @StringRes str: Int,
-    @DrawableRes userdrawable: Int,
-    time: Int,
-    @DrawableRes itemdrawable: Int,
-    @StringRes description: Int,
-    @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
+    modifier: Modifier = Modifier
+
 ) {
     Column(
         modifier = Modifier
@@ -75,41 +50,23 @@ fun MyPostHomeScreen(
         Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         LostListLazyScreen(
-            str = str,
-            userdrawable = userdrawable,
-            time = time,
-            itemdrawable = itemdrawable,
-            description = description,
-            what = what,
-            where = where,
-            money = money
+            userViewModel = userViewModel,
+            postViewModel = postViewModel,
         )
     }
 }
 
 @Composable
 fun MyPostFinalScreen(
+    userViewModel: UserViewModel = viewModel(),
+    postViewModel: PostViewModel = viewModel(),
     modifier: Modifier = Modifier,
-    @StringRes str: Int,
-    @DrawableRes userdrawable: Int,
-    time: Int,
-    @DrawableRes itemdrawable: Int,
-    @StringRes description: Int,
-    @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int,
     navController: NavController
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         MyPostHomeScreen(
-            str = str,
-            time = time,
-            userdrawable = userdrawable,
-            itemdrawable = itemdrawable,
-            description = description,
-            what = what,
-            where = where,
-            money = money
+            userViewModel = userViewModel,
+            postViewModel = postViewModel
         )
         Icon(
             Icons.Filled.ArrowBack,
@@ -121,7 +78,19 @@ fun MyPostFinalScreen(
                 }
                 .padding(16.dp)
         )
+    }
+}
 
+@Composable
+fun MyPostApp(
+    navController: NavController
+) {
+    Scaffold(
+        bottomBar = { MyPostBottomNavigation(navController = navController) }
+    ) {
+        MyPostFinalScreen(
+            navController = navController
+        )
     }
 }
 
