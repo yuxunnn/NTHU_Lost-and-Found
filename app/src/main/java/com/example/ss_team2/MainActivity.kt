@@ -20,12 +20,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val postRepository = PostRepository()
-        var postList: MutableList<Post>
-        val postCreateInput = PostCreateInput("Ryanke", "find", "學生證", "新齋",Optional.Absent, Optional.Present("新齋回收區"), false, 300, true )
+        val userRepository = UserRepository()
+        var user: User?
         lifecycleScope.launchWhenCreated {
-            postList = postRepository.createPost(postCreateInput)
-            Log.d("GraphQL", "Android: $postList")
+            user = userRepository.userLogin("0978500627", "123456")
+            Log.d("GraphQL", "Android: $user")
         }
         setContent {
             SSteam2Theme {

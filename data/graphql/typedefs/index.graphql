@@ -10,6 +10,7 @@ type Query {
   usersBySchool(userSchool: String!): [User]
   userById(userId: ID!): User
   userByName(userName: String!): User
+  userLogin(loginInput: String!, password: String!): User
 
   # Post
   posts: [Post]

@@ -20,7 +20,7 @@ class UserRepository {
 
 //        if(response.data == null) return null
 
-        val user = response.data!!.userById
+        val user = response.data?.userById
 
         return User(
             user!!.userId,
@@ -70,6 +70,27 @@ class UserRepository {
             userItem.blueFlag,
             userItem.shit,
             userItem.vaccine
+        )
+    }
+
+    suspend fun userLogin(loginInput: String, password: String): User?{
+        val response = apolloClient.query(UserLoginQuery(loginInput, password)).execute()
+        println("MySQL Response = ${response.data?.userLogin}")
+
+        val user = response.data?.userLogin
+        if(user == null) return null
+
+        return User(
+                user.userId,
+                user.userName,
+                user.userSchool,
+                user.userPhoneNumber,
+                user.userEmail,
+                user.userPassword,
+                user.userCoin,
+                user.userHead,
+                user.createdAt,
+                user.updatedAt
         )
     }
 

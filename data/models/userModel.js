@@ -53,6 +53,22 @@ export default class UserModel {
     }
   }
 
+  static async userLogin(conn, loginInput, password) {
+    const _loginInput = loginInput
+    const _password = password
+
+    try {
+      const query = `SELECT * FROM user WHERE userEmail = '${_loginInput}' OR userPhoneNumber = '${_loginInput}'`
+      const [rows, fields] = await conn.execute(query)
+      console.log(rows[0])
+
+      if (_password == rows[0].userPassword) return rows[0]
+      else return null
+    } catch (err) {
+      console.error(`[ERROR] userModel.userLogin :\n ${err}`)
+    }
+  }
+
   static async createUser(conn, args) {
     const _userName = args.userName
     const _userSchool = args.userSchool

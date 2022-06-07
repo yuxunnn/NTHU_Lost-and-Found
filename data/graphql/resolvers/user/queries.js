@@ -21,6 +21,11 @@ const userQueries = {
     const users = await UserModel.selectUsersBySchool(connectPool, args.userSchool)
 
     return users
+  },
+  userLogin: async (_, args) => {
+    const user = await UserModel.userLogin(connectPool, args.loginInput, args.password)
+
+    return user
   }
 }
 

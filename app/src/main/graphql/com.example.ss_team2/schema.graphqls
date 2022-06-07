@@ -24,6 +24,7 @@ type Query {
     usersBySchool(userSchool: String!): [User]
     userById(userId: ID!): User
     userByName(userName: String!): User
+    userLogin(loginInput: String!, password: String!): User
     posts: [Post]
     postById(postId: ID!): Post
     postSearch(postType: String!, itemType: String!, location: String!): [Post]

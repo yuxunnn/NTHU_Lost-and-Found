@@ -38,6 +38,21 @@ query UserItem($userName: String!) {
     }
 }
 
+query UserLogin($loginInput: String!, $password: String!) {
+    userLogin(loginInput: $loginInput, password: $password) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userPassword
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}
+
 query Quest($userName: String!) {
     quest(userName: $userName) {
         userName

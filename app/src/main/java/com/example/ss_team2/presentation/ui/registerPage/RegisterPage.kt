@@ -76,7 +76,7 @@ fun RegisterPage (
                         backgroundColor = MaterialTheme.colors.surface
                     ),
                     placeholder = {
-                        Text("陳xx")
+                        Text("僅限小寫字母及數字")
                     },
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier

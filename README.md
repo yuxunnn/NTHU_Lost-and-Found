@@ -21,19 +21,16 @@
 
 地圖道具(MapItem): 道具種類(Int), latitude(Double), longitude(Double), userName(String), userSchool(String)
 
-聊天：發送者(String), 接受者(String), 訊息(String), 時間(Time)
+聊天(Chat)：發送者(String), 接受者(String), 訊息(String), 時間(Time)
 
 幫助者(Helper): postId(Int), helperName(String)
+
+通知(Noti): receiver(String)
 
 # 修改類
 
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
-password比對
 notification
-
 createChat回傳改掉
-
-userItem回傳全部數值
-學校改中文
