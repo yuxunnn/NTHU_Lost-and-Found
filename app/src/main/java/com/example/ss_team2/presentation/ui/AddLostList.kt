@@ -34,6 +34,8 @@ fun AddLostListHomeScreen(
     modifier: Modifier = Modifier,
     @DrawableRes userdrawable: Int,
     @StringRes username: Int,
+    what: String,
+    where: String
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +53,7 @@ fun AddLostListHomeScreen(
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         AnonymousUserCard(str = username, drawable = userdrawable)
-        EditItemCard()
+        EditItemCard(what = what, where = where)
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             onValueChange = { },
@@ -87,11 +89,15 @@ fun AddLostListHomeScreen(
 fun AddLostListFinalScreen(modifier: Modifier = Modifier,
                            @DrawableRes userdrawable: Int,
                            @StringRes username: Int,
-                           navController: NavController
+                           navController: NavController,
+                           what: String,
+                           where: String
 ){
     Box(modifier = Modifier.fillMaxSize()){
         AddLostListHomeScreen(
-            username = username, userdrawable = userdrawable)
+            username = username, userdrawable = userdrawable, what = what,
+            where = where
+        )
         Icon(
             Icons.Filled.Close,
             "",
@@ -121,21 +127,15 @@ fun AddLostListFinalScreen(modifier: Modifier = Modifier,
 
 @Composable
 fun AddLostList(
-    navController: NavController
+    navController: NavController,
+    what: String,
+    where: String
 ){
     AddLostListFinalScreen(userdrawable = R.drawable.ic_launcher_foreground,
         username = R.string.Finder,
-    navController = navController
+    navController = navController,
+        what = what,
+        where = where
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview9() {
-    SSteam2Theme {
-        AddLostListFinalScreen(
-            userdrawable = R.drawable.ic_launcher_foreground,
-            username = R.string.Finder,
-        navController = rememberNavController())
-    }
-}

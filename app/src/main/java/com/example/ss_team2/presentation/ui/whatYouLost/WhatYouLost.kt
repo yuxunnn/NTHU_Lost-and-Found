@@ -176,7 +176,9 @@ fun NextButton(
     ) {
         Button(
             onClick = {
-                      navController.navigate(route = Screen.WhereYouLost.route)
+                      navController.navigate(
+                          route = Screen.WhereYouLost.passWhat("SHIT")
+                      )
             },
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = Iris60

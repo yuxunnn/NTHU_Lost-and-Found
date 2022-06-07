@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.navigation.Screen.FindList.passWhatAndWhere
 import com.example.ss_team2.presentation.ui.whatYouLost.locationLabels1
 import com.example.ss_team2.presentation.ui.whatYouLost.locationLabels2
 import com.example.ss_team2.ui.theme.Iris60
@@ -25,7 +26,8 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun WhereYouFind(
-    navController: NavController
+    navController: NavController,
+    what: String
 ){
     Column() {
         Lastpage(navController)
@@ -34,7 +36,7 @@ fun WhereYouFind(
         Spacer(modifier = Modifier.height(40.dp))
         LocationLabels()
         Spacer(modifier = Modifier.height(160.dp))
-        NextButton(navController)
+        NextButton(navController, what)
     }
 }
 
@@ -167,7 +169,8 @@ fun LocationLabelsPreview() {
 
 @Composable
 fun NextButton(
-    navController: NavController
+    navController: NavController,
+    what: String
 ){
     Row(
         Modifier.fillMaxWidth(),
@@ -175,7 +178,10 @@ fun NextButton(
     ) {
         Button(
             onClick = {
-                      navController.navigate(route = Screen.FindList.route)
+                      navController.navigate(route = Screen.FindList.passWhatAndWhere(
+                          what = what,
+                          where = "chosen"
+                      ))
             },
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = Iris60
