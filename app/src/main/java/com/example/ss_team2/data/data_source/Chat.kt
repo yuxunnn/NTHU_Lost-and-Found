@@ -8,3 +8,11 @@ data class Chat(
     val createdAt: Any,
     val updatedAt: Any
 )
+
+val emptyChat = Chat(
+    send = "",
+    receive = "",
+    message = "",
+    createdAt = 0,
+    updatedAt = 0
+)
