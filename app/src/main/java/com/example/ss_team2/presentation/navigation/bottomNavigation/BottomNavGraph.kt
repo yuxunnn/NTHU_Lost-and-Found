@@ -4,7 +4,7 @@
 //import androidx.navigation.NavHostController
 //import androidx.navigation.compose.NavHost
 //import androidx.navigation.compose.composable
-//import com.example.ss_team2.NotificationFinalScreen
+//import com.example.ss_team2.presentation.ui.NotificationFinalScreen
 //import com.example.ss_team2.domain.model.userFrog
 //import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 //import com.example.ss_team2.presentation.ui.profile.MyProfileScreen

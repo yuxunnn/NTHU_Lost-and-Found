@@ -1,14 +1,12 @@
 package com.example.ss_team2.presentation.navigation.navGraph
 
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ss_team2.EditPost
 import com.example.ss_team2.MyPostApp
-import com.example.ss_team2.Notification
+import com.example.ss_team2.presentation.ui.Notification
 import com.example.ss_team2.presentation.navigation.ROOT_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.Confirmation
@@ -16,7 +14,6 @@ import com.example.ss_team2.presentation.ui.chatList.ChatList
 import com.example.ss_team2.presentation.ui.chatRoom.Dialog
 import com.example.ss_team2.presentation.ui.firstpage.FirstPage
 import com.example.ss_team2.presentation.ui.homepage.Homepage
-import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 import com.example.ss_team2.presentation.ui.mapScreen.MapScreen
 import com.example.ss_team2.presentation.ui.profile.MyProfile
 import com.example.ss_team2.presentation.ui.rankPage.Rank
@@ -24,7 +21,6 @@ import com.example.ss_team2.presentation.ui.registerPage.RegisterPage
 import com.example.ss_team2.presentation.ui.shop.Shop
 import com.example.ss_team2.presentation.ui.taskList.Quest
 import com.example.ss_team2.presentation.ui.welcome.Welcome
-import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun SetupNavGraph(

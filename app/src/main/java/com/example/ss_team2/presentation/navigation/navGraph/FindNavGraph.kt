@@ -7,7 +7,7 @@ import androidx.navigation.navigation
 import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.AddFindList
-import com.example.ss_team2.presentation.ui.FindListFinalScreen
+import com.example.ss_team2.presentation.ui.postList.FindListFinalScreen
 import com.example.ss_team2.presentation.ui.OthersFindListApp
 import com.example.ss_team2.presentation.ui.whatYouFind.WhatYouFind
 import com.example.ss_team2.presentation.ui.whereYouFind.WhereYouFind

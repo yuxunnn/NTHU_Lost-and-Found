@@ -1,4 +1,4 @@
-package com.example.ss_team2
+package com.example.ss_team2.presentation.ui
 
 
 import androidx.annotation.DrawableRes
@@ -14,6 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,24 +28,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.presentation.ui.DrawableStringPair
-import com.example.ss_team2.presentation.ui.ItemCard
-import com.example.ss_team2.presentation.ui.UserCard
+import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 
 @Composable
 fun UserCardWithMoney(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     @StringRes str: Int,
     @DrawableRes drawable: Int,
     time: Int,
     money: Int
-){
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -83,45 +85,41 @@ fun UserCardWithMoney(
 @Composable
 fun LostListLazyScreen(
     modifier: Modifier = Modifier,
-    @StringRes str: Int,
-    @DrawableRes userdrawable: Int,
-    time: Int,
-    @DrawableRes itemdrawable: Int,
-    @StringRes description: Int,
-    @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int
-){
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel
+) {
+
+    val post by postViewModel.post.collectAsState()
+
     LazyColumn(
         modifier = Modifier
     ) {
-        item{ UserCardWithMoney(str = str, drawable = userdrawable, time = time, money = money) }
-        item{ ItemCard(drawable = itemdrawable, description = description, what = what, where = where) }
-        item{ Spacer(modifier = Modifier.height(10.dp))}
-        items(TestData){
-                item -> UserCard(str = item.text, drawable = item.drawable, time = 20)
+//        item { UserCardWithMoney(str = str, drawable = userdrawable, time = time, money = money) }
+        item {
+            ItemCard(
+                postViewModel = postViewModel
+            )
         }
+        item { Spacer(modifier = Modifier.height(10.dp)) }
+//        items(TestData) { item ->
+//            UserCard(str = item.text, drawable = item.drawable, time = 20)
+//        }
     }
 }
 
 @Composable
 fun LostListHomeScreen(
     modifier: Modifier = Modifier,
-    @StringRes str: Int,
-    @DrawableRes userdrawable: Int,
-    time: Int,
-    @DrawableRes itemdrawable: Int,
-    @StringRes description: Int,
-    @StringRes what: Int,
-    @StringRes where: Int,
-    money: Int
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel
 ) {
     Column(
         modifier = Modifier
     ) {
-        Text(text = stringResource(id = R.string.LostList),
+        Text(
+            text = stringResource(id = R.string.LostList),
             fontWeight = FontWeight.Bold,
-            color = Color(0x66,0x70,0x80),
+            color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
                 .paddingFromBaseline(top = 16.dp)
                 .fillMaxWidth(),
@@ -129,58 +127,38 @@ fun LostListHomeScreen(
             fontSize = 32.sp
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
+        Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         LostListLazyScreen(
-            str = str,
-            userdrawable = userdrawable,
-            time = time,
-            itemdrawable = itemdrawable,
-            description = description,
-            what = what,
-            where = where,
-            money = money
+            userViewModel = userViewModel,
+            postViewModel = postViewModel
         )
     }
 }
 
 @Composable
-fun LostListFinalScreen(modifier: Modifier = Modifier,
-                        @StringRes str: Int,
-                        @DrawableRes userdrawable: Int,
-                        time: Int,
-                        @DrawableRes itemdrawable: Int,
-                        @StringRes description: Int,
-                        @StringRes what: Int,
-                        @StringRes where: Int,
-                        money: Int,
-                        navController: NavController
-){
-    Box(modifier = Modifier.fillMaxSize()){
-        LostListHomeScreen(str = str, time = time, userdrawable = userdrawable,
-            itemdrawable = itemdrawable, description = description, what = what, where = where, money = money)
+fun LostListFinalScreen(
+    modifier: Modifier = Modifier,
+    userViewModel: UserViewModel = viewModel(),
+    postViewModel: PostViewModel = viewModel(),
+    navController: NavController
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        LostListHomeScreen(
+            userViewModel = userViewModel,
+            postViewModel = postViewModel
+        )
         Icon(
             Icons.Filled.ArrowBack,
             "",
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .clickable {
-                    navController.popBackStack()
-                }
+                .clickable { navController.popBackStack() }
                 .padding(16.dp)
         )
 
     }
 }
-
-private val TestData = listOf(
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball,
-    R.drawable.ic_launcher_background to R.string.ball
-).map { DrawableStringPair(it.first, it.second) }
 
 @Composable
 private fun OthersLostListBottomNavigation(
@@ -236,19 +214,13 @@ private fun OthersLostListBottomNavigation(
 }
 
 @Composable
-fun OthersLostListApp(navController: NavController){
+fun OthersLostListApp(
+    navController: NavController
+) {
     Scaffold(
         bottomBar = { OthersLostListBottomNavigation(navController = navController) }
     ) {
         LostListFinalScreen(
-            str = R.string.home,
-            userdrawable = R.drawable.ic_launcher_background,
-            time = 20,
-            itemdrawable = R.drawable.ic_launcher_foreground,
-            description = R.string.description,
-            what = R.string.ball,
-            where = R.string.home,
-            money = 20,
             navController = navController
         )
     }
