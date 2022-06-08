@@ -1,7 +1,9 @@
-package com.example.ss_team2.presentation.ui
+package com.example.ss_team2.presentation.ui.othersPost
+
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
@@ -21,28 +23,47 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.presentation.ui.othersPost.LostListLazyScreen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
-
 @Composable
-fun MyPostHomeScreen(
+fun OthersFindListLazyScreen(
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = Modifier
+    ) {
+//        item { UserCard(str = str, drawable = userdrawable, time = time) }
+        item {
+            PostItemCard(
+                postViewModel = postViewModel
+            )
+        }
+        item { Spacer(modifier = Modifier.height(10.dp)) }
+//        items(emptyList()) { item ->
+//            UserCard(str = item.text, drawable = item.drawable, time = 20)
+//        }
+    }
+}
 
+@Composable
+fun OthersFindListHomeScreen(
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier
     ) {
         Text(
-            text = stringResource(id = R.string.MyPost),
+            text = stringResource(id = R.string.FindList),
             fontWeight = FontWeight.Bold,
             color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .paddingFromBaseline(top = 16.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 32.sp
@@ -52,7 +73,7 @@ fun MyPostHomeScreen(
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 16.dp)
         )
-        LostListLazyScreen(
+        OthersFindListLazyScreen(
             userViewModel = userViewModel,
             postViewModel = postViewModel,
         )
@@ -60,16 +81,17 @@ fun MyPostHomeScreen(
 }
 
 @Composable
-fun MyPostFinalScreen(
-    userViewModel: UserViewModel = viewModel(),
-    postViewModel: PostViewModel = viewModel(),
+fun OthersFindListFinalScreen(
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
+
     Box(modifier = Modifier.fillMaxSize()) {
-        MyPostHomeScreen(
+        OthersFindListHomeScreen(
+            postViewModel = postViewModel,
             userViewModel = userViewModel,
-            postViewModel = postViewModel
         )
         Icon(
             Icons.Filled.ArrowBack,
@@ -81,24 +103,12 @@ fun MyPostFinalScreen(
                 }
                 .padding(16.dp)
         )
+
     }
 }
 
 @Composable
-fun MyPostApp(
-    navController: NavController
-) {
-    Scaffold(
-        bottomBar = { MyPostBottomNavigation(navController = navController) }
-    ) {
-        MyPostFinalScreen(
-            navController = navController
-        )
-    }
-}
-
-@Composable
-private fun MyPostBottomNavigation(
+private fun OthersFindListBottomNavigation(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
@@ -109,23 +119,15 @@ private fun MyPostBottomNavigation(
         BottomNavigationItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Edit,
+                    imageVector = Icons.Filled.LocationOn,
                     contentDescription = null
                 )
             },
             label = {
-                Text("編輯")
+                Text("地圖定位")
             },
             selected = true,
-            onClick = {
-                navController.navigate(
-                    route = Screen.EditPost.passWhatAndWhereAndUserName(
-                        what = "hi",
-                        where = "ho",
-                        username = "ii"
-                    )
-                )
-            }
+            onClick = {}
         )
         BottomNavigationItem(
             icon = {
@@ -135,33 +137,50 @@ private fun MyPostBottomNavigation(
                 )
             },
             label = {
-                Text("已找回")
+                Text("成功取回")
             },
             selected = false,
-            onClick = {
-                navController.navigate(route = Screen.Confirmation.route)
-            }
+            onClick = {}
         )
         BottomNavigationItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Delete,
+                    imageVector = Icons.Default.Email,
                     contentDescription = null
                 )
             },
             label = {
-                Text(text = "刪除貼文", color = Color.Red)
+                Text("發送訊息")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigate(route = Screen.ChatRoom.route)
+            }
+        )
+    }
+}
+
+@Composable
+fun OthersFindListApp(
+    userViewModel: UserViewModel = viewModel(),
+    postViewModel: PostViewModel = viewModel(),
+    navController: NavController
+) {
+    Scaffold(
+        bottomBar = { OthersFindListBottomNavigation(navController = navController) }
+    ) {
+        OthersFindListFinalScreen(
+            userViewModel = userViewModel,
+            postViewModel = postViewModel,
+            navController = navController
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview6() {
+fun DefaultPreview3() {
     SSteam2Theme {
-        MyPostApp(navController = rememberNavController())
+        OthersFindListApp(navController = rememberNavController())
     }
 }

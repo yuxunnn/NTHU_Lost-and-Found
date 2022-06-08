@@ -1,87 +1,145 @@
 package com.example.ss_team2.presentation.ui.chatList
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
-
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.utility.TopBar
+import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
-fun ChatList (
+fun ChatList(
+    chatViewModel: ChatViewModel = viewModel(),
+    navController: NavController,
+) {
+
+    var searchingText by remember { mutableStateOf("") }
+
+    Column {
+        TopBar(
+            leftButton = {
+                TopBarButton(imageVector = Icons.Default.ArrowBack,
+                    onClick = { navController.popBackStack() }
+                )
+            },
+            text = "聊天室",
+            rightButton = {
+                Spacer(modifier = Modifier.size(32.dp))
+            }
+        )
+        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        SearchBar(
+            searchingText = searchingText,
+            onValueChange = { searchingText = it }
+        )
+        ChatRooms(
+            chatViewModel = chatViewModel,
+            navController = navController
+        )
+    }
+}
+
+@Composable
+fun ChatRooms(
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
-    Column {
-        Title(navController = navController)
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
-        SearchBar()
-        ChatRooms(navController = navController)
-    }
-}
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ChatListPreview(){
-    SSteam2Theme() {
-        ChatList(navController = rememberNavController())
-    }
-}
+    val chats by chatViewModel.chats.collectAsState()
 
-@Composable
-fun Title(
-    modifier: Modifier = Modifier,
-    navController: NavController
-){
-    Row(
-        Modifier.fillMaxWidth(),
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Icon(
-            imageVector = Icons.Default.ArrowBackIos,
-            contentDescription = null,
-            modifier = Modifier
-                .size(50.dp)
-                .padding(start = 8.dp)
-                .clickable() {
-                    navController.popBackStack()
+        items(chats) { chat ->
+            ChatRoom(
+                friendName = chat.send,
+                lastMessage = chat.message,
+                onClick = {
+                    chatViewModel.chatsByReceiveAndSend(chat.receive, chat.send)
+                    navController.navigate(route = Screen.ChatRoom.route)
                 }
-        )
-        Text(
-            text = "聊天室",
-            fontSize = 36.sp,
-            modifier = Modifier.padding(start = 85.dp,end = 16.dp)
-        )
+            )
+        }
+    }
+}
+
+
+@Composable
+fun ChatRoom(
+    friendName: String,
+    lastMessage: String,
+    onClick: () -> Unit,
+) {
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(R.drawable.defaultpicture),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .offset(x = 12.dp)
+                    .size(72.dp)
+                    .clip(CircleShape)
+                    .background(color = MaterialTheme.colors.background)
+            )
+
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier
+                    .padding(start = 40.dp)
+                    .height(88.dp)
+            ) {
+                Text(
+                    text = friendName,
+                    fontSize = 18.sp
+                )
+                Text(text = lastMessage)
+            }
+        }
     }
 }
 
 
 @Composable
 fun SearchBar(
+    searchingText: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var SearchingText by remember { mutableStateOf("") }
-    // Implement composable here
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -89,133 +147,32 @@ fun SearchBar(
         horizontalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = SearchingText,
-            onValueChange = { SearchingText = it },
+            value = searchingText,
+            onValueChange = onValueChange,
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(36.dp)
                 )
             },
-            shape = MaterialTheme.shapes.small, // the round corner
+            shape = MaterialTheme.shapes.small,
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface
             ),
             modifier = modifier
-                .width(320.dp)
+                .fillMaxWidth()
                 .heightIn(min = 56.dp)
                 .padding(start = 8.dp, end = 8.dp)
         )
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SearchBarPreview(){
+fun ChatListPreview() {
     SSteam2Theme() {
-        SearchBar()
-    }
-}
-
-@Composable
-fun ChatRoom(
-    firstSentence : String,
-    friendname : String,
-    newestTime: String,
-    navController: NavController
-){
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                navController.navigate(route = Screen.ChatRoom.route)
-            }
-    ) {
-        Row() {
-            Image(
-                painter = painterResource(R.drawable.defaultpicture),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(88.dp)
-                    .clip(CircleShape)
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(start = 20.dp)
-                    .height(88.dp),
-                verticalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Row(){
-                    Text(
-                        text = friendname,
-                        fontSize = 25.sp
-                    )
-                }
-                Row(){
-                    Text(
-                        text = firstSentence
-                    )
-                    Spacer(Modifier.width(5.dp))
-                    Text(
-                        text =  newestTime
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ChatRoomPreview(){
-    SSteam2Theme() {
-        ChatRoom(
-            "你好",
-            "notyuxun",
-            "10:11",
-            navController = rememberNavController()
-        )
-    }
-}
-
-//for test
-data class Friend(val Name: String, val LastSentence: String,val Time: String)
-
-private val FriendList: List<Friend> = listOf(
-    Friend("notyuxun","你好","10:15"),
-    Friend("hui._.yuiui","欸我們去交大工程一館塗鴉","10:05"),
-    Friend("usingya","資電三樓有一把傘很像你的","7:26"),
-    Friend("ryan910707","你丟的傘還有甚麼其他特徵嗎","4:02"),
-    Friend("dasbd72","感謝你幫我找回學生證","23:11"),
-
-)
-
-@Composable
-fun ChatRooms(
-    modifier: Modifier = Modifier,
-    navController: NavController
-){
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
-        items(FriendList){ item ->
-            ChatRoom(
-                firstSentence = item.LastSentence,
-                friendname = item.Name,
-                newestTime = item.Time,
-                navController = navController
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ChatRoomsPreview(){
-    SSteam2Theme {
-        ChatRooms(navController = rememberNavController())
+        ChatList(navController = rememberNavController())
     }
 }

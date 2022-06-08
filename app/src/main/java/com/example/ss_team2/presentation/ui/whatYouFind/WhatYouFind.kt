@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
-
-
+import com.example.ss_team2.ui.theme.TextGray
 @Composable
 fun WhatYouFind(
     navController: NavController,
@@ -226,6 +225,7 @@ fun Lastpage(
     Icon(
         imageVector = Icons.Default.ArrowBackIos,
         contentDescription = null,
+        tint = TextGray,
         modifier = Modifier
             .size(48.dp)
             .padding(start = 8.dp)
@@ -249,7 +249,8 @@ fun SearchBar(
                 .paddingFromBaseline(bottom = 8.dp)
                 .padding(start = 8.dp),
             fontSize = 30.sp,
-            fontWeight = FontWeight.W600 //粗體
+            fontWeight = FontWeight.Bold,
+            color = TextGray
         )
         TextField(
             value = "",
@@ -272,103 +273,3 @@ fun SearchBar(
         )
     }
 }
-
-//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-//@Composable
-//fun SearchBarPreview() {
-//    SSteam2Theme { SearchBar(Modifier.padding(8.dp)) }
-//}
-//
-//@Composable
-//fun ObjectLabelsElement(
-//    modifier: Modifier = Modifier,
-//    text: String
-//){
-//    Card(
-//        modifier = Modifier.padding(8.dp).clickable {  },
-//        shape = MaterialTheme.shapes.small,
-//        elevation = 3.dp    //shadow
-//    ){
-//        Box(
-//            modifier = Modifier
-//                .padding(8.dp)
-//                .width(40.dp),
-//            contentAlignment = Alignment.Center,
-//        ){
-//            Text(
-//                text =  text,
-//                fontSize = 12.sp,
-//            )
-//        }
-//    }
-//}
-//
-//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-//@Composable
-//fun ObjectLabelsElementPreview() {
-//    SSteam2Theme { ObjectLabelsElement(Modifier.padding(8.dp), "雨傘") }
-//}
-//
-//
-//
-//
-//@Composable
-//fun ObjectLabels(
-//    modifier: Modifier = Modifier
-//){
-//    Column() {
-//        LazyRow(
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            contentPadding = PaddingValues(horizontal = 1.dp),
-//            modifier = modifier.fillMaxWidth()
-//        ) {
-//            items(objectLabels1) { item ->
-//                ObjectLabelsElement(Modifier, item)
-//            }
-//        }
-//        LazyRow(
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            contentPadding = PaddingValues(horizontal = 1.dp),
-//            modifier = modifier.fillMaxWidth()
-//        ) {
-//            items(objectLabels2) { item ->
-//                ObjectLabelsElement(Modifier, item)
-//            }
-//        }
-//    }
-//}
-//
-//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-//@Composable
-//fun ObjectLabelsPreview() {
-//    SSteam2Theme { ObjectLabels() }
-//}
-//
-//@Composable
-//fun NextButton(
-//    navController: NavController
-//){
-//
-//    Row(
-//        Modifier.fillMaxWidth(),
-//        horizontalArrangement = Arrangement.Center
-//    ) {
-//        Button(
-//            onClick = {
-//                  navController.navigate(
-//                      route = Screen.WhereYouFind.passWhat(what ="CHOOSE")
-//                  )
-//            },
-//            colors = ButtonDefaults.textButtonColors(
-//                backgroundColor = Iris60
-//            ),
-//            modifier = Modifier.padding(start = 8.dp)
-//        ) {
-//            Text(
-//                text = "下一步",
-//                color = Color.White
-//            )
-//        }
-//    }
-//}
-

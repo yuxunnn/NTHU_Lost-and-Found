@@ -16,7 +16,9 @@ class RankingViewModel(): ViewModel(){
     val rank : StateFlow< MutableList<Ranking> > = _rank
 
     init{
-
+        viewModelScope.launch {
+            _rank.value = rankingUseCase.getRanking()
+        }
     }
 
     //先做累積

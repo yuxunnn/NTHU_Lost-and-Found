@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
@@ -20,15 +21,17 @@ import com.example.ss_team2.presentation.viewModel.MapViewModel
 import com.example.ss_team2.presentation.ui.homepage.SchoolFlag
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun MapScreen(
-    viewModel: MapViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
-    modifier: Modifier =Modifier,
+    modifier: Modifier = Modifier,
+    mapViewModel: MapViewModel = viewModel(),
+    userViewModel: UserViewModel = viewModel(),
     navController: NavController
 ) {
 
-    val currentSchool: Int by viewModel.school.collectAsState()
+    val currentSchool: Int by mapViewModel.school.collectAsState()
     val flagTransition = updateTransition(targetState = currentSchool, label = "Flag indicator")
 
     val offsetX: List<Dp> = listOf(0.dp, (-60).dp, 0.dp, 60.dp)
@@ -71,7 +74,7 @@ fun MapScreen(
                             school = it,
                             selected = it == currentSchool,
                             onClick = {
-                                viewModel.changeSchool(it)
+                                mapViewModel.changeSchool(it)
                             },
                             modifier = Modifier.offset(x = flagOffsetX[it], y = flagOffsetY[it])
                         )
@@ -93,7 +96,8 @@ fun MapScreen(
         )
 
         Map(
-            viewModel = viewModel,
+            userViewModel = userViewModel,
+            mapViewModel = mapViewModel,
             modifier = Modifier
                 .height(400.dp)
                 .fillMaxWidth()
@@ -105,7 +109,10 @@ fun MapScreen(
             modifier = Modifier
         )
 
-        MapToolList(modifier = Modifier)
+        MapToolList(
+            userViewModel = userViewModel,
+            modifier = Modifier
+        )
     }
 }
 
