@@ -1,6 +1,5 @@
 package com.example.ss_team2.presentation.ui
 
-
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -22,15 +21,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
 import com.example.ss_team2.presentation.viewModel.PostViewModel
-import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun ConfirmationHomeScreen(

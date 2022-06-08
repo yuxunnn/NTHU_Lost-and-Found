@@ -55,7 +55,7 @@ fun FindListHomeScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
         PostListLazyScreen(
-            postType = "Find",
+            postType = "find",
             postViewModel = postViewModel,
             navController = navController
         )

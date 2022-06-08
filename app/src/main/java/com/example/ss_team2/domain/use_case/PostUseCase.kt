@@ -13,6 +13,10 @@ class PostUseCase {
         return postRepository.getPostById(postId)
     }
 
+    suspend fun getUserPosts(author: String): MutableList<Post>{
+        return postRepository.getUserPosts(author)
+    }
+
     suspend fun searchPost(postType: String, ItemType :String, Location:String): MutableList<Post> {
         return postRepository.searchPost(postType, ItemType, Location)
     }

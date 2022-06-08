@@ -16,8 +16,6 @@ data class Post(
     val updatedAt:Any
 )
 
-
-
 val emptyPost = Post (
     postId = "",
     author = emptyUser,

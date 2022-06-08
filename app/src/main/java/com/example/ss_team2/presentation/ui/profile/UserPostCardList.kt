@@ -10,17 +10,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.ss_team2.data.data_source.Post
+import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 
 @Composable
 fun UserPostCardList(
-    tabPage: Int,
     postViewModel: PostViewModel,
+    posts: List<Post>,
+    tabPage: Int,
     modifier: Modifier,
     navController: NavController
 ) {
-
-    val posts by postViewModel.posts.collectAsState()
 
     LazyColumn(
         contentPadding = PaddingValues(vertical = 10.dp, horizontal = 20.dp),
@@ -28,26 +29,17 @@ fun UserPostCardList(
             .fillMaxWidth()
     ) {
         items(posts) { item ->
-            if (tabPage == 0) {
-                if (!item.hasDone) {
-                    UserPostCard(
-                        what = item.itemType,
-                        where = item.location,
-                        type = item.postType,
-                        modifier = Modifier,
-                        navController = navController
-                    )
-                }
-            } else {
-                if (item.hasDone) {
-                    UserPostCard(
-                        what = item.itemType,
-                        where = item.location,
-                        type = item.postType,
-                        modifier = Modifier,
-                        navController = navController
-                    )
-                }
+            if ((tabPage == 0 && !item.hasDone) || (tabPage == 1 && item.hasDone)) {
+                UserPostCard(
+                    what = item.itemType,
+                    where = item.location,
+                    type = item.postType,
+                    onClick = {
+                        postViewModel.getPostById(item.postId)
+                        navController.navigate(route = Screen.MyPost.route)
+                    },
+                    modifier = Modifier
+                )
             }
         }
     }

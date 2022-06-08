@@ -1,6 +1,5 @@
 package com.example.ss_team2.presentation.ui.profile
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -8,11 +7,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
@@ -35,8 +31,10 @@ fun MyProfileScreen(
     navController: NavController
 ) {
 
-    val myUser by userViewModel.user.collectAsState() //這是大家共享的嗎?
+    val myUser by userViewModel.user.collectAsState()
     val myUserItem by userViewModel.userItem.collectAsState()
+
+    val posts by postViewModel.myPosts.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = 2)
     val scope = rememberCoroutineScope()
@@ -78,8 +76,9 @@ fun MyProfileScreen(
 
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
-                tabPage = index,
                 postViewModel = postViewModel,
+                tabPage = index,
+                posts = posts,
                 modifier = Modifier,
                 navController = navController
             )

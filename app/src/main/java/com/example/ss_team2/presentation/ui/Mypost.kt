@@ -13,26 +13,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.presentation.ui.othersPost.LostListLazyScreen
+import com.example.ss_team2.presentation.ui.othersPost.PostListLazyScreen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
-import com.example.ss_team2.ui.theme.SSteam2Theme
-
 
 @Composable
 fun MyPostHomeScreen(
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier
-
 ) {
     Column(
         modifier = Modifier
@@ -52,7 +46,7 @@ fun MyPostHomeScreen(
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 16.dp)
         )
-        LostListLazyScreen(
+        PostListLazyScreen(
             userViewModel = userViewModel,
             postViewModel = postViewModel,
         )
@@ -91,7 +85,11 @@ fun MyPostApp(
     navController: NavController
 ) {
     Scaffold(
-        bottomBar = { MyPostBottomNavigation(navController = navController) }
+        bottomBar = {
+            MyPostBottomNavigation(
+                navController = navController
+            )
+        }
     ) {
         MyPostFinalScreen(
             postViewModel = postViewModel,

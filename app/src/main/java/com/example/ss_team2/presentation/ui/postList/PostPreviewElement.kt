@@ -37,7 +37,7 @@ fun PostPreviewElement(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(36.dp),
-            modifier = Modifier.width(300.dp).fillMaxHeight()
+            modifier = Modifier.width(280.dp).fillMaxHeight()
         ) {
             Image(
                 painter = painterResource(R.drawable.umbrella1),

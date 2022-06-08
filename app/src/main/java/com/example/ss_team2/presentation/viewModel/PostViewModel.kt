@@ -18,22 +18,35 @@ class PostViewModel() : ViewModel() {
 
     private val postUseCase = PostUseCase()
 
+    private val _myPosts = MutableStateFlow(mutableListOf<Post>())
     private val _posts = MutableStateFlow(emptyPostList)
     private val _post = MutableStateFlow(emptyPost)
 
-    val posts: StateFlow<MutableList<Post>> = _posts
+    val myPosts: StateFlow<MutableList<Post>> = _myPosts
+    val posts: StateFlow<List<Post>> = _posts
     val post: StateFlow<Post> = _post
 
     init {
         viewModelScope.launch {
-            _post.value = postUseCase.getPostById("3")
-            _posts.value = postUseCase.searchPost("find", "錢包", "資電館")
+            _myPosts.value = postUseCase.getUserPosts("notyuxun")
         }
     }
 
     fun getPostById(postId: String) {
         viewModelScope.launch {
             _post.value = postUseCase.getPostById(postId)
+        }
+    }
+
+    fun getMyPosts(myName: String) {
+        viewModelScope.launch {
+            _myPosts.value = postUseCase.getUserPosts(myName)
+        }
+    }
+
+    fun getUserPosts(author: String){
+        viewModelScope.launch {
+            _posts.value = postUseCase.getUserPosts(author)
         }
     }
 

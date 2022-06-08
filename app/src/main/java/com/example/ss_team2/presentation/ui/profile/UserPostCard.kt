@@ -33,8 +33,8 @@ fun UserPostCard(
     what: String,
     where: String,
     type: String,
-    modifier: Modifier,
-    navController: NavController
+    onClick: () -> Unit,
+    modifier: Modifier
 ) {
 
     Surface(
@@ -45,9 +45,7 @@ fun UserPostCard(
                 color = Color.LightGray,
                 shape = RoundedCornerShape(10.dp)
             )
-            .clickable {
-                navController.navigate(route = Screen.MyPost.route)
-            }
+            .clickable { onClick() }
             .fillMaxWidth()
     ) {
         Row(
@@ -116,12 +114,12 @@ fun PostTypeHint(
 ) {
     val color: Color =
         if (MaterialTheme.colors.isLight) {
-            if (type == "Lost") FindHint else LostHint
+            if (type == "lost") FindHint else LostHint
         } else {
-            if (type == "Lost") FindHintDark else LostHintDark
+            if (type == "lost") FindHintDark else LostHintDark
         }
 
-    val text: String = if (type == "Lost") "撿" else "遺"
+    val text: String = if (type == "lost") "撿" else "遺"
 
     Box(
         contentAlignment = Alignment.Center,

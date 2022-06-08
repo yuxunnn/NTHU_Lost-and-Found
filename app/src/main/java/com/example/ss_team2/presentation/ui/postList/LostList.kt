@@ -56,7 +56,7 @@ fun HomeScreenWithMoney(
         )
         Spacer(modifier = Modifier.height(10.dp))
         PostListLazyScreen(
-            postType = "Lost",
+            postType = "lost",
             postViewModel = postViewModel,
             navController = navController
         )

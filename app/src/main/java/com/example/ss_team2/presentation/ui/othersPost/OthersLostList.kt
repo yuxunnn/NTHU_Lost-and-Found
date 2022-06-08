@@ -28,30 +28,7 @@ import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
-@Composable
-fun LostListLazyScreen(
-    modifier: Modifier = Modifier,
-    userViewModel: UserViewModel,
-    postViewModel: PostViewModel
-) {
 
-    val post by postViewModel.post.collectAsState()
-
-    LazyColumn(
-        modifier = Modifier
-    ) {
-//        item { UserCardWithMoney(str = str, drawable = userdrawable, time = time, money = money) }
-        item {
-            PostItemCard(
-                postViewModel = postViewModel
-            )
-        }
-        item { Spacer(modifier = Modifier.height(10.dp)) }
-//        items(TestData) { item ->
-//            UserCard(str = item.text, drawable = item.drawable, time = 20)
-//        }
-    }
-}
 
 @Composable
 fun LostListHomeScreen(
@@ -74,7 +51,7 @@ fun LostListHomeScreen(
         )
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
-        LostListLazyScreen(
+        PostListLazyScreen(
             userViewModel = userViewModel,
             postViewModel = postViewModel
         )
