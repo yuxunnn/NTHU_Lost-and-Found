@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.ss_team2.EditPost
-import com.example.ss_team2.MyPostApp
+import com.example.ss_team2.presentation.ui.EditPost
+import com.example.ss_team2.presentation.ui.MyPostApp
 import com.example.ss_team2.presentation.ui.Notification
 import com.example.ss_team2.presentation.navigation.ROOT_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen

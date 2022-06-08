@@ -1,4 +1,4 @@
-package com.example.ss_team2.presentation.ui.postList
+package com.example.ss_team2.presentation.ui.utility
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

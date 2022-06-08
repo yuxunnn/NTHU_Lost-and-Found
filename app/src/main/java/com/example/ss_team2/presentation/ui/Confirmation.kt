@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
@@ -56,7 +57,7 @@ fun ConfirmationHomeScreen(
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 16.dp)
         )
-        ItemCard(
+        PostItemCard(
             postViewModel = postViewModel
         )
         Row(

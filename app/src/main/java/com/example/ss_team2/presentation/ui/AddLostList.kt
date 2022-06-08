@@ -1,4 +1,4 @@
-package com.example.ss_team2.RyanJetpack
+package com.example.ss_team2.presentation.ui
 
 
 import androidx.annotation.DrawableRes
@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.ss_team2.presentation.ui.AnonymousUserCard
-import com.example.ss_team2.presentation.ui.EditItemCard
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme

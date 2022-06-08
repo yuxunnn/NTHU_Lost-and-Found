@@ -1,5 +1,6 @@
-package com.example.ss_team2.presentation.ui.postList
+package com.example.ss_team2.presentation.ui.utility
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -22,23 +23,22 @@ fun WhatAndWhereColElement(
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Text(
             text = "What",
-            modifier = Modifier.padding(4.dp),
             fontSize = 12.sp,
             color = Color(66, 70, 80),
             fontWeight = FontWeight.Bold
         )
         Surface(
-            modifier = modifier.paddingFromBaseline(top = 0.dp, bottom = 20.dp),
             shape = MaterialTheme.shapes.small,
             color = Color(66, 70, 80)
         ) {
             Text(
                 text = what,
-                modifier = Modifier.padding(6.dp),
+                modifier = Modifier.padding(4.dp),
                 color = Color.White,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
@@ -46,19 +46,17 @@ fun WhatAndWhereColElement(
         }
         Text(
             text = "Where",
-            modifier = Modifier.padding(4.dp),
             fontSize = 12.sp,
             color = Color(66, 70, 80),
             fontWeight = FontWeight.Bold
         )
         Surface(
-            modifier = modifier,
             shape = MaterialTheme.shapes.small,
             color = Color(66, 70, 80)
         ) {
             Text(
                 text = where,
-                modifier = Modifier.padding(6.dp),
+                modifier = Modifier.padding(4.dp),
                 color = Color.White,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold

@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.utility.WhatAndWhereRowElement
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 

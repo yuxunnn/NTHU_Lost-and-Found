@@ -1,8 +1,6 @@
-package com.example.ss_team2.presentation.ui
+package com.example.ss_team2.presentation.ui.othersPost
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,15 +9,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,97 +28,6 @@ import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun WhatAndWhereColElement2(
-    what: String,
-    where: String,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "What",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 12.sp,
-            color = Color(66, 70, 80),
-            fontWeight = FontWeight.Bold
-        )
-        Surface(
-            modifier = modifier,
-            shape = MaterialTheme.shapes.small,
-            color = Color(66, 70, 80)
-        ) {
-            Text(
-                text = what,
-                modifier = Modifier.padding(6.dp),
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Text(
-            text = "Where",
-            modifier = Modifier.padding(4.dp),
-            fontSize = 12.sp,
-            color = Color(66, 70, 80),
-            fontWeight = FontWeight.Bold
-        )
-        Surface(
-            modifier = modifier,
-            shape = MaterialTheme.shapes.small,
-            color = Color(66, 70, 80)
-        ) {
-            Text(
-                text = where,
-                modifier = Modifier.padding(6.dp),
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
-@Composable
-fun ItemCard(
-    modifier: Modifier = Modifier,
-    postViewModel: PostViewModel
-) {
-
-    val post by postViewModel.post.collectAsState()
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(280.dp)
-            .background(Color(220, 220, 220)),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(36.dp)
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.defaultpicture),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .height(280.dp)
-                .width(160.dp)
-                .clip(RectangleShape)
-                .padding(4.dp)
-        )
-        Column(modifier = Modifier) {
-            WhatAndWhereColElement2(
-                what = post.itemType,
-                where = post.location
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = post.postDescribe!!, fontSize = 12.sp)
-        }
-
-    }
-}
-
-@Composable
 fun OthersFindListLazyScreen(
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
@@ -137,7 +38,7 @@ fun OthersFindListLazyScreen(
     ) {
 //        item { UserCard(str = str, drawable = userdrawable, time = time) }
         item {
-            ItemCard(
+            PostItemCard(
                 postViewModel = postViewModel
             )
         }

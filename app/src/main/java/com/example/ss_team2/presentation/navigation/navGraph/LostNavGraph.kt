@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.ss_team2.presentation.ui.OthersLostListApp
-import com.example.ss_team2.RyanJetpack.AddLostList
+import com.example.ss_team2.presentation.ui.othersPost.OthersLostListApp
+import com.example.ss_team2.presentation.ui.AddLostList
 import com.example.ss_team2.presentation.navigation.LOST_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.postList.FinalScreenWithMoney
