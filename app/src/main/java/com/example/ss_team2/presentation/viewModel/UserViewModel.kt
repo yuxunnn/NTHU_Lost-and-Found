@@ -82,8 +82,8 @@ class UserViewModel : ViewModel() {
     fun updateCoin(userName: String, changeCoin: Int) {
         viewModelScope.launch {
             _user.value = userUseCase.updateCoin(userName, changeCoin)
+            _userCoin.value = user.value.userCoin
         }
-        _userCoin.value = user.value.userCoin
     }
 
     fun updateUserItem(userName: String, itemType: String, changeNum: Int) {
