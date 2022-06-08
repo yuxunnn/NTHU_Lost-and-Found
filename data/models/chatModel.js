@@ -14,7 +14,7 @@ export default class ChatModel {
         const _receive = receive
 
         try {
-            const query = `SELECT * FROM chat WHERE receive = '${_receive}' ORDER BY createdAt DESC`
+            const query = `SELECT * FROM chat WHERE receive = '${_receive}'`
             const [rows, fields] = await conn.execute(query)
 
             return rows
@@ -28,7 +28,7 @@ export default class ChatModel {
         const _send = send
 
         try {
-            const query = `SELECT * FROM chat WHERE receive = '${_receive}' AND send = '${_send}' ORDER BY createdAt DESC`
+            const query = `SELECT * FROM chat WHERE receive = '${_receive}' AND send = '${_send}'`
             const [rows, fields] = await conn.execute(query)
 
             return rows

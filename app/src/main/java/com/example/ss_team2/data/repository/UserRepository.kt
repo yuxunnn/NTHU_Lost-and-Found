@@ -58,7 +58,7 @@ class UserRepository {
 
     suspend fun getUserItem(userName: String): UserItem{
         val response = apolloClient.query(UserItemQuery(userName = userName)).execute()
-        //println("Response = ${response.data?.userItem}")
+        println("MySQL Response = ${response.data?.userItem}")
 
         val userItem = response.data?.userItem
 

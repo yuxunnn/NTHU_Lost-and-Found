@@ -5,7 +5,9 @@ data class Ranking(
     val score: Int
 )
 
-//val emptyRanking = Ranking(
-//    school = "",
-//    score = 0
-//)
+val emptyRankingList: MutableList<Ranking> = listOf<Ranking>(
+    Ranking("清華大學", 500),
+    Ranking("交通大學", 300),
+    Ranking("台灣大學", 200),
+    Ranking("政治大學", 100)
+).toMutableList()

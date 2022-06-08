@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ss_team2.data.data_source.Ranking
+import com.example.ss_team2.data.data_source.emptyRankingList
 
 import com.example.ss_team2.domain.use_case.RankingUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 class RankingViewModel(): ViewModel(){
     private val rankingUseCase = RankingUseCase()
 
-    private val _rank = MutableStateFlow(mutableListOf<Ranking>())
+    private val _rank = MutableStateFlow(emptyRankingList)
     val rank : StateFlow< MutableList<Ranking> > = _rank
 
     init{

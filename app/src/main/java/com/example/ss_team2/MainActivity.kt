@@ -20,12 +20,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       val chatRepository = ChatRepository()
-        var chatList: MutableList<Chat>
-        lifecycleScope.launchWhenCreated {
-            chatList = chatRepository.createChat("huiyuiui", "notyuxun", "改好了啦")
-            Log.d("GraphQL", "Android: $chatList")
-        }
+//        val rankingRepository = RankingRepository()
+//        var rankList: MutableList<Ranking>
+//        lifecycleScope.launchWhenCreated {
+//            rankList = rankingRepository.getRanking()
+//            val rank = rankList[0].school
+//            Log.d("GraphQL", "Android: $rank")
+//        }
         setContent {
             SSteam2Theme {
                 navController = rememberNavController()

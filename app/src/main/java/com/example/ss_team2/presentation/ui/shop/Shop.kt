@@ -326,7 +326,7 @@ fun Shop(
                                 .size(32.dp)
                         )
                         Text(
-                            text = "600",
+                            text = "800",
                             fontSize = 25.sp //may bug
                         )
                     }

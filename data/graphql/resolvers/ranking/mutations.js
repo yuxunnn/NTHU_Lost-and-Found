@@ -9,10 +9,10 @@ const rankingMutaions = {
         let ntuScore = 0
         let nccuScore = 0
 
-        const nthuUsers = await UserModel.selectUsersBySchool(connectPool, "NTHU")
-        const nctuUsers = await UserModel.selectUsersBySchool(connectPool, "NCTU")
-        const ntuUsers = await UserModel.selectUsersBySchool(connectPool, "NTU")
-        const nccuUsers = await UserModel.selectUsersBySchool(connectPool, "NCCU")
+        const nthuUsers = await UserModel.selectUsersBySchool(connectPool, "清華大學")
+        const nctuUsers = await UserModel.selectUsersBySchool(connectPool, "交通大學")
+        const ntuUsers = await UserModel.selectUsersBySchool(connectPool, "台灣大學")
+        const nccuUsers = await UserModel.selectUsersBySchool(connectPool, "政治大學")
 
         nthuUsers.forEach(user => {
             nthuScore += user.userCoin
