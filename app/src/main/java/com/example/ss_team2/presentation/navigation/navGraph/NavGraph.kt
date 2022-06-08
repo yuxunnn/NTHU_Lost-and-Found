@@ -29,6 +29,7 @@ import com.example.ss_team2.presentation.viewModel.*
 
 @Composable
 fun SetupNavGraph(
+    helperViewModel: HelperViewModel = viewModel(),
     rankingViewModel: RankingViewModel = viewModel(),
     mapViewModel: MapViewModel = viewModel(),
     userViewModel: UserViewModel = viewModel(),
@@ -42,11 +43,13 @@ fun SetupNavGraph(
         route = ROOT_GRAPH_ROUTE
     ) {
         findNavGraph(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController
         )
         lostNavGraph(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController
@@ -118,6 +121,7 @@ fun SetupNavGraph(
             route = Screen.MyPost.route
         ) {
             MyPostApp(
+                helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 navController = navController

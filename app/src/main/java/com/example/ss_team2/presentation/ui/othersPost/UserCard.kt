@@ -21,9 +21,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun UserCard(
     modifier: Modifier = Modifier,
-    @StringRes str: Int,
+    userName: String,
     @DrawableRes drawable: Int,
-    time: Int
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -39,18 +38,12 @@ fun UserCard(
                 .padding(8.dp)
                 .clip(CircleShape)
         )
-        Column(modifier = Modifier) {
-            Text(
-                text = stringResource(id = str),
-                fontSize = 12.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = ("$time 分鐘前"),
-                color = Color.Gray,
-                fontSize = 8.sp
-            )
-        }
+        Text(
+            text = userName,
+            fontSize = 12.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
+
     }
 }

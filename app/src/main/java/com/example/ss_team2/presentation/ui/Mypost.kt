@@ -19,11 +19,13 @@ import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.othersPost.PostListLazyScreen
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun MyPostHomeScreen(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier
@@ -47,6 +49,7 @@ fun MyPostHomeScreen(
             modifier = Modifier.padding(vertical = 16.dp)
         )
         PostListLazyScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
         )
@@ -55,6 +58,7 @@ fun MyPostHomeScreen(
 
 @Composable
 fun MyPostFinalScreen(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
@@ -62,6 +66,7 @@ fun MyPostFinalScreen(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         MyPostHomeScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel
         )
@@ -80,6 +85,7 @@ fun MyPostFinalScreen(
 
 @Composable
 fun MyPostApp(
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     userViewModel: UserViewModel,
     navController: NavController
@@ -92,6 +98,7 @@ fun MyPostApp(
         }
     ) {
         MyPostFinalScreen(
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
             userViewModel = userViewModel,
             navController = navController

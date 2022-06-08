@@ -19,11 +19,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun OthersFindListHomeScreen(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
@@ -47,6 +49,7 @@ fun OthersFindListHomeScreen(
             modifier = Modifier.padding(vertical = 16.dp)
         )
         PostListLazyScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
         )
@@ -55,6 +58,7 @@ fun OthersFindListHomeScreen(
 
 @Composable
 fun OthersFindListFinalScreen(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
@@ -63,6 +67,7 @@ fun OthersFindListFinalScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         OthersFindListHomeScreen(
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
             userViewModel = userViewModel,
         )
@@ -135,6 +140,7 @@ private fun OthersFindListBottomNavigation(
 
 @Composable
 fun OthersFindListApp(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
@@ -143,6 +149,7 @@ fun OthersFindListApp(
         bottomBar = { OthersFindListBottomNavigation(navController = navController) }
     ) {
         OthersFindListFinalScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController

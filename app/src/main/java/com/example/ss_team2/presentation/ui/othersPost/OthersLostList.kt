@@ -5,14 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
@@ -32,9 +30,10 @@ import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun LostListHomeScreen(
-    modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
-    postViewModel: PostViewModel
+    postViewModel: PostViewModel,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier
@@ -52,6 +51,7 @@ fun LostListHomeScreen(
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         PostListLazyScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel
         )
@@ -61,12 +61,14 @@ fun LostListHomeScreen(
 @Composable
 fun LostListFinalScreen(
     modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         LostListHomeScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel
         )
@@ -145,6 +147,7 @@ private fun OthersLostListBottomNavigation(
 
 @Composable
 fun OthersLostListApp(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
@@ -153,6 +156,7 @@ fun OthersLostListApp(
         bottomBar = { OthersLostListBottomNavigation(navController = navController, where = "台達館") }
     ) {
         LostListFinalScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController
