@@ -40,7 +40,7 @@ fun UserCard(
         )
         Text(
             text = userName,
-            fontSize = 12.sp,
+            fontSize = 16.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )

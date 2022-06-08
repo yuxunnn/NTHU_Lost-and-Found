@@ -283,7 +283,7 @@ fun TrashCan(
 
 @Composable
 fun Rank(
-    rankingViewModel: RankingViewModel,
+    rankingViewModel: RankingViewModel = viewModel(),
     navController: NavController
 ) {
     SSteam2Theme {

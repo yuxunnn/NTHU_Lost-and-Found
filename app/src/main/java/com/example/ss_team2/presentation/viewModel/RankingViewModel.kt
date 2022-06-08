@@ -10,20 +10,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class RankingViewModel(): ViewModel(){
+class RankingViewModel() : ViewModel() {
     private val rankingUseCase = RankingUseCase()
 
     private val _rank = MutableStateFlow(emptyRankingList)
-    val rank : StateFlow< MutableList<Ranking> > = _rank
+    val rank: StateFlow<MutableList<Ranking>> = _rank
 
-    init{
+    init {
         viewModelScope.launch {
             _rank.value = rankingUseCase.getRanking()
         }
     }
 
     //先做累積
-    fun getRanking(){
+    fun getRanking() {
         viewModelScope.launch {
             _rank.value = rankingUseCase.getRanking()
         }

@@ -52,6 +52,8 @@ fun NavGraphBuilder.lostNavGraph(
             )
         ) { entry ->
             FinalScreenWithMoney(
+                userViewModel = userViewModel,
+                helperViewModel = helperViewModel,
                 postViewModel = postViewModel,
                 navController = navController,
                 what = entry.arguments?.getString("what").toString(),

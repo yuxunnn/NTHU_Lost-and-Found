@@ -1,11 +1,11 @@
 package com.example.ss_team2.presentation.ui
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,10 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.type.PostUpdateInput
 
 @Composable
 fun ConfirmationHomeScreen(
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel
 ) {
 
@@ -66,20 +69,28 @@ fun ConfirmationHomeScreen(
             Spacer(modifier = Modifier.width(108.dp))
             Text(text = " ${post.rewardCoin}", modifier = Modifier.padding(8.dp))
         }
-        ConfirmationLazyScreen()
+        ConfirmationLazyScreen(
+            helperViewModel = helperViewModel
+        )
     }
 }
 
 
 @Composable
-fun ConfirmationFinalScreen(
+fun Confirmation(
     modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     navController: NavController
 ) {
 
+    val post by postViewModel.post.collectAsState()
+
     Box(modifier = Modifier.fillMaxSize()) {
-        ConfirmationHomeScreen(postViewModel = postViewModel)
+        ConfirmationHomeScreen(
+            helperViewModel = helperViewModel,
+            postViewModel = postViewModel
+        )
         Icon(
             Icons.Filled.ArrowBack,
             "",
@@ -105,7 +116,7 @@ fun ConfirmationFinalScreen(
 fun HelpElement(
     modifier: Modifier = Modifier,
     money: Int,
-    @StringRes username: Int,
+    userName: String,
     @DrawableRes drawable: Int,
 ) {
     Row(
@@ -128,7 +139,7 @@ fun HelpElement(
                 .clip(CircleShape)
         )
         Text(
-            text = stringResource(id = username),
+            text = userName,
             fontSize = 12.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
@@ -139,25 +150,20 @@ fun HelpElement(
 
 @Composable
 fun ConfirmationLazyScreen(
+    helperViewModel: HelperViewModel,
     modifier: Modifier = Modifier
 ) {
+    val helpers by helperViewModel.helpers.collectAsState()
+
     LazyColumn(
         modifier = Modifier.padding(20.dp)
     ) {
-//        items(TestData) { item ->
-//            HelpElement(username = item.text, drawable = item.drawable, money = 20)
-//        }
+        items(helpers) { item ->
+            HelpElement(
+                userName = item.helperName,
+                drawable = R.drawable.defaultpicture,
+                money = 20
+            )
+        }
     }
-}
-
-
-@Composable
-fun Confirmation(
-    postViewModel: PostViewModel,
-    navController: NavController
-) {
-    ConfirmationFinalScreen(
-        postViewModel = postViewModel,
-        navController = navController
-    )
 }

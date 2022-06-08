@@ -12,10 +12,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ss_team2.data.data_source.Post
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 
 @Composable
 fun UserPostCardList(
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     posts: List<Post>,
     tabPage: Int,
@@ -35,6 +37,7 @@ fun UserPostCardList(
                     where = item.location,
                     type = item.postType,
                     onClick = {
+                        helperViewModel.getAllPostHelpers(item.postId)
                         postViewModel.getPostById(item.postId)
                         navController.navigate(route = Screen.MyPost.route)
                     },

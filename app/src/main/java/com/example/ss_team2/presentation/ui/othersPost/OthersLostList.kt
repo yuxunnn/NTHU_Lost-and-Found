@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,8 +28,6 @@ import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
-
-
 @Composable
 fun LostListHomeScreen(
     helperViewModel: HelperViewModel,
@@ -35,6 +35,8 @@ fun LostListHomeScreen(
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
 ) {
+    val otherUser by userViewModel.otherUser.collectAsState()
+
     Column(
         modifier = Modifier
     ) {
@@ -51,8 +53,8 @@ fun LostListHomeScreen(
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         PostListLazyScreen(
+            postOwner = otherUser.userName,
             helperViewModel = helperViewModel,
-            userViewModel = userViewModel,
             postViewModel = postViewModel
         )
     }

@@ -15,6 +15,7 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyProfileScreen(
     modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
@@ -76,6 +78,7 @@ fun MyProfileScreen(
 
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
+                helperViewModel = helperViewModel,
                 postViewModel = postViewModel,
                 tabPage = index,
                 posts = posts,
@@ -89,6 +92,7 @@ fun MyProfileScreen(
 
 @Composable
 fun MyProfile(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
@@ -98,6 +102,7 @@ fun MyProfile(
             bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
             MyProfileScreen(
+                helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 modifier = Modifier,

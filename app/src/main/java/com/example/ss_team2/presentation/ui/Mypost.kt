@@ -7,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +32,8 @@ fun MyPostHomeScreen(
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier
 ) {
+    val user by userViewModel.user.collectAsState()
+
     Column(
         modifier = Modifier
     ) {
@@ -49,8 +53,8 @@ fun MyPostHomeScreen(
             modifier = Modifier.padding(vertical = 16.dp)
         )
         PostListLazyScreen(
+            postOwner = user.userName,
             helperViewModel = helperViewModel,
-            userViewModel = userViewModel,
             postViewModel = postViewModel,
         )
     }
