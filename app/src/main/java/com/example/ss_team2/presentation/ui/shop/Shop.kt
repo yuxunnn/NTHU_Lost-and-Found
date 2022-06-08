@@ -12,6 +12,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -20,9 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
@@ -30,12 +34,381 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun Shop(
-    navController: NavController
+    navController: NavController,
+    userViewModel: UserViewModel = viewModel(),
 ){
+
+    val myMoney by userViewModel.userCoin.collectAsState()
+
+
     Column() {
-        Title(money = "520", navController = navController)
+        Title(money = myMoney, navController = navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
-        ItemCards()
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.orange_flag),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "台大旗"
+                    )
+                }
+                Text(
+                    text = "台大專屬旗子",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "500",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        enabled = myMoney >= 500,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.purple_flag),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "清大旗"
+                    )
+                }
+                Text(
+                    text = "清大專屬旗子",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "500",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        enabled = myMoney >= 500,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.yellow_flag),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "交大旗"
+                    )
+                }
+                Text(
+                    text = "交大專屬旗子",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "500",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.blue_flag),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "政大旗"
+                    )
+                }
+                Text(
+                    text = "政大專屬旗子",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "500",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        enabled = myMoney >= 500,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.poopoo),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "大便"
+                    )
+                }
+                Text(
+                    text = "要臭他們就用這個",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "600",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-800)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        enabled = myMoney >= 800,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(84.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Color.White
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+            ) {
+                Column() {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Image(
+                        painter = painterResource(R.drawable.bnt),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(40.dp)
+                    )
+                    Text(
+                        text = "BNT"
+                    )
+                }
+                Text(
+                    text = "記得打疫苗",
+                    modifier = Modifier.padding(top = 30.dp)
+                )
+
+                Column() {
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                        Text(
+                            text = "999",
+                            fontSize = 25.sp //may bug
+                        )
+                    }
+                    Button(
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-1000)},
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = Iris60
+                        ),
+                        enabled = myMoney >= 1000,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = "購買",
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -49,7 +422,7 @@ fun ShopPreview() {
 @Composable
 fun Title(
     modifier: Modifier = Modifier,
-    money: String,
+    money: Int,
     navController: NavController
 ){
     Row(
@@ -78,7 +451,7 @@ fun Title(
                     .size(50.dp)
             )
             Text(
-                text = money,
+                text = money.toString(),
                 fontSize = 36.sp //may bug
             )
         }
@@ -86,123 +459,122 @@ fun Title(
 }
 
 
-@Composable
-fun ItemCard(
-    @DrawableRes drawable: Int,
-    itemName: String,
-    itemNote: String,
-    itemPrice: Int,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = Modifier
-            .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-            .height(84.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(15.dp),
-        elevation = 3.dp,    //shadow
-        backgroundColor = Color.White
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            Column() {
-                Spacer(modifier = Modifier.height(12.dp))
-                Image(
-                    painter = painterResource(drawable),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(40.dp)
-                )
-                Text(
-                    text = itemName
-                )
-            }
-            Text(
-                text = itemNote,
-                modifier = Modifier.padding(top = 30.dp)
-            )
-
-            Column() {
-                Row() {
-                    Icon(
-                        imageVector = Icons.Default.AttachMoney,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp)
-                    )
-                    Text(
-                        text = itemPrice.toString(),
-                        fontSize = 25.sp //may bug
-                    )
-                }
-                Button(
-                    onClick = {}, colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = Iris60
-                    ),
-                    modifier = Modifier.padding(start = 8.dp)
-                ) {
-                    Text(
-                        text = "購買",
-                        color = Color.White
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ItemCardPreview() {
-    SSteam2Theme {
-            ItemCard(
-                drawable = R.drawable.blue_flag,
-                modifier = Modifier.padding(8.dp),
-                itemName = stringResource(R.string.NTUflag),
-                itemNote = stringResource(R.string.NTUflagNote),
-                itemPrice = 500
-            )
-    }
-}
-
-data class ItemData(
-    val itemName: Int,
-    val itemNote: Int,
-    val itemprice: Int,
-    @DrawableRes val itemDrawable: Int
-    )
-
-private val itemDataList: List<ItemData> = listOf(
-    ItemData(R.string.NTUflag, R.string.NTUflagNote,500, R.drawable.orange_flag),
-    ItemData(R.string.NTHUflag, R.string.NTHUflagNote,500, R.drawable.purple_flag),
-    ItemData(R.string.NCTUflag, R.string.NCTUflagNote,500, R.drawable.yellow_flag),
-    ItemData(R.string.NCCUflag, R.string.NCCUflagNote,500, R.drawable.blue_flag),
-    ItemData(R.string.Poopoo, R.string.PoopooNote,500,R.drawable.poopoo),
-    ItemData(R.string.Eraser, R.string.EraserNote,500,R.drawable.eraser),
-    ItemData(R.string.BNT, R.string.BNTNote,500,R.drawable.bnt)
-)
-
-@Composable
-fun ItemCards() {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(itemDataList) { item ->
-            ItemCard(
-                itemName= stringResource(item.itemName),
-                itemNote = stringResource(item.itemNote),
-                itemPrice = item.itemprice,
-                drawable = item.itemDrawable
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ItemCardsPreview() {
-    SSteam2Theme { ItemCards() }
-}
+//@Composable
+//fun ItemCard(
+//    @DrawableRes drawable: Int,
+//    itemName: String,
+//    itemNote: String,
+//    itemPrice: Int,
+//    modifier: Modifier = Modifier
+//) {
+//    Card(
+//        modifier = Modifier
+//            .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+//            .height(84.dp)
+//            .fillMaxWidth(),
+//        shape = RoundedCornerShape(15.dp),
+//        elevation = 3.dp,    //shadow
+//        backgroundColor = Color.White
+//    ) {
+//        Row(
+//            horizontalArrangement = Arrangement.SpaceAround,
+//        ) {
+//            Column() {
+//                Spacer(modifier = Modifier.height(12.dp))
+//                Image(
+//                    painter = painterResource(drawable),
+//                    contentDescription = null,
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier
+//                        .height(40.dp)
+//                        .width(40.dp)
+//                )
+//                Text(
+//                    text = itemName
+//                )
+//            }
+//            Text(
+//                text = itemNote,
+//                modifier = Modifier.padding(top = 30.dp)
+//            )
+//
+//            Column() {
+//                Row() {
+//                    Icon(
+//                        imageVector = Icons.Default.AttachMoney,
+//                        contentDescription = null,
+//                        modifier = Modifier
+//                            .size(32.dp)
+//                    )
+//                    Text(
+//                        text = itemPrice.toString(),
+//                        fontSize = 25.sp //may bug
+//                    )
+//                }
+//                Button(
+//                    onClick = {}, colors = ButtonDefaults.textButtonColors(
+//                        backgroundColor = Iris60
+//                    ),
+//                    modifier = Modifier.padding(start = 8.dp)
+//                ) {
+//                    Text(
+//                        text = "購買",
+//                        color = Color.White
+//                    )
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+//@Composable
+//fun ItemCardPreview() {
+//    SSteam2Theme {
+//            ItemCard(
+//                drawable = R.drawable.blue_flag,
+//                modifier = Modifier.padding(8.dp),
+//                itemName = stringResource(R.string.NTUflag),
+//                itemNote = stringResource(R.string.NTUflagNote),
+//                itemPrice = 500
+//            )
+//    }
+//}
+//
+//data class ItemData(
+//    val itemName: Int,
+//    val itemNote: Int,
+//    val itemprice: Int,
+//    @DrawableRes val itemDrawable: Int
+//    )
+//
+//private val itemDataList: List<ItemData> = listOf(
+//    ItemData(R.string.NTUflag, R.string.NTUflagNote,500, R.drawable.orange_flag),
+//    ItemData(R.string.NTHUflag, R.string.NTHUflagNote,500, R.drawable.purple_flag),
+//    ItemData(R.string.NCTUflag, R.string.NCTUflagNote,500, R.drawable.yellow_flag),
+//    ItemData(R.string.NCCUflag, R.string.NCCUflagNote,500, R.drawable.blue_flag),
+//    ItemData(R.string.Poopoo, R.string.PoopooNote,500,R.drawable.poopoo),
+//    ItemData(R.string.BNT, R.string.BNTNote,500,R.drawable.bnt)
+//)
+//
+//@Composable
+//fun ItemCards() {
+//    LazyColumn(
+//        verticalArrangement = Arrangement.spacedBy(8.dp),
+//    ) {
+//        items(itemDataList) { item ->
+//            ItemCard(
+//                itemName= stringResource(item.itemName),
+//                itemNote = stringResource(item.itemNote),
+//                itemPrice = item.itemprice,
+//                drawable = item.itemDrawable
+//            )
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+//@Composable
+//fun ItemCardsPreview() {
+//    SSteam2Theme { ItemCards() }
+//}

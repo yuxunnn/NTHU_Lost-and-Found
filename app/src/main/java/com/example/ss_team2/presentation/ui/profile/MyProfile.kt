@@ -35,7 +35,7 @@ fun MyProfileScreen(
     navController: NavController
 ) {
 
-    val myUser by userViewModel.user.collectAsState()
+    val myUser by userViewModel.user.collectAsState() //這是大家共享的嗎?
     val myUserItem by userViewModel.userItem.collectAsState()
 
     val pagerState = rememberPagerState(pageCount = 2)

@@ -214,7 +214,12 @@ fun FindListLazyScreen(modifier: Modifier = Modifier, navController: NavControll
 }
 
 @Composable
-fun FindListHomeScreen(modifier: Modifier=Modifier, navController: NavController){
+fun FindListHomeScreen(
+    modifier: Modifier=Modifier,
+    navController: NavController,
+    what: String,
+    where: String
+){
     Column(modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -233,8 +238,8 @@ fun FindListHomeScreen(modifier: Modifier=Modifier, navController: NavController
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
         WhatAndWhereRowElement(
-            what = stringResource(id = R.string.ball),
-            where = stringResource(id = R.string.home)
+            what = what,
+            where = where
         )
         Spacer(modifier = Modifier.height(10.dp))
         FindListLazyScreen(navController = navController)
@@ -245,17 +250,24 @@ fun FindListHomeScreen(modifier: Modifier=Modifier, navController: NavController
 @Composable
 fun FindListFinalScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    what: String,
+    where: String
 ){
     Box(modifier = Modifier.fillMaxSize()){
-        FindListHomeScreen(navController = navController)
+        FindListHomeScreen(navController = navController, what = what, where = where)
         OutlinedButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(100.dp)
                 .padding(12.dp),
             onClick = {
-                      navController.navigate(route = Screen.AddFindList.route)
+                      navController.navigate(
+                          route = Screen.AddFindList.passWhatAndWhere(
+                              what = what,
+                              where = where
+                          )
+                      )
             },
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.White, backgroundColor = Color(0x78,0x79,0xf1))
@@ -290,11 +302,3 @@ data class DrawableStringPair(
     @DrawableRes val drawable: Int,
     @StringRes val text: Int
 )
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SSteam2Theme {
-        FindListFinalScreen(navController = rememberNavController())
-    }
-}
