@@ -10,22 +10,126 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun Welcome (
-    navController: NavController
+    navController: NavController,
+    userViewModel : UserViewModel = viewModel(),
+    modifier: Modifier = Modifier
 ){
+    var TypedEmail by remember { mutableStateOf("") }
+    var TypedPassword by remember { mutableStateOf("") }
+
     Column() {
         Title(navController)
-        LoginEmail()
-        LoginPassword()
-        LoginButton(navController = navController)
+
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column() {
+                Row(
+                    Modifier.width(350.dp),
+                ) {
+                    Text(
+                        text = "信箱",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
+                    )
+                }
+                TextField(
+                    value = TypedEmail,
+                    onValueChange = { TypedEmail = it },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colors.surface
+                    ),
+                    placeholder = {
+                        Text("xxxx@gmail.com")
+                    },
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = modifier
+                        .width(350.dp)
+                        .heightIn(min = 56.dp)
+                        .padding(top = 5.dp)
+                )
+            }
+        }
+
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column() {
+                Row(
+                    Modifier.width(350.dp),
+                ) {
+                    Text(
+                        text = "密碼",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
+                    )
+                }
+                TextField(
+                    value = TypedPassword,
+                    onValueChange = { TypedPassword = it },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colors.surface
+                    ),
+                    placeholder = {
+                        Text("********")
+                    },
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = modifier
+                        .width(350.dp)
+                        .heightIn(min = 56.dp)
+                        .padding(top = 5.dp)
+                )
+            }
+        }
+
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Row(
+                Modifier.width(350.dp)
+            ) {
+                Button(
+                    onClick = {
+                        navController.navigate(route = Screen.Home.route)
+                        userViewModel.userLogin(TypedEmail, TypedPassword)
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        backgroundColor = Iris60
+                    ),
+                    modifier = Modifier
+                        .height(56.dp)
+                        .width(350.dp)
+                ) {
+                    Text(
+                        text = "登入",
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
         ForgotPassword()
     }
 }
