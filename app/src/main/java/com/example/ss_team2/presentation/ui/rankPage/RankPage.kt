@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,13 +22,15 @@ import com.example.ss_team2.R
 
 import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 import com.example.ss_team2.presentation.ui.utility.BottomBar
+import com.example.ss_team2.ui.theme.Purple500
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun RankPage() {
     Column() {
         Title()
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
         TopButtons()
 
         //Need to be modified
@@ -46,12 +50,19 @@ fun RankPagePreview(){
 @Composable
 fun Title(){
     Row(
-        Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 20.dp)
+            .fillMaxWidth()
     ){
         Text(
             text = "積分榜",
-            fontSize = 36.sp
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = TextGray,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -153,10 +164,14 @@ fun Podium(
                 ) {
                     Text(
                         text = No_3,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
                     )
                     Text(
-                        text = No_3_Score.toString()
+                        text = No_3_Score.toString(),
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
                     )
                 }
 
@@ -166,11 +181,13 @@ fun Podium(
                     Text(
                         text = No_1,
                         fontSize = 16.sp,
-                        color = Color.Yellow
+                        color = Purple500,
+                        fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = No_1_Score.toString(),
-                        color = Color.Yellow
+                        color = Purple500,
+                        fontWeight = FontWeight.Bold
                     )
                 }
 
@@ -179,10 +196,14 @@ fun Podium(
                 ) {
                     Text(
                         text = No_2,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
                     )
                     Text(
-                        text = No_2_Score.toString()
+                        text = No_2_Score.toString(),
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
                     )
                 }
             }
@@ -232,10 +253,14 @@ fun TrashCan(
             ) {
                 Text(
                     text = No_4,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
                 Text(
-                    text = No_4_Score.toString()
+                    text = No_4_Score.toString(),
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
 

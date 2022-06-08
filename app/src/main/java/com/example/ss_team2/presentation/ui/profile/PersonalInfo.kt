@@ -12,8 +12,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.example.ss_team2.R
 import androidx.compose.ui.unit.dp
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun PersonalInfo(
@@ -54,7 +56,9 @@ fun PersonalInfo(
                 text = toolAmount.toString()
             )
             Text(
-                text = stringResource(id = R.string.own_tool)
+                text = stringResource(id = R.string.own_tool),
+                fontWeight = FontWeight.Bold,
+                color = TextGray
             )
         }
         Column(
@@ -65,7 +69,9 @@ fun PersonalInfo(
                 text = point.toString()
             )
             Text(
-                text = stringResource(id = R.string.point)
+                text = stringResource(id = R.string.point),
+                fontWeight = FontWeight.Bold,
+                color = TextGray
             )
         }
     }

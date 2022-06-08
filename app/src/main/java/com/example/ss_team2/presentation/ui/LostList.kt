@@ -118,13 +118,11 @@ fun HomeScreenWithMoney(
             fontWeight = FontWeight.Bold,
             color = Color(0x66,0x70,0x80),
             modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
-                .padding(8.dp)
+                .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 32.sp
         )
-        Spacer(modifier = Modifier.height(16.dp))
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
         WhatAndWhereRowElement(

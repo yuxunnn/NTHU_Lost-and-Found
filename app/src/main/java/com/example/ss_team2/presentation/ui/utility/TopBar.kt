@@ -6,11 +6,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun TopBar(
@@ -31,7 +33,8 @@ fun TopBar(
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            modifier = Modifier
+            modifier = Modifier,
+            color = TextGray
         )
         rightButton()
     }
@@ -45,6 +48,7 @@ fun TopBarButton(
     Icon(
         imageVector = imageVector,
         contentDescription = null,
+        tint = TextGray,
         modifier = Modifier
             .size(40.dp)
             .clickable(

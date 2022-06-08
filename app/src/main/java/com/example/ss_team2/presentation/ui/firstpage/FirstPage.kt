@@ -1,5 +1,9 @@
 package com.example.ss_team2.presentation.ui.firstpage
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -8,14 +12,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
-import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
-import com.example.ss_team2.presentation.navigation.LOST_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun FirstPage(
@@ -56,7 +64,7 @@ fun FirstButton(
         ) {
             Text(
                 text = "註冊新帳號",
-                fontSize = 36.sp,
+                fontSize = 36.sp
             )
         }
     }
@@ -68,13 +76,14 @@ fun FirstButton(
 fun SecondButton(
     navController: NavController
 ){
+
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ){
         Button(
             onClick = {
-                      navController.navigate(route = Screen.Login.route)
+                navController.navigate(route = Screen.Login.route)
             },
             shape = RoundedCornerShape(35.dp),
             modifier = Modifier
@@ -83,7 +92,7 @@ fun SecondButton(
         ) {
             Text(
                 text = "登入現有帳號",
-                fontSize = 36.sp,
+                fontSize = 36.sp
                 //modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 15.dp, bottom = 15.dp)
             )
         }
@@ -99,7 +108,9 @@ fun Title(){
         ){
             Text(
                 text = "頂大失物尋寶",
-                fontSize = 50.sp
+                fontSize = 50.sp,
+                color = TextGray,
+                fontWeight = FontWeight.Bold
             )
         }
     }

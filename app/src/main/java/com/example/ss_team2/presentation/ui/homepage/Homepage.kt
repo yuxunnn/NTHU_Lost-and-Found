@@ -50,7 +50,7 @@ fun HomepageScreen(
         )
 
         Divider(
-            color = MaterialTheme.colors.onBackground,
+            color = TextGray,
             thickness = 2.dp,
             modifier = Modifier
         )

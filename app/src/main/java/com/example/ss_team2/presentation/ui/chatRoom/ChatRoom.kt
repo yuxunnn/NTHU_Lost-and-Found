@@ -24,12 +24,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun Dialog(navController: NavController) {
     Column {
         TheFriend(Name = "yuxun", navController)
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
         DialogSurface()
         //TextInput()
     }
@@ -49,15 +50,17 @@ fun TheFriend(
     navController: NavController
 ){
     Row(
-        Modifier
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 20.dp)
             .fillMaxWidth()
-            .padding(10.dp),
     ){
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
             contentDescription = null,
+            tint = TextGray,
             modifier = Modifier
-                .size(50.dp)
+                .size(32.dp)
                 .padding(start = 8.dp)
                 .clickable() {
                     navController.popBackStack()

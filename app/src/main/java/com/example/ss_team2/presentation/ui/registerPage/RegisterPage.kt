@@ -20,9 +20,11 @@ import androidx.compose.ui.unit.toSize
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
+import com.example.ss_team2.ui.theme.TextGray
 
 
 @Composable
@@ -51,7 +53,9 @@ fun Title (){
     ){
         Text(
             text = "註冊",
-            fontSize =  36.sp
+            fontSize =  36.sp,
+            fontWeight = FontWeight.Bold,
+            color = TextGray
         )
     }
 }
@@ -81,7 +85,9 @@ fun UserName (
             ) {
                 Text(
                     text = "用戶名",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(
@@ -144,7 +150,9 @@ fun UserSchool() {
             ) {
                 Text(
                     text = "學校",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             // Create an Outlined Text Field
@@ -217,7 +225,9 @@ fun UserPhone (
             ) {
                 Text(
                     text = "電話",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(
@@ -265,7 +275,9 @@ fun UserEmail (
             ) {
                 Text(
                     text = "信箱",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(
@@ -313,7 +325,9 @@ fun UserPassword (
             ) {
                 Text(
                     text = "密碼",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(

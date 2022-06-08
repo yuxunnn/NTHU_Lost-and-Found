@@ -1,5 +1,6 @@
 package com.example.ss_team2.presentation.ui.chatList
 
+import android.graphics.Paint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 
@@ -12,12 +13,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +32,7 @@ import androidx.navigation.navArgument
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun ChatList (
@@ -35,7 +40,7 @@ fun ChatList (
 ) {
     Column {
         Title(navController = navController)
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
         SearchBar()
         ChatRooms(navController = navController)
     }
@@ -55,13 +60,18 @@ fun Title(
     navController: NavController
 ){
     Row(
-        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 20.dp)
+            .fillMaxWidth()
     ) {
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
             contentDescription = null,
+            tint = TextGray,
             modifier = Modifier
-                .size(50.dp)
+                .size(32.dp)
                 .padding(start = 8.dp)
                 .clickable() {
                     navController.popBackStack()
@@ -69,8 +79,10 @@ fun Title(
         )
         Text(
             text = "聊天室",
-            fontSize = 36.sp,
-            modifier = Modifier.padding(start = 85.dp,end = 16.dp)
+            fontSize = 32.sp,
+            modifier = Modifier.padding(start = 70.dp,end = 128.dp),
+            fontWeight = FontWeight.Bold,
+            color = TextGray,
         )
     }
 }
@@ -151,16 +163,22 @@ fun ChatRoom(
                 Row(){
                     Text(
                         text = friendname,
-                        fontSize = 25.sp
+                        fontSize = 25.sp,
+                        color = TextGray,
+                        fontWeight = FontWeight.Bold
                     )
                 }
                 Row(){
                     Text(
-                        text = firstSentence
+                        text = firstSentence,
+                        color = TextGray,
+                        fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.width(5.dp))
                     Text(
-                        text =  newestTime
+                        text =  newestTime,
+                        color = TextGray,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }

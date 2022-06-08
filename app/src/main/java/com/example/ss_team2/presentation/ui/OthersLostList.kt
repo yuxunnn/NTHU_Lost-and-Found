@@ -1,6 +1,8 @@
 package com.example.ss_team2
 
 
+import android.content.Intent
+import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -19,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -123,12 +126,11 @@ fun LostListHomeScreen(
             fontWeight = FontWeight.Bold,
             color = Color(0x66,0x70,0x80),
             modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
+                .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 32.sp
         )
-        Spacer(modifier = Modifier.height(16.dp))
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         LostListLazyScreen(
@@ -185,8 +187,10 @@ private val TestData = listOf(
 @Composable
 private fun OthersLostListBottomNavigation(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    where: String
 ) {
+    val context = LocalContext.current
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -202,7 +206,13 @@ private fun OthersLostListBottomNavigation(
                 Text("地圖定位")
             },
             selected = true,
-            onClick = {}
+            onClick = {
+                val gmmIntentUri =
+                    Uri.parse("geo:120,24?q=$where")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                context.startActivity(mapIntent)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -238,7 +248,7 @@ private fun OthersLostListBottomNavigation(
 @Composable
 fun OthersLostListApp(navController: NavController){
     Scaffold(
-        bottomBar = { OthersLostListBottomNavigation(navController = navController) }
+        bottomBar = { OthersLostListBottomNavigation(navController = navController, where = "台達館") }
     ) {
         LostListFinalScreen(
             str = R.string.home,

@@ -12,11 +12,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,7 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
-
+import com.example.ss_team2.ui.theme.TextGray
 
 
 @Composable
@@ -34,7 +36,7 @@ fun Shop(
 ){
     Column() {
         Title(money = "520", navController = navController)
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
         ItemCards()
     }
 }
@@ -53,13 +55,18 @@ fun Title(
     navController: NavController
 ){
     Row(
-        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 20.dp)
+            .fillMaxWidth()
     ) {
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
             contentDescription = null,
+            tint = TextGray,
             modifier = Modifier
-                .size(50.dp)
+                .size(32.dp)
                 .padding(start = 8.dp)
                 .clickable() {
                     navController.popBackStack()
@@ -67,19 +74,26 @@ fun Title(
         )
         Text(
             text = "購買道具",
-            fontSize = 36.sp,
+            fontSize = 32.sp,
+            color = TextGray,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(start = 70.dp,end = 16.dp)
         )
-        Row() {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 imageVector = Icons.Default.AttachMoney,
                 contentDescription = null,
+                tint = TextGray,
                 modifier = Modifier
                     .size(50.dp)
             )
             Text(
                 text = money,
-                fontSize = 36.sp //may bug
+                fontSize = 32.sp, //may bug,
+                color = TextGray,
+                fontWeight = FontWeight.Bold
             )
         }
     }
@@ -117,11 +131,15 @@ fun ItemCard(
                         .width(40.dp)
                 )
                 Text(
-                    text = itemName
+                    text = itemName,
+                    color = TextGray,
+                    fontWeight = FontWeight.Bold
                 )
             }
             Text(
                 text = itemNote,
+                color = TextGray,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 30.dp)
             )
 
@@ -130,12 +148,15 @@ fun ItemCard(
                     Icon(
                         imageVector = Icons.Default.AttachMoney,
                         contentDescription = null,
+                        tint = TextGray,
                         modifier = Modifier
                             .size(32.dp)
                     )
                     Text(
                         text = itemPrice.toString(),
-                        fontSize = 25.sp //may bug
+                        fontSize = 25.sp, //may bug
+                        color = TextGray,
+                        fontWeight = FontWeight.Bold
                     )
                 }
                 Button(

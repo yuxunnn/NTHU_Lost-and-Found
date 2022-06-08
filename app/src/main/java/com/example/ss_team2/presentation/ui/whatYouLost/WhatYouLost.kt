@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun WhatYouLost(
@@ -48,6 +49,7 @@ fun Lastpage(
     Icon(
         imageVector = Icons.Default.ArrowBackIos,
         contentDescription = null,
+        tint = TextGray,
         modifier = Modifier
             .size(48.dp)
             .padding(start = 8.dp)
@@ -71,7 +73,8 @@ fun SearchBar(
                 .paddingFromBaseline(bottom = 8.dp)
                 .padding(start = 8.dp),
             fontSize = 30.sp,
-            fontWeight = FontWeight.W600 //粗體
+            fontWeight = FontWeight.Bold,
+            color = TextGray
         )
         TextField(
             value = "",
