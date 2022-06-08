@@ -15,6 +15,7 @@ query PostById($postId: ID!) {
         postType
         itemType
         location
+        itemImage
         postDescribe
         hasDone
         rewardCoin
@@ -41,6 +42,34 @@ query PostSearch($postType: String!, $itemType: String!, $location: String!) {
         postType
         itemType
         location
+        itemImage
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}
+
+query PostByAuthor($author: String!) {
+    postByAuthor(author: $author) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        itemImage
         postDescribe
         hasDone
         rewardCoin
@@ -67,6 +96,7 @@ mutation CreatePost($post: PostCreateInput!) {
         postType
         itemType
         location
+        itemImage
         postDescribe
         hasDone
         rewardCoin
@@ -93,6 +123,7 @@ mutation UpdatePost($postId: ID!, $post: PostUpdateInput!) {
         postType
         itemType
         location
+        itemImage
         postDescribe
         hasDone
         rewardCoin
@@ -105,4 +136,3 @@ mutation UpdatePost($postId: ID!, $post: PostUpdateInput!) {
 mutation DeletePost($postId: ID!) {
     deletePost(postId: $postId)
 }
-

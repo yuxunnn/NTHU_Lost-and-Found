@@ -11,6 +11,11 @@ interface Timestamps {
     updatedAt: Date!
 }
 
+type Helper {
+    postId: String!
+    helperName: String!
+}
+
 scalar Date
 
 type Query {
@@ -19,13 +24,15 @@ type Query {
     usersBySchool(userSchool: String!): [User]
     userById(userId: ID!): User
     userByName(userName: String!): User
+    userLogin(loginInput: String!, password: String!): User
     posts: [Post]
     postById(postId: ID!): Post
     postSearch(postType: String!, itemType: String!, location: String!): [Post]
+    postByAuthor(author: String!): [Post]
     userItems: [UserItem]
     userItem(userName: String!): UserItem
     shopItems: [ShopItem]
-    shopItem(itemType: String!): ShopItem
+    shopItem(itemType: Int!): ShopItem
     ranking: [Ranking]
     quests: [Quest]
     quest(userName: String!): Quest
@@ -33,12 +40,13 @@ type Query {
     chatsByReceive(receive: String!): [Chat]
     chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
     mapItems: [MapItem]
+    postHelpers(postId: String!): [Helper]
 }
 
 type Mutation {
     createUser(user: UserCreateInput!): User!
     updateCoin(userName: String!, changeCoin: Int!): User!
-    createPost(post: PostCreateInput!): Post!
+    createPost(post: PostCreateInput!): [Post]
     updatePost(postId: ID!, post: PostUpdateInput!): Post!
     deletePost(postId: ID!): String!
     updateUserItem(userName: String!, itemType: String!, changeNum: Int!): UserItem!
@@ -49,24 +57,26 @@ type Mutation {
     updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
     createChat(send: String!, receive: String!, message: String!): String!
     createMapItem(mapItem: MapItemCreateInput!): [MapItem]
+    createPostHelper(postId: String!, helperName: String!): String!
 }
 
 type UserItem {
     userName: String!
-    waterGun: Int!
-    board: Int!
-    eraser: Int!
+    orangeFlag: Int!
+    purpleFlag: Int!
+    yellowFlag: Int!
+    blueFlag: Int!
     shit: Int!
-    flag: Int!
+    vaccine: Int!
 }
 
 type ShopItem {
-    itemType: String!
+    itemType: Int!
     itemPrice: Int!
 }
 
 type MapItem {
-    itemType: String!
+    itemType: Int!
     latitude: Float!
     longitude: Float!
     userName: String!
@@ -74,7 +84,7 @@ type MapItem {
 }
 
 input MapItemCreateInput {
-    itemType: String!
+    itemType: Int!
     latitude: Float!
     longitude: Float!
     userName: String!
@@ -87,6 +97,7 @@ type Post implements Timestamps {
     postType: String!
     itemType: String!
     location: String!
+    itemImage: String
     postDescribe: String
     hasDone: Boolean!
     rewardCoin: Int!
@@ -100,6 +111,7 @@ input PostCreateInput {
     postType: String!
     itemType: String!
     location: String!
+    itemImage: String
     postDescribe: String
     hasDone: Boolean!
     rewardCoin: Int!
@@ -109,6 +121,7 @@ input PostCreateInput {
 input PostUpdateInput {
     itemType: String
     location: String
+    itemImage: String
     postDescribe: String
     rewardCoin: Int
     anonymous: Boolean

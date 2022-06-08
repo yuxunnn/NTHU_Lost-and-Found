@@ -17,7 +17,7 @@ class MapItemRepository {
         println("MySQL Response = ${response.data?.mapItems}")
 
         val data = response.data?.mapItems
-        var mapItemsList: MutableList<MapItem> = arrayListOf()
+        val mapItemsList: MutableList<MapItem> = arrayListOf()
 
         data?.forEach { mapItem ->
             mapItemsList.add(MapItem(
@@ -38,7 +38,7 @@ class MapItemRepository {
         println("MySQL Response = ${response.data?.createMapItem}")
 
         val data = response.data?.createMapItem
-        var mapItemsList: MutableList<MapItem> = arrayListOf()
+        val mapItemsList: MutableList<MapItem> = arrayListOf()
 
         data?.forEach { mapItem ->
             mapItemsList.add(MapItem(

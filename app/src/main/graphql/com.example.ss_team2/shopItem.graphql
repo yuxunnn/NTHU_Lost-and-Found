@@ -5,7 +5,7 @@ query ShopItems {
     }
 }
 
-query ShopItem($itemType: String!) {
+query ShopItem($itemType: Int!) {
     shopItem(itemType: $itemType) {
         itemType
         itemPrice

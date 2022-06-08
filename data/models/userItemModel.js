@@ -38,25 +38,29 @@ export default class UserItemModel {
 
         try {
             switch (_itemType) {
-                case "waterGun":
-                    _itemCount = _userItem.waterGun + _changeNum
-                    if (_itemCount < 0) throw new Error("waterGun less than zero")
+                case "orangeFlag":
+                    _itemCount = _userItem.orangeFlag + _changeNum
+                    if (_itemCount < 0) throw new Error("orangeFlag less than zero")
                     break
-                case "board":
-                    _itemCount = _userItem.board + _changeNum
-                    if (_itemCount < 0) throw new Error("board less than zero")
+                case "purpleFlag":
+                    _itemCount = _userItem.purpleFlag + _changeNum
+                    if (_itemCount < 0) throw new Error("purpleFlag less than zero")
                     break
-                case "eraser":
-                    _itemCount = _userItem.eraser + _changeNum
-                    if (_itemCount < 0) throw new Error("eraser less than zero")
+                case "yellowFlag":
+                    _itemCount = _userItem.yellowFlag + _changeNum
+                    if (_itemCount < 0) throw new Error("yellowFlag less than zero")
+                    break
+                case "blueFlag":
+                    _itemCount = _userItem.blueFlag + _changeNum
+                    if (_itemCount < 0) throw new Error("blueFlag less than zero")
                     break
                 case "shit":
                     _itemCount = _userItem.shit + _changeNum
                     if (_itemCount < 0) throw new Error("shit less than zero")
                     break
-                case "flag":
-                    _itemCount = _userItem.flag + _changeNum
-                    if (_itemCount < 0) throw new Error("flag less than zero")
+                case "vaccine":
+                    _itemCount = _userItem.vaccine + _changeNum
+                    if (_itemCount < 0) throw new Error("vaccine less than zero")
                     break
                 default:
                     throw new Error("itemType not exist")
@@ -75,7 +79,7 @@ export default class UserItemModel {
         const _userName = args.userName
 
         try {
-            const query = `INSERT INTO useritem(userName, waterGun, board, eraser, shit, flag) VALUES ('${_userName}', 0, 0, 0, 0, 0)`
+            const query = `INSERT INTO useritem(userName, orangeFlag, purpleFlag, yellowFlag, blueFlag, shit, vaccine) VALUES ('${_userName}', 0, 0, 0, 0, 0, 0)`
             const [rows, fields] = await conn.execute(query)
 
             return _userName

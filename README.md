@@ -7,26 +7,30 @@
 英文名字可能會改因為我英文太爛
 
 # 查詢類
-用戶(User)： 用戶名(String) 學校(String) 手機(String) 郵箱(String) 密碼(String) 積分(Int) 擁有道具(UserItem) 已發佈的貼文(Post) 任務(Mission) 通知(Noti) 時間(Time) 頭像圖片(String)
+用戶(User)： userId(ID) 用戶名(String) 學校(String) 手機(String) 郵箱(String) 密碼(String) 積分(Int) 頭像圖片(String) 時間(Time) 
 
-貼文(Post)： 圖片(String) 物品類型(String) 地點(String) 作者(User) 物品描述(String) 是否取回(Boolean) 聊天? 懸賞積分(Int) 匿名(Boolean) 時間(Time)
+貼文(Post)： postId(ID) 作者(String) 貼文類型(Strin) 物品類型(String) 地點(String)  物品圖片(String)  物品描述(String) 是否取回(Boolean) 懸賞積分(Int) 匿名(Boolean) 時間(Time)
 
-排行榜： 四個學校的積分(Coin) 
+排行榜(Ranking)： 學校(String) 學校積分(Int) 
 
-任务(Mission): 用戶名(String), 各個任務的進度(Int)
+任务(Quest): 用戶名(String), Quest1進度(Int), Quest2(進度), Quest3(進度)
 
-商店道具(ShopItem): 種類(String), 價格(Int),
+用戶道具(UserItem): 用戶名(String), orangeFlag數量(Int), purpleFlag數量(Int), yellowFlag數量(Int), blueFlag數量(Int), shit數量(Int), vaccine數量(Int)
 
-用戶道具(UserItem): 用戶名(String), 各個道具的數量(Int),
+商店道具(ShopItem): 道具種類(Int), 價格(Int),
 
-通知：貼文
+地圖道具(MapItem): 道具種類(Int), latitude(Double), longitude(Double), userName(String), userSchool(String)
 
-聊天：發送者(String), 接受者(String), 訊息(String), 時間(Time)
+聊天(Chat)：發送者(String), 接受者(String), 訊息(String), 時間(Time)
+
+幫助者(Helper): postId(Int), helperName(String)
+
+通知(Noti): receiver(String)
 
 # 修改類
 
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
-password比對
 notification
+createChat回傳改掉

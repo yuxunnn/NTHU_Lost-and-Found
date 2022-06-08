@@ -2,18 +2,20 @@ package com.example.ss_team2.data.data_source
 
 data class UserItem(
     val userName: String,
-    val waterGun: Int,
-    val board: Int,
-    val eraser: Int,
+    val orangeFlag: Int,
+    val purpleFlag: Int,
+    val yellowFlag: Int,
+    val blueFlag: Int,
     val shit: Int,
-    val flag: Int
+    val vaccine: Int
 )
 
 val emptyUserItem = UserItem(
     userName = "",
-    waterGun = 0,
-    board = 0,
-    eraser = 0,
+    orangeFlag = 0,
+    purpleFlag = 0,
+    yellowFlag = 0,
+    blueFlag = 0,
     shit = 0,
-    flag = 0
+    vaccine = 0
 )

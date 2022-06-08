@@ -10,11 +10,13 @@ type Query {
   usersBySchool(userSchool: String!): [User]
   userById(userId: ID!): User
   userByName(userName: String!): User
+  userLogin(loginInput: String!, password: String!): User
 
   # Post
   posts: [Post]
   postById(postId: ID!): Post
   postSearch(postType: String!, itemType: String!, location: String!): [Post]
+  postByAuthor(author: String!): [Post]
 
   # UserItem
   userItems: [UserItem]
@@ -22,7 +24,7 @@ type Query {
 
   # ShopItem
   shopItems: [ShopItem]
-  shopItem(itemType: String!): ShopItem
+  shopItem(itemType: Int!): ShopItem
 
   # Ranking
   ranking: [Ranking]
@@ -38,6 +40,9 @@ type Query {
 
   # MapItem
   mapItems: [MapItem]
+
+  #Helper
+  postHelpers(postId: String!): [Helper]
 }
 
 type Mutation{
@@ -46,7 +51,7 @@ type Mutation{
   updateCoin(userName:String!, changeCoin: Int!): User!
 
   # Post
-  createPost(post: PostCreateInput!): Post!
+  createPost(post: PostCreateInput!): [Post]
   updatePost(postId: ID!, post: PostUpdateInput!): Post!
   deletePost(postId: ID!): String!
 
@@ -67,4 +72,7 @@ type Mutation{
 
   # MapItem
   createMapItem(mapItem: MapItemCreateInput!): [MapItem]
+
+  # Helper
+  createPostHelper(postId: String!, helperName: String!): String!
 }

@@ -3,22 +3,23 @@
 # UserItem
 type UserItem{
     userName: String!
-    waterGun: Int!
-    board: Int!
-    eraser: Int!
+    orangeFlag: Int!
+    purpleFlag: Int!
+    yellowFlag: Int!
+    blueFlag: Int!
     shit: Int!
-    flag: Int!
+    vaccine: Int!
 }
 
 # ShopItem
 type ShopItem{
-    itemType: String!
+    itemType: Int!
     itemPrice: Int!
 }
 
 # MapItem
 type MapItem{
-    itemType: String!
+    itemType: Int!
     latitude: Float!
     longitude: Float!
     userName: String!
@@ -26,7 +27,7 @@ type MapItem{
 }
 
 input MapItemCreateInput{
-    itemType: String!
+    itemType: Int!
     latitude: Float!
     longitude: Float!
     userName: String!

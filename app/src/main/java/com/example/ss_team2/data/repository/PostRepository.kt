@@ -37,6 +37,7 @@ class PostRepository {
             data.postType,
             data.itemType,
             data.location,
+            data.itemImage,
             data.postDescribe,
             data.hasDone,
             data.rewardCoin,
@@ -85,6 +86,50 @@ class PostRepository {
                     post.postType,
                     post.itemType,
                     post.location,
+                    post.itemImage,
+                    post.postDescribe,
+                    post.hasDone,
+                    post.rewardCoin,
+                    post.anonymous,
+                    post.createdAt,
+                    post.updatedAt
+                )
+            )
+        }
+
+        return postList
+    }
+
+    suspend fun getUserPosts(author: String): MutableList<Post>{
+        val response = apolloClient.query(PostByAuthorQuery(author)).execute()
+        println("MySQL Response = ${response.data?.postByAuthor}")
+
+        val data = response.data?.postByAuthor
+        var postList: MutableList<Post> = arrayListOf()
+
+        data?.forEach { post ->
+            val author = post?.author
+            val user = User(
+                author!!.userId,
+                author.userName,
+                author.userSchool,
+                author.userPhoneNumber,
+                author.userEmail,
+                "",
+                author.userCoin,
+                author.userHead,
+                author.createdAt,
+                author.updatedAt
+            )
+
+            postList.add(
+                Post(
+                    post.postId,
+                    user,
+                    post.postType,
+                    post.itemType,
+                    post.location,
+                    post.itemImage,
                     post.postDescribe,
                     post.hasDone,
                     post.rewardCoin,
@@ -100,38 +145,47 @@ class PostRepository {
 
     // Mutations
 
-    suspend fun createPost(newPost: PostCreateInput): Post {
+    suspend fun createPost(newPost: PostCreateInput): MutableList<Post> {
         val response = apolloClient.mutation(CreatePostMutation(newPost)).execute()
         println("Response = ${response.data?.createPost}")
 
-        val data = response.data!!.createPost
-        val author = data!!.author
-        val user = User(
-            author.userId,
-            author.userName,
-            author.userSchool,
-            author.userPhoneNumber,
-            author.userEmail,
-            "",
-            author.userCoin,
-            author.userHead,
-            author.createdAt,
-            author.updatedAt
-        )
+        val data = response.data?.createPost
+        var postList: MutableList<Post> = arrayListOf()
 
-        return Post(
-            data.postId,
-            user,
-            data.postType,
-            data.itemType,
-            data.location,
-            data.postDescribe,
-            data.hasDone,
-            data.rewardCoin,
-            data.anonymous,
-            data.createdAt,
-            data.updatedAt
-        )
+        data?.forEach { post ->
+            val author = post?.author
+            val user = User(
+                author!!.userId,
+                author.userName,
+                author.userSchool,
+                author.userPhoneNumber,
+                author.userEmail,
+                "",
+                author.userCoin,
+                author.userHead,
+                author.createdAt,
+                author.updatedAt
+            )
+
+            postList.add(
+                Post(
+                    post.postId,
+                    user,
+                    post.postType,
+                    post.itemType,
+                    post.location,
+                    post.itemImage,
+                    post.postDescribe,
+                    post.hasDone,
+                    post.rewardCoin,
+                    post.anonymous,
+                    post.createdAt,
+                    post.updatedAt
+                )
+            )
+        }
+
+        return postList
     }
 
     suspend fun updatePost(postId: String, modifyPost: PostUpdateInput): Post {
@@ -159,6 +213,7 @@ class PostRepository {
             data.postType,
             data.itemType,
             data.location,
+            data.itemImage,
             data.postDescribe,
             data.hasDone,
             data.rewardCoin,

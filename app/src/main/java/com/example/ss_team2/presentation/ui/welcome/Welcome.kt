@@ -91,7 +91,7 @@ fun LoginEmail (
                 Modifier.width(350.dp),
             ) {
                 Text(
-                    text = "信箱",
+                    text = "信箱或手機號碼",
                     fontSize = 20.sp
                 )
             }
