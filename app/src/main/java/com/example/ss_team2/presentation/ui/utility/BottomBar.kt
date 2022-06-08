@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.ui.utility
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.CollectionsBookmark
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,7 +35,7 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavController) {
         BottomNavigationItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Star,
+                    imageVector = Icons.Outlined.CollectionsBookmark,
                     contentDescription = null
                 )
             },
@@ -49,7 +50,7 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavController) {
         BottomNavigationItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Email,
+                    imageVector = Icons.Filled.WorkspacePremium,
                     contentDescription = null
                 )
             },

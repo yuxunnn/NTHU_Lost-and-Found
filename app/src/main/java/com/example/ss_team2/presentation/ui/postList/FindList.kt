@@ -40,17 +40,13 @@ fun FindListHomeScreen(
             fontWeight = FontWeight.Bold,
             color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
-                .padding(8.dp)
+                .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 32.sp
         )
-        Divider(
-            color = Color(0x66, 0x70, 0x80),
-            thickness = 1.dp,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
+        Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
+        Spacer(modifier = Modifier.height(10.dp))
         WhatAndWhereRowElement(
             what = stringResource(id = R.string.ball),
             where = stringResource(id = R.string.home)
@@ -69,6 +65,8 @@ fun FindListHomeScreen(
 fun FindListFinalScreen(
     postViewModel: PostViewModel = viewModel(),
     modifier: Modifier = Modifier,
+    what: String,
+    where: String,
     navController: NavController
 ) {
 
@@ -79,7 +77,14 @@ fun FindListFinalScreen(
         )
         PostListButton(
             icon = Icons.Default.Add,
-            onClick = { navController.navigate(route = Screen.AddFindList.route) },
+            onClick = {
+                navController.navigate(
+                    route = Screen.AddFindList.passWhatAndWhere(
+                        what = what,
+                        where = where
+                    )
+                )
+            },
             modifier = Modifier.align(Alignment.BottomEnd)
         )
         PostListButton(
@@ -87,13 +92,5 @@ fun FindListFinalScreen(
             onClick = { navController.navigate(route = Screen.Home.route) },
             modifier = Modifier.align(Alignment.BottomStart)
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SSteam2Theme {
-        FindListFinalScreen(navController = rememberNavController())
     }
 }

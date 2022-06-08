@@ -6,6 +6,7 @@ const val FIND_GRAPH_ROUTE = "find"
 const val BOTTOM_GRAPH_ROUTE = "bottom"
 const val WHAT_ARGUMENT_KEY = "what"
 const val WHERE_ARGUMENT_KEY = "where"
+const val USERNAME_ARGUMENT_KEY = "username"
 
 sealed class Screen (val route: String) {
     object First: Screen(route = "first_screen")
@@ -64,7 +65,15 @@ sealed class Screen (val route: String) {
         }
     }
     object Confirmation: Screen(route = "confirmation_screen")
-    object EditPost: Screen(route = "editpost_screen")
+    object EditPost: Screen(route = "editpost_screen/{$WHAT_ARGUMENT_KEY}/{$WHERE_ARGUMENT_KEY}/{$USERNAME_ARGUMENT_KEY}"){
+        fun passWhatAndWhereAndUserName(
+            what: String,
+            where: String,
+            username: String
+        ): String {
+            return "editpost_screen/$what/$where/$username"
+        }
+    }
     object MyPost: Screen(route = "mypost_screen")
     object Profile: Screen(route = "profile_screen")
     object Quest: Screen(route = "quest_screen")

@@ -1,9 +1,10 @@
 package com.example.ss_team2.presentation.ui
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
@@ -13,24 +14,68 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.ui.theme.SSteam2Theme
+
+@Composable
+fun AnonymousUserCardForEdit(
+    modifier: Modifier=Modifier,
+    str: String,
+    @DrawableRes drawable: Int
+){
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Image(
+            painter = painterResource(drawable),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(60.dp)
+                .padding(8.dp)
+                .clip(CircleShape)
+        )
+        Text(
+            text = str,
+            fontSize = 12.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.width(60.dp))
+        Text(
+            text = ("匿名"),
+            color = Color(0x66,0x70,0x80),
+            fontSize = 8.sp
+        )
+        val checkedState = remember { mutableStateOf(false) }
+        Switch(
+            checked = checkedState.value,
+            onCheckedChange = { checkedState.value = it },
+            colors = SwitchDefaults.colors(checkedThumbColor = Color.DarkGray,
+                uncheckedThumbColor = Color.DarkGray,
+                checkedTrackColor = Color.Blue,
+                uncheckedTrackColor = Color.Blue,)
+        )
+    }
+}
 
 @Composable
 fun EditPostHomeScreen(
     modifier: Modifier = Modifier,
     @DrawableRes userdrawable: Int,
-    @StringRes username: Int,
+    username: String,
     what: String,
     where: String
 ) {
@@ -49,7 +94,7 @@ fun EditPostHomeScreen(
         Spacer(modifier = Modifier.height(16.dp))
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
-        AnonymousUserCard(str = username, drawable = userdrawable)
+        AnonymousUserCardForEdit(str = username, drawable = userdrawable)
         EditItemCard(what = what, where = where)
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
@@ -84,7 +129,7 @@ fun EditPostHomeScreen(
 @Composable
 fun EditPostFinalScreen(modifier: Modifier = Modifier,
                            @DrawableRes userdrawable: Int,
-                           @StringRes username: Int,
+                           username: String,
                             navController: NavController,
                         what: String,
                         where: String
@@ -127,11 +172,12 @@ fun EditPostFinalScreen(modifier: Modifier = Modifier,
 fun EditPost(
     navController: NavController,
     what: String,
-    where: String
+    where: String,
+    username: String
 ){
     EditPostFinalScreen(
         userdrawable = R.drawable.ic_launcher_foreground,
-        username = R.string.Finder,
+        username = username,
         navController = navController,
         what = what,
         where = where

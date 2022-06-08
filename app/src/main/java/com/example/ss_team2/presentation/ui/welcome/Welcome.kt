@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -14,13 +15,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.ui.theme.Iris60
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun Welcome (
     navController: NavController
 ){
     Column() {
-        Title()
+        Title(navController)
         LoginEmail()
         LoginPassword()
         LoginButton(navController = navController)
@@ -37,7 +39,9 @@ fun WelcomePreview(){
 }
 
 @Composable
-fun Title(){
+fun Title(
+    navController: NavController
+){
     Row(
         Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
@@ -47,15 +51,21 @@ fun Title(){
             ) {
                 Text(
                     text = "歡迎回來!",
-                    fontSize = 50.sp
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
                 Row() {
                     Text(
                         text = "還沒有帳號嗎?",
                         fontSize = 20.sp,
-                        modifier = Modifier.padding(top = 12.dp)
+                        modifier = Modifier.padding(top = 12.dp),
+                        fontWeight = FontWeight.Bold,
+                        color = TextGray
                     )
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = {
+                        navController.navigate(route = Screen.Register.route)
+                    }) {
                         Text(
                             text = " 按此註冊一個新帳號",
                             fontSize = 20.sp
@@ -66,13 +76,6 @@ fun Title(){
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TitlePreview(){
-    SSteam2Theme() {
-        Title()
-    }
-}
 
 @Composable
 fun LoginEmail (
@@ -91,8 +94,10 @@ fun LoginEmail (
                 Modifier.width(350.dp),
             ) {
                 Text(
-                    text = "信箱或手機號碼",
-                    fontSize = 20.sp
+                    text = "信箱",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(
@@ -140,7 +145,9 @@ fun LoginPassword (
             ) {
                 Text(
                     text = "密碼",
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
                 )
             }
             TextField(

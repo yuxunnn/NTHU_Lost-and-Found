@@ -2,6 +2,7 @@ package com.example.ss_team2.presentation.navigation.navGraph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ss_team2.presentation.ui.EditPost
@@ -9,6 +10,8 @@ import com.example.ss_team2.presentation.ui.MyPostApp
 import com.example.ss_team2.presentation.ui.Notification
 import com.example.ss_team2.presentation.navigation.ROOT_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
+import androidx.navigation.navArgument
+import com.example.ss_team2.presentation.navigation.*
 import com.example.ss_team2.presentation.ui.Confirmation
 import com.example.ss_team2.presentation.ui.chatList.ChatList
 import com.example.ss_team2.presentation.ui.chatRoom.Dialog
@@ -104,9 +107,25 @@ fun SetupNavGraph(
             Confirmation(navController = navController)
         }
         composable(
-            route = Screen.EditPost.route
+            route = Screen.EditPost.route,
+            arguments = listOf(
+                navArgument(WHAT_ARGUMENT_KEY){
+                    type = NavType.StringType
+                },
+                navArgument(WHERE_ARGUMENT_KEY){
+                    type = NavType.StringType
+                },
+                navArgument(USERNAME_ARGUMENT_KEY){
+                    type = NavType.StringType
+                }
+            )
         ){
-            EditPost(navController = navController,"OK","OK")
+            entry ->
+                EditPost(navController = navController,
+                    what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
+                    where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString(),
+                    username = entry.arguments?.getString(USERNAME_ARGUMENT_KEY).toString()
+                )
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.ss_team2.presentation.ui.chatRoom
 
-import android.os.Message
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,10 +17,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +30,7 @@ import com.example.ss_team2.R
 import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
+import com.example.ss_team2.ui.theme.TextGray
 import kotlinx.coroutines.launch
 
 
@@ -101,6 +99,7 @@ fun Avatar(
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
+            tint = TextGray,
             modifier = Modifier
                 .size(40.dp)
                 .clickable { navController.popBackStack() }

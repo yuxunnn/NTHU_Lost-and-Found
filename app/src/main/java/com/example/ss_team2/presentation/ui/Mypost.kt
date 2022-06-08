@@ -42,7 +42,7 @@ fun MyPostHomeScreen(
             fontWeight = FontWeight.Bold,
             color = Color(0x66, 0x70, 0x80),
             modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
+                .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 32.sp
@@ -118,7 +118,13 @@ private fun MyPostBottomNavigation(
             },
             selected = true,
             onClick = {
-                navController.navigate(route = Screen.EditPost.route)
+                navController.navigate(
+                    route = Screen.EditPost.passWhatAndWhereAndUserName(
+                        what = "hi",
+                        where = "ho",
+                        username = "ii"
+                    )
+                )
             }
         )
         BottomNavigationItem(

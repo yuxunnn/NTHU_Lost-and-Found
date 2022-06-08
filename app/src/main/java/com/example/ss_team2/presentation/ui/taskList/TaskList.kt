@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
@@ -29,7 +32,7 @@ import com.example.ss_team2.presentation.ui.utility.BottomBar
 fun TaskList(navController: NavController){
     Column {
         Title()
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
         MoneyAndShop(money = "520", navController = navController)
         TaskCards()
 
@@ -41,12 +44,19 @@ fun TaskList(navController: NavController){
 @Composable
 fun Title(){
     Row(
-        Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 20.dp)
+            .fillMaxWidth()
     ) {
         Text(
             text = "任務清單",
-            fontSize = 36.sp
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = TextGray,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -67,16 +77,21 @@ fun MoneyAndShop(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth()
     ){
-        Row() {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 imageVector = Icons.Default.AttachMoney,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(60.dp),
+                tint = TextGray
             )
             Text(
                 text = money,
-                fontSize = 45.sp //may bug
+                fontSize = 32.sp, //may bug,
+                fontWeight = FontWeight.Bold,
+                color = TextGray
             )
         }
         Icon(
@@ -86,7 +101,8 @@ fun MoneyAndShop(
                 .size(60.dp)
                 .clickable() {
                     navController.navigate(route = Screen.Shop.route)
-                }
+                },
+            tint = TextGray
         )
     }
 }
