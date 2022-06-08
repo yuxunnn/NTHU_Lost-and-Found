@@ -88,7 +88,9 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        onClick = {
+                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
+                                  userViewModel.updateUserItem(userViewModel.user.value.userName,"orangeFlag",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
@@ -149,7 +151,8 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)
+                            userViewModel.updateUserItem(userViewModel.user.value.userName,"purpleFlag",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
@@ -210,7 +213,9 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        onClick = {
+                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
+                            userViewModel.updateUserItem(userViewModel.user.value.userName,"yellowFlag",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
@@ -270,7 +275,9 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)},
+                        onClick = {
+                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
+                            userViewModel.updateUserItem(userViewModel.user.value.userName,"blueFlag",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
@@ -331,7 +338,9 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-800)},
+                        onClick = {
+                            userViewModel.updateCoin(userViewModel.user.value.userName,-800)
+                            userViewModel.updateUserItem(userViewModel.user.value.userName,"shit",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
@@ -392,7 +401,9 @@ fun Shop(
                         )
                     }
                     Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-1000)},
+                        onClick = {
+                            userViewModel.updateCoin(userViewModel.user.value.userName,-1000)
+                            userViewModel.updateUserItem(userViewModel.user.value.userName,"vaccine",1)},
                         colors = ButtonDefaults.textButtonColors(
                             backgroundColor = Iris60
                         ),
