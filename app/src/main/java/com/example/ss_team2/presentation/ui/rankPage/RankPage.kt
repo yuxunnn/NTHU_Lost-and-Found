@@ -7,6 +7,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,23 +17,75 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 
 import com.example.ss_team2.presentation.ui.homepage.HomepageScreen
 import com.example.ss_team2.presentation.ui.utility.BottomBar
+import com.example.ss_team2.presentation.viewModel.RankingViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun RankPage() {
+fun RankPage(
+    rankingViewModel: RankingViewModel = viewModel(),
+    modifier: Modifier = Modifier,
+) {
+    val rank by rankingViewModel.rank.collectAsState()
+
     Column() {
         Title()
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
-        TopButtons()
+        //TopButtons()
+
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.SpaceAround
+        ){
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(80.dp)
+            ) {
+                Text(
+                    text = "本週",
+                    fontSize = 20.sp
+                )
+            }
+
+            Button(
+                onClick = {
+                          rankingViewModel.getRanking()
+                },
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(80.dp)
+            ) {
+                Text(
+                    text = "累積",
+                    fontSize = 20.sp
+                )
+            }
+
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(80.dp)
+            ) {
+                Text(
+                    text = "本月",
+                    fontSize = 20.sp
+                )
+            }
+        }
 
         //Need to be modified
-        Podium(No_1 = "清華大學", No_2 = "台灣大學", No_3 = "交通大學", No_1_Score = 2000, No_2_Score = 1500, No_3_Score = 1000)
-        TrashCan(No_4 = "政治大學", No_4_Score = 500)
+        Podium(rank[0].school, rank[1].school, rank[2].school, rank[0].score, rank[1].score, rank[2].score)
+        TrashCan(rank[3].school, rank[3].score)
     }
 }
 

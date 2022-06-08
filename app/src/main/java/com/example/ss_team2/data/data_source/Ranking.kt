@@ -4,3 +4,8 @@ data class Ranking(
     val school: String,
     val score: Int
 )
+
+//val emptyRanking = Ranking(
+//    school = "",
+//    score = 0
+//)
