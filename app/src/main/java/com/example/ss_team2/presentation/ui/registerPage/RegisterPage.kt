@@ -52,6 +52,7 @@ fun RegisterPage (
         var TypedEmail by remember { mutableStateOf("") }
         var TypedPassword by remember { mutableStateOf("") }
 
+
         Title()
 
         Row(

@@ -106,7 +106,7 @@ fun SetupNavGraph(
         composable(
             route = Screen.EditPost.route
         ){
-            EditPost(navController = navController)
+            EditPost(navController = navController,"OK","OK")
         }
     }
 }

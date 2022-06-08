@@ -1,11 +1,12 @@
 package com.example.ss_team2.presentation.navigation.navGraph
 
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
+import android.util.Log
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.example.ss_team2.presentation.navigation.FIND_GRAPH_ROUTE
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.navigation.WHAT_ARGUMENT_KEY
+import com.example.ss_team2.presentation.navigation.WHERE_ARGUMENT_KEY
 import com.example.ss_team2.presentation.ui.AddFindList
 import com.example.ss_team2.presentation.ui.postList.FindListFinalScreen
 import com.example.ss_team2.presentation.ui.othersPost.OthersFindListApp
@@ -26,19 +27,39 @@ fun NavGraphBuilder.findNavGraph(
             WhatYouFind(navController = navController)
         }
         composable(
-            route = Screen.WhereYouFind.route
+            route = Screen.WhereYouFind.route,
         ){
-            WhereYouFind(navController = navController)
+            entry ->
+            WhereYouFind(navController = navController,
+                what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString())
         }
         composable(
-            route = Screen.FindList.route
+            route = Screen.FindList.route,
+            arguments = listOf(
+                navArgument(WHAT_ARGUMENT_KEY){
+                    type = NavType.StringType
+                },
+                navArgument(WHERE_ARGUMENT_KEY){
+                    type = NavType.StringType
+                }
+            )
         ){
-            FindListFinalScreen(navController = navController)
+//            Log.d("Args" ,it.arguments?.getString("what").toString())
+//            Log.d("Args" ,it.arguments?.getString("where").toString())
+            entry ->
+                FindListFinalScreen(
+                    navController = navController,
+                    what = entry.arguments?.getString("what").toString(),
+                    where = entry.arguments?.getString("where").toString())
         }
         composable(
             route = Screen.AddFindList.route
         ){
-            AddFindList(navController = navController)
+            entry ->
+                AddFindList(
+                    navController = navController,
+                    what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
+                    where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString())
         }
         composable(
             route = Screen.OthersFindList.route

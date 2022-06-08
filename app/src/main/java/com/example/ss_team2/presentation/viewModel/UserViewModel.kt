@@ -29,6 +29,9 @@ class UserViewModel : ViewModel() {
     private val _otherUserItem = MutableStateFlow(emptyUserItem)
     val otherUserItem: StateFlow<UserItem> = _otherUserItem
 
+    private val _userCoin = MutableStateFlow(user.value.userCoin)
+    val userCoin : StateFlow<Int> = _userCoin
+
     init {
         viewModelScope.launch {
             _userItem.value = UserItem(userName = "huiyuiui", 10, 9, 8, 7, 6, 999)
@@ -90,6 +93,7 @@ class UserViewModel : ViewModel() {
     fun updateCoin(userName: String, changeCoin: Int) {
         viewModelScope.launch {
             _user.value = userUseCase.updateCoin(userName, changeCoin)
+            _userCoin.value = user.value.userCoin
         }
     }
 
