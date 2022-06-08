@@ -46,8 +46,6 @@ export default class ChatModel {
         try {
             const query = `INSERT INTO chat(send, receive, message) VALUES('${_send}', '${_receive}', '${_message}')`
             const [rows, fields] = await conn.execute(query)
-
-            return `Message '${_message}' From '${_send}' to '${_receive}' send successful!`
         } catch (err) {
             console.error(`[ERROR] ChatModel.selectChatsByReceive :\n ${err}`)
         }

@@ -25,7 +25,7 @@
 
 幫助者(Helper): postId(Int), helperName(String)
 
-通知(Noti): receiver(String)
+通知(Noti): receiver(String), notiType(String), 
 
 # 修改類
 
@@ -33,4 +33,4 @@
 
 # TODO
 notification
-createChat回傳改掉
+createChat回傳改成回傳自身為sender的chatlist

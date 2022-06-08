@@ -68,7 +68,7 @@ type Mutation{
   updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
 
   # Chat
-  createChat(send: String!, receive: String!, message: String!): String!
+  createChat(send: String!, receive: String!, message: String!): [Chat]
 
   # MapItem
   createMapItem(mapItem: MapItemCreateInput!): [MapItem]

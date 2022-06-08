@@ -3,9 +3,10 @@ import connectPool from '../../../database'
 
 const chatMutations = {
     createChat: async (_, args) => {
-        const rtn = await ChatModel.createChat(connectPool, args)
+        await ChatModel.createChat(connectPool, args)
+        const chats = await ChatModel.selectChatsByReceiveAndSend(connectPool, args.receive, args.send)
 
-        return rtn
+        return chats
     }
 }
 

@@ -55,7 +55,7 @@ type Mutation {
     updateRanking: [Ranking]
     createQuest(userName: String!): Quest!
     updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
-    createChat(send: String!, receive: String!, message: String!): String!
+    createChat(send: String!, receive: String!, message: String!): [Chat]
     createMapItem(mapItem: MapItemCreateInput!): [MapItem]
     createPostHelper(postId: String!, helperName: String!): String!
 }

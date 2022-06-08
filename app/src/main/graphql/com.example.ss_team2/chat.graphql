@@ -19,5 +19,11 @@ query ChatsByReceiveAndSend($receive: String!, $send: String!) {
 }
 
 mutation CreateChat($send: String!, $receive: String!, $message: String!) {
-    createChat(send: $send, receive: $receive, message: $message)
+    createChat(send: $send, receive: $receive, message: $message) {
+        send
+        receive
+        message
+        createdAt
+        updatedAt
+    }
 }

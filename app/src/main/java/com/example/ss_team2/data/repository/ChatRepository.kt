@@ -57,10 +57,25 @@ class ChatRepository {
     }
 
     // Mutations
-    suspend fun createChat(send: String, receive: String, message: String): String {
+    suspend fun createChat(send: String, receive: String, message: String): MutableList<Chat> {
         val response = apolloClient.mutation(CreateChatMutation(send, receive, message)).execute()
         println("MySQL Response = ${response.data?.createChat}")
 
-        return response.data!!.createChat
+        val data = response.data?.createChat
+        var chatsList: MutableList<Chat> = arrayListOf()
+
+        data?.forEach { chat ->
+            chatsList.add(
+                Chat(
+                    chat!!.send,
+                    chat!!.receive,
+                    chat!!.message,
+                    chat!!.createdAt,
+                    chat!!.updatedAt
+                )
+            )
+        }
+
+        return chatsList
     }
 }

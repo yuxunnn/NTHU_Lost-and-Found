@@ -20,11 +20,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val userRepository = UserRepository()
-        var user: User?
+       val chatRepository = ChatRepository()
+        var chatList: MutableList<Chat>
         lifecycleScope.launchWhenCreated {
-            user = userRepository.userLogin("0978500627", "123456")
-            Log.d("GraphQL", "Android: $user")
+            chatList = chatRepository.createChat("huiyuiui", "notyuxun", "改好了啦")
+            Log.d("GraphQL", "Android: $chatList")
         }
         setContent {
             SSteam2Theme {
