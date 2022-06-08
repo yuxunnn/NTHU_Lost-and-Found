@@ -27,7 +27,7 @@ fun WhatAndWhereColElement(
         Text(
             text = "What",
             modifier = Modifier.padding(4.dp),
-            fontSize = 10.sp,
+            fontSize = 12.sp,
             color = Color(66, 70, 80),
             fontWeight = FontWeight.Bold
         )
@@ -40,14 +40,14 @@ fun WhatAndWhereColElement(
                 text = what,
                 modifier = Modifier.padding(6.dp),
                 color = Color.White,
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
         }
         Text(
             text = "Where",
             modifier = Modifier.padding(4.dp),
-            fontSize = 10.sp,
+            fontSize = 12.sp,
             color = Color(66, 70, 80),
             fontWeight = FontWeight.Bold
         )
@@ -60,7 +60,7 @@ fun WhatAndWhereColElement(
                 text = where,
                 modifier = Modifier.padding(6.dp),
                 color = Color.White,
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
         }

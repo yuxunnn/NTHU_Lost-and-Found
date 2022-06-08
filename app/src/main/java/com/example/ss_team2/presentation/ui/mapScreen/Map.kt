@@ -34,17 +34,26 @@ fun Map(
         onMapClick = {
 
             val selectedItemCount = when (selectedItem){
-                "orange_flag" -> userItem.flag
-                "purple_flag" -> userItem.flag
-                "yellow_flag" -> userItem.flag
-                "blue_flag" -> userItem.flag
+                "orangeFlag" -> userItem.orangeFlag
+                "purpleFlag" -> userItem.purpleFlag
+                "yellowFlag" -> userItem.yellowFlag
+                "blueFlag" -> userItem.blueFlag
                 "shit" -> userItem.shit
-                else -> userItem.board
+                else -> userItem.vaccine
+            }
+
+            val itemType = when (selectedItem) {
+                "orangeFlag" -> 0
+                "purpleFlag" -> 1
+                "yellowFlag" -> 2
+                "blueFlag" -> 3
+                "shit" -> 4
+                else -> 5
             }
 
             if (selectedItemCount > 0){
                 mapViewModel.addMarker(
-                    itemType = selectedItem,
+                    itemType = itemType,
                     latLng = it,
                     userName = user.userName,
                     userSchool = user.userSchool
@@ -60,11 +69,11 @@ fun Map(
         toolMarkers.forEach {
             val position = LatLng(it.latitude, it.longitude)
             val image = when(it.itemType){
-                "orange_flag" -> R.drawable.orange_flag_60
-                "purple_flag" -> R.drawable.purple_flag_60
-                "yellow_flag" -> R.drawable.yellow_flag_60
-                "blue_flag" -> R.drawable.blue_flag_60
-                "shit" -> R.drawable.poopoo_60
+                0 -> R.drawable.orange_flag_60
+                1 -> R.drawable.purple_flag_60
+                2 -> R.drawable.yellow_flag_60
+                3 -> R.drawable.blue_flag_60
+                4 -> R.drawable.poopoo_60
                 else -> R.drawable.bnt_60
             }
             val icon = BitmapDescriptorFactory.fromResource(image)

@@ -28,20 +28,6 @@ class ChatViewModel : ViewModel() {
             Chat(
                 send = "yuxunnn",
                 receive = "yo",
-                message = "hello",
-                createdAt = 0,
-                updatedAt = 0
-            ),
-            Chat(
-                send = "n",
-                receive = "yo",
-                message = "hello2",
-                createdAt = 0,
-                updatedAt = 0
-            ),
-            Chat(
-                send = "yuxunnn",
-                receive = "yo",
                 message = "hello3sssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
                 createdAt = 0,
                 updatedAt = 0

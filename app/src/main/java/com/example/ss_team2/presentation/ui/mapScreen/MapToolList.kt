@@ -35,33 +35,33 @@ fun MapToolList(
         item {
             MapTool(
                 image = R.drawable.orange_flag,
-                amount = userItems.flag,
-                selected = selectedItem == "orange_flag",
-                onClick = { userViewModel.changeSelectedItem("orange_flag") }
+                amount = userItems.orangeFlag,
+                selected = selectedItem == "orangeFlag",
+                onClick = { userViewModel.changeSelectedItem("orangeFlag") }
             )
         }
         item {
             MapTool(
                 image = R.drawable.purple_flag,
-                amount = userItems.flag,
-                selected = selectedItem == "purple_flag",
-                onClick = { userViewModel.changeSelectedItem("purple_flag") }
+                amount = userItems.purpleFlag,
+                selected = selectedItem == "purpleFlag",
+                onClick = { userViewModel.changeSelectedItem("purpleFlag") }
             )
         }
         item {
             MapTool(
                 image = R.drawable.yellow_flag,
-                amount = userItems.flag,
-                selected = selectedItem == "yellow_flag",
-                onClick = { userViewModel.changeSelectedItem("yellow_flag") }
+                amount = userItems.yellowFlag,
+                selected = selectedItem == "yellowFlag",
+                onClick = { userViewModel.changeSelectedItem("yellowFlag") }
             )
         }
         item {
             MapTool(
                 image = R.drawable.blue_flag,
-                amount = userItems.flag,
-                selected = selectedItem == "blue_flag",
-                onClick = { userViewModel.changeSelectedItem("blue_flag") }
+                amount = userItems.blueFlag,
+                selected = selectedItem == "blueFlag",
+                onClick = { userViewModel.changeSelectedItem("blueFlag") }
             )
         }
         item {
@@ -75,9 +75,9 @@ fun MapToolList(
         item {
             MapTool(
                 image = R.drawable.bnt,
-                amount = userItems.waterGun,
-                selected = selectedItem == "bnt",
-                onClick = { userViewModel.changeSelectedItem("bnt") }
+                amount = userItems.vaccine,
+                selected = selectedItem == "vaccine",
+                onClick = { userViewModel.changeSelectedItem("vaccine") }
             )
         }
     }
