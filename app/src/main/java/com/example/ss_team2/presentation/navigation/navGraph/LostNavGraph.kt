@@ -13,60 +13,66 @@ import com.example.ss_team2.presentation.ui.postList.FinalScreenWithMoney
 import com.example.ss_team2.presentation.ui.whatYouLost.WhatYouLost
 import com.example.ss_team2.presentation.ui.whereYouLost.WhereYouLost
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 fun NavGraphBuilder.lostNavGraph(
+    userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
-){
+) {
     navigation(
         startDestination = Screen.WhatYouLost.route,
         route = LOST_GRAPH_ROUTE
-    ){
+    ) {
         composable(
             route = Screen.WhatYouLost.route
-        ){
+        ) {
             WhatYouLost(navController = navController)
         }
         composable(
             route = Screen.WhereYouLost.route
-        ){
-            entry ->
-                WhereYouLost(navController = navController,
-                    postViewModel = postViewModel,
-                what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString())
+        ) { entry ->
+            WhereYouLost(
+                postViewModel = postViewModel,
+                navController = navController,
+                what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString()
+            )
         }
         composable(
             route = Screen.LostList.route,
             arguments = listOf(
-                navArgument(WHAT_ARGUMENT_KEY){
+                navArgument(WHAT_ARGUMENT_KEY) {
                     type = NavType.StringType
                 },
-                navArgument(WHERE_ARGUMENT_KEY){
+                navArgument(WHERE_ARGUMENT_KEY) {
                     type = NavType.StringType
                 }
             )
-        ){
-                entry ->
+        ) { entry ->
             FinalScreenWithMoney(
                 postViewModel = postViewModel,
                 navController = navController,
                 what = entry.arguments?.getString("what").toString(),
-                where = entry.arguments?.getString("where").toString())
+                where = entry.arguments?.getString("where").toString()
+            )
         }
         composable(
             route = Screen.AddLostList.route
-        ){
-            entry ->
-                AddLostList(
-                    navController = navController,
-                    what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
-                    where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString()
-                )
+        ) { entry ->
+            AddLostList(
+                navController = navController,
+                what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
+                where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString()
+            )
         }
         composable(
             route = Screen.OthersLostList.route
-        ){
-            OthersLostListApp(navController)
+        ) {
+            OthersLostListApp(
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
         }
     }
 }

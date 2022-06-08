@@ -30,8 +30,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyProfileScreen(
     modifier: Modifier = Modifier,
-    userViewModel: UserViewModel = viewModel(),
-    postViewModel: PostViewModel = viewModel(),
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
     navController: NavController
 ) {
 
@@ -90,6 +90,8 @@ fun MyProfileScreen(
 
 @Composable
 fun MyProfile(
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
@@ -97,6 +99,8 @@ fun MyProfile(
             bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
             MyProfileScreen(
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
                 modifier = Modifier,
                 navController = navController
             )
@@ -104,23 +108,3 @@ fun MyProfile(
     }
 }
 
-
-@Preview(
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES,
-    showSystemUi = true
-)
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MyProfilePreview() {
-    SSteam2Theme {
-        Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController = rememberNavController()) }
-        ) { padding ->
-            MyProfileScreen(
-                modifier = Modifier.padding(padding),
-                navController = rememberNavController()
-            )
-        }
-    }
-}

@@ -61,8 +61,8 @@ fun MyPostHomeScreen(
 
 @Composable
 fun MyPostFinalScreen(
-    userViewModel: UserViewModel = viewModel(),
-    postViewModel: PostViewModel = viewModel(),
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
@@ -86,12 +86,16 @@ fun MyPostFinalScreen(
 
 @Composable
 fun MyPostApp(
+    postViewModel: PostViewModel,
+    userViewModel: UserViewModel,
     navController: NavController
 ) {
     Scaffold(
         bottomBar = { MyPostBottomNavigation(navController = navController) }
     ) {
         MyPostFinalScreen(
+            postViewModel = postViewModel,
+            userViewModel = userViewModel,
             navController = navController
         )
     }
@@ -155,13 +159,5 @@ private fun MyPostBottomNavigation(
             selected = false,
             onClick = {}
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview6() {
-    SSteam2Theme {
-        MyPostApp(navController = rememberNavController())
     }
 }

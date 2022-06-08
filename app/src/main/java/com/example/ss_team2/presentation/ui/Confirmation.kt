@@ -157,19 +157,11 @@ fun ConfirmationLazyScreen(
 
 @Composable
 fun Confirmation(
-    postViewModel: PostViewModel = viewModel(),
+    postViewModel: PostViewModel,
     navController: NavController
 ) {
     ConfirmationFinalScreen(
         postViewModel = postViewModel,
         navController = navController
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview7() {
-    SSteam2Theme {
-
-    }
 }

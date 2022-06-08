@@ -162,8 +162,8 @@ private fun OthersFindListBottomNavigation(
 
 @Composable
 fun OthersFindListApp(
-    userViewModel: UserViewModel = viewModel(),
-    postViewModel: PostViewModel = viewModel(),
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
     navController: NavController
 ) {
     Scaffold(
@@ -174,13 +174,5 @@ fun OthersFindListApp(
             postViewModel = postViewModel,
             navController = navController
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview3() {
-    SSteam2Theme {
-        OthersFindListApp(navController = rememberNavController())
     }
 }

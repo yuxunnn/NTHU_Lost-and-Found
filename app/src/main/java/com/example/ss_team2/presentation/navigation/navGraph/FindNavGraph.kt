@@ -13,9 +13,11 @@ import com.example.ss_team2.presentation.ui.othersPost.OthersFindListApp
 import com.example.ss_team2.presentation.ui.whatYouFind.WhatYouFind
 import com.example.ss_team2.presentation.ui.whereYouFind.WhereYouFind
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 
 fun NavGraphBuilder.findNavGraph(
+    userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
 ){
@@ -68,7 +70,11 @@ fun NavGraphBuilder.findNavGraph(
         composable(
             route = Screen.OthersFindList.route
         ){
-            OthersFindListApp(navController = navController)
+            OthersFindListApp(
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
         }
     }
 }

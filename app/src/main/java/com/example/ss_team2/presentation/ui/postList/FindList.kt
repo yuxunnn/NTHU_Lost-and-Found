@@ -65,8 +65,8 @@ fun FindListHomeScreen(
 
 @Composable
 fun FindListFinalScreen(
-    postViewModel: PostViewModel = viewModel(),
     modifier: Modifier = Modifier,
+    postViewModel: PostViewModel,
     what: String,
     where: String,
     navController: NavController

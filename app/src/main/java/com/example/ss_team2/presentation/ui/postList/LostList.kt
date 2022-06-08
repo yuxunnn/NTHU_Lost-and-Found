@@ -66,10 +66,10 @@ fun HomeScreenWithMoney(
 
 @Composable
 fun FinalScreenWithMoney(
-    postViewModel: PostViewModel = viewModel(),
-    modifier: Modifier = Modifier,
+    postViewModel: PostViewModel,
     what: String,
     where: String,
+    modifier: Modifier = Modifier,
     navController: NavController
 ) {
     Box(modifier = Modifier.fillMaxSize()) {

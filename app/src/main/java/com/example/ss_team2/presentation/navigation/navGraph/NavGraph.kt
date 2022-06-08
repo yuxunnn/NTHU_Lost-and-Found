@@ -1,6 +1,5 @@
 package com.example.ss_team2.presentation.navigation.navGraph
 
-import android.hardware.usb.UsbRequest
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -27,11 +26,13 @@ import com.example.ss_team2.presentation.ui.shop.Shop
 import com.example.ss_team2.presentation.ui.taskList.Quest
 import com.example.ss_team2.presentation.ui.welcome.Welcome
 import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.MapViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun SetupNavGraph(
+    mapViewModel: MapViewModel = viewModel(),
     userViewModel: UserViewModel = viewModel(),
     chatViewModel: ChatViewModel = viewModel(),
     postViewModel: PostViewModel = viewModel(),
@@ -42,8 +43,16 @@ fun SetupNavGraph(
         startDestination = Screen.First.route,
         route = ROOT_GRAPH_ROUTE
     ) {
-        findNavGraph(navController = navController, postViewModel = postViewModel)
-        lostNavGraph(navController = navController, postViewModel = postViewModel)
+        findNavGraph(
+            userViewModel = userViewModel,
+            postViewModel = postViewModel,
+            navController = navController
+        )
+        lostNavGraph(
+            userViewModel = userViewModel,
+            postViewModel = postViewModel,
+            navController = navController
+        )
         composable(
             route = Screen.First.route
         ) {
@@ -67,7 +76,11 @@ fun SetupNavGraph(
         composable(
             route = Screen.Map.route
         ) {
-            MapScreen(navController = navController)
+            MapScreen(
+                mapViewModel = mapViewModel,
+                userViewModel = userViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.ChatList.route
@@ -95,12 +108,20 @@ fun SetupNavGraph(
         composable(
             route = Screen.MyPost.route
         ) {
-            MyPostApp(navController)
+            MyPostApp(
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Profile.route
         ) {
-            MyProfile(navController = navController)
+            MyProfile(
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Notification.route
@@ -120,7 +141,10 @@ fun SetupNavGraph(
         composable(
             route = Screen.Confirmation.route
         ) {
-            Confirmation(navController = navController)
+            Confirmation(
+                postViewModel = postViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.EditPost.route,

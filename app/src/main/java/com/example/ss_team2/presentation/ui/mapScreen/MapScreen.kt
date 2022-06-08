@@ -26,8 +26,8 @@ import com.example.ss_team2.presentation.viewModel.UserViewModel
 @Composable
 fun MapScreen(
     modifier: Modifier = Modifier,
-    mapViewModel: MapViewModel = viewModel(),
-    userViewModel: UserViewModel = viewModel(),
+    mapViewModel: MapViewModel,
+    userViewModel: UserViewModel,
     navController: NavController
 ) {
 
@@ -113,23 +113,5 @@ fun MapScreen(
             userViewModel = userViewModel,
             modifier = Modifier
         )
-    }
-}
-
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showSystemUi = true
-)
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MapPreview() {
-    SSteam2Theme {
-        Scaffold { padding ->
-            MapScreen(
-                modifier = Modifier.padding(padding),
-                navController = rememberNavController()
-            )
-        }
     }
 }
