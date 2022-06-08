@@ -27,6 +27,8 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
 fun HomeScreenWithMoney(
+    what: String,
+    where: String,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
@@ -49,8 +51,8 @@ fun HomeScreenWithMoney(
         Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
         WhatAndWhereRowElement(
-            what = stringResource(id = R.string.ball),
-            where = stringResource(id = R.string.home)
+            what = what,
+            where = where
         )
         Spacer(modifier = Modifier.height(10.dp))
         PostListLazyScreen(
@@ -72,6 +74,8 @@ fun FinalScreenWithMoney(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         HomeScreenWithMoney(
+            what = what,
+            where = where,
             postViewModel = postViewModel,
             navController = navController
         )

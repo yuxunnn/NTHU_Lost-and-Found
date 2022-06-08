@@ -13,7 +13,7 @@ class PostUseCase {
         return postRepository.getPostById(postId)
     }
 
-    suspend fun searchPost(postType: String, ItemType :String, Location:String): List<Post> {
+    suspend fun searchPost(postType: String, ItemType :String, Location:String): MutableList<Post> {
         return postRepository.searchPost(postType, ItemType, Location)
     }
 

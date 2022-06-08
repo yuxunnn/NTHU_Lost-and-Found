@@ -30,12 +30,14 @@ import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
 import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun ChatList(
-    chatViewModel: ChatViewModel = viewModel(),
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController,
 ) {
 
@@ -59,6 +61,7 @@ fun ChatList(
             onValueChange = { searchingText = it }
         )
         ChatRooms(
+            userViewModel = userViewModel,
             chatViewModel = chatViewModel,
             navController = navController
         )
@@ -67,6 +70,7 @@ fun ChatList(
 
 @Composable
 fun ChatRooms(
+    userViewModel: UserViewModel,
     chatViewModel: ChatViewModel,
     navController: NavController
 ) {
@@ -81,6 +85,7 @@ fun ChatRooms(
                 friendName = chat.send,
                 lastMessage = chat.message,
                 onClick = {
+                    userViewModel.getOtherUserByName(chat.send)
                     chatViewModel.chatsByReceiveAndSend(chat.receive, chat.send)
                     navController.navigate(route = Screen.ChatRoom.route)
                 }
@@ -165,14 +170,5 @@ fun SearchBar(
                 .heightIn(min = 56.dp)
                 .padding(start = 8.dp, end = 8.dp)
         )
-    }
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ChatListPreview() {
-    SSteam2Theme() {
-        ChatList(navController = rememberNavController())
     }
 }

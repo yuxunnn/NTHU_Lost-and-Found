@@ -36,7 +36,8 @@ class ChatViewModel : ViewModel() {
 
     fun createChat(receiver: String, sender: String, message: String) {
         viewModelScope.launch {
-            _chat.value = chatUseCase.createChat(receiver, sender, message)
+            chatUseCase.createChat(receiver, sender, message)
+            _chat.value = chatUseCase.chatsByReceiveAndSend(sender, receiver)
         }
     }
 }

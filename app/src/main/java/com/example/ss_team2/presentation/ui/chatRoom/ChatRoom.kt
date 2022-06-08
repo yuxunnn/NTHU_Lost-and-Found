@@ -36,8 +36,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Dialog(
-    userViewModel: UserViewModel = viewModel(),
-    chatViewModel: ChatViewModel = viewModel(),
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
 
@@ -66,9 +66,9 @@ fun Dialog(
             onSend = {
                 if (myTextInput != "") {
                     chatViewModel.createChat(
-                        user.userName,
-                        otherUser.userName,
-                        myTextInput
+                        sender = otherUser.userName,
+                        receiver = user.userName,
+                        message = myTextInput
                     )
                     myTextInput = ""
                     coroutineScope.launch {
@@ -196,13 +196,5 @@ fun TextInput(
                 )
             }
         )
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun DialogPreview() {
-    SSteam2Theme {
-        Dialog(navController = rememberNavController())
     }
 }

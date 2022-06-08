@@ -34,11 +34,10 @@ class UserViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _userItem.value = userUseCase.getUserItem("huiyuiui")
-            //_userItem.value = UserItem(userName = "huiyuiui", 10, 9, 8, 7, 6, 999)
-            _otherUserItem.value = UserItem(userName = "Ryanke", 10, 9, 8, 8, 9, 10)
             _user.value = userUseCase.getUserByName("huiyuiui")
+            _userItem.value = userUseCase.getUserItem("huiyuiui")
             _otherUser.value = userUseCase.getUserByName("Ryanke")
+            _otherUserItem.value = userUseCase.getUserItem("Ryanke")
         }
     }
 

@@ -209,11 +209,11 @@ fun WhereYouLost(
         ) {
             Button(
                 onClick = {
+                    postViewModel.postSearch("lost",what,chosen.value)
                     navController.navigate(route = Screen.LostList.passWhatAndWhere(
                         what = what,
                         where = chosen.value
                     ))
-                    postViewModel.postSearch("lost",what,chosen.value)
                 },
                 colors = ButtonDefaults.textButtonColors(
                     backgroundColor = Iris60
@@ -283,7 +283,7 @@ fun SearchBar(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(min = 56.dp)
-                .padding(start = 8.dp,end = 8.dp)
+                .padding(start = 8.dp, end = 8.dp)
         )
     }
 }

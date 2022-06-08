@@ -16,6 +16,5 @@ class ChatUseCase {
 
     suspend fun createChat(receiver: String, sender: String, message: String): MutableList<Chat> {
         return chatRepository.createChat(receiver, sender, message)
-
     }
 }

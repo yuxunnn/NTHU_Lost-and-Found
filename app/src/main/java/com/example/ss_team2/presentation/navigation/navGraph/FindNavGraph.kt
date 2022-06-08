@@ -12,9 +12,11 @@ import com.example.ss_team2.presentation.ui.postList.FindListFinalScreen
 import com.example.ss_team2.presentation.ui.othersPost.OthersFindListApp
 import com.example.ss_team2.presentation.ui.whatYouFind.WhatYouFind
 import com.example.ss_team2.presentation.ui.whereYouFind.WhereYouFind
+import com.example.ss_team2.presentation.viewModel.PostViewModel
 
 
 fun NavGraphBuilder.findNavGraph(
+    postViewModel: PostViewModel,
     navController: NavController
 ){
     navigation(
@@ -31,6 +33,7 @@ fun NavGraphBuilder.findNavGraph(
         ){
             entry ->
             WhereYouFind(navController = navController,
+                postViewModel = postViewModel,
                 what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString())
         }
         composable(
@@ -48,6 +51,7 @@ fun NavGraphBuilder.findNavGraph(
 //            Log.d("Args" ,it.arguments?.getString("where").toString())
             entry ->
                 FindListFinalScreen(
+                    postViewModel = postViewModel,
                     navController = navController,
                     what = entry.arguments?.getString("what").toString(),
                     where = entry.arguments?.getString("where").toString())

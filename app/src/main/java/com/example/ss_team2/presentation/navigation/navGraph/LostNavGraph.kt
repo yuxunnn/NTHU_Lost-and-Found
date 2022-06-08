@@ -12,8 +12,10 @@ import com.example.ss_team2.presentation.navigation.WHERE_ARGUMENT_KEY
 import com.example.ss_team2.presentation.ui.postList.FinalScreenWithMoney
 import com.example.ss_team2.presentation.ui.whatYouLost.WhatYouLost
 import com.example.ss_team2.presentation.ui.whereYouLost.WhereYouLost
+import com.example.ss_team2.presentation.viewModel.PostViewModel
 
 fun NavGraphBuilder.lostNavGraph(
+    postViewModel: PostViewModel,
     navController: NavController
 ){
     navigation(
@@ -30,6 +32,7 @@ fun NavGraphBuilder.lostNavGraph(
         ){
             entry ->
                 WhereYouLost(navController = navController,
+                    postViewModel = postViewModel,
                 what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString())
         }
         composable(
@@ -45,6 +48,7 @@ fun NavGraphBuilder.lostNavGraph(
         ){
                 entry ->
             FinalScreenWithMoney(
+                postViewModel = postViewModel,
                 navController = navController,
                 what = entry.arguments?.getString("what").toString(),
                 where = entry.arguments?.getString("where").toString())

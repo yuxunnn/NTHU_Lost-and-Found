@@ -1,6 +1,8 @@
 package com.example.ss_team2.presentation.navigation.navGraph
 
+import android.hardware.usb.UsbRequest
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -24,9 +26,15 @@ import com.example.ss_team2.presentation.ui.registerPage.RegisterPage
 import com.example.ss_team2.presentation.ui.shop.Shop
 import com.example.ss_team2.presentation.ui.taskList.Quest
 import com.example.ss_team2.presentation.ui.welcome.Welcome
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun SetupNavGraph(
+    userViewModel: UserViewModel = viewModel(),
+    chatViewModel: ChatViewModel = viewModel(),
+    postViewModel: PostViewModel = viewModel(),
     navController: NavHostController
 ) {
     NavHost(
@@ -34,98 +42,106 @@ fun SetupNavGraph(
         startDestination = Screen.First.route,
         route = ROOT_GRAPH_ROUTE
     ) {
-        findNavGraph(navController = navController)
-        lostNavGraph(navController = navController)
+        findNavGraph(navController = navController, postViewModel = postViewModel)
+        lostNavGraph(navController = navController, postViewModel = postViewModel)
         composable(
             route = Screen.First.route
-        ){
+        ) {
             FirstPage(navController = navController)
         }
         composable(
             route = Screen.Register.route
-        ){
+        ) {
             RegisterPage(navController = navController)
         }
         composable(
             route = Screen.Login.route
-        ){
+        ) {
             Welcome(navController = navController)
         }
         composable(
             route = Screen.Home.route
-        ){
+        ) {
             Homepage(navController)
         }
         composable(
             route = Screen.Map.route
-        ){
+        ) {
             MapScreen(navController = navController)
         }
         composable(
             route = Screen.ChatList.route
-        ){
-            ChatList(navController = navController)
+        ) {
+            ChatList(
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Shop.route
-        ){
+        ) {
             Shop(navController = navController)
         }
         composable(
             route = Screen.ChatRoom.route
-        ){
-            Dialog(navController = navController)
+        ) {
+            Dialog(
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.MyPost.route
-        ){
+        ) {
             MyPostApp(navController)
         }
         composable(
             route = Screen.Profile.route
-        ){
+        ) {
             MyProfile(navController = navController)
         }
         composable(
             route = Screen.Notification.route
-        ){
+        ) {
             Notification(navController = navController)
         }
         composable(
             route = Screen.Quest.route
-        ){
-           Quest(navController = navController)
+        ) {
+            Quest(navController = navController)
         }
         composable(
             route = Screen.Rank.route
-        ){
+        ) {
             Rank(navController = navController)
         }
         composable(
             route = Screen.Confirmation.route
-        ){
+        ) {
             Confirmation(navController = navController)
         }
         composable(
             route = Screen.EditPost.route,
             arguments = listOf(
-                navArgument(WHAT_ARGUMENT_KEY){
+                navArgument(WHAT_ARGUMENT_KEY) {
                     type = NavType.StringType
                 },
-                navArgument(WHERE_ARGUMENT_KEY){
+                navArgument(WHERE_ARGUMENT_KEY) {
                     type = NavType.StringType
                 },
-                navArgument(USERNAME_ARGUMENT_KEY){
+                navArgument(USERNAME_ARGUMENT_KEY) {
                     type = NavType.StringType
                 }
             )
-        ){
-            entry ->
-                EditPost(navController = navController,
-                    what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
-                    where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString(),
-                    username = entry.arguments?.getString(USERNAME_ARGUMENT_KEY).toString()
-                )
+        ) { entry ->
+            EditPost(
+                navController = navController,
+                what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
+                where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString(),
+                username = entry.arguments?.getString(USERNAME_ARGUMENT_KEY).toString()
+            )
         }
     }
 }

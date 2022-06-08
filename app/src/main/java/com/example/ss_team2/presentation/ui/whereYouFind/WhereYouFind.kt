@@ -36,6 +36,7 @@ fun WhereYouFind(
     modifier: Modifier = Modifier,
     postViewModel: PostViewModel = viewModel()
 ){
+
     val isClicked1 = remember { mutableStateOf(false) }
     val isClicked2 = remember { mutableStateOf(false) }
     val isClicked3 = remember { mutableStateOf(false) }
@@ -209,11 +210,11 @@ fun WhereYouFind(
         ) {
             Button(
                 onClick = {
+                    postViewModel.postSearch("find",what,chosen.value)
                     navController.navigate(route = Screen.FindList.passWhatAndWhere(
                         what = what,
                         where = chosen.value
                     ))
-                    postViewModel.postSearch("find",what,chosen.value)
                 },
                 colors = ButtonDefaults.textButtonColors(
                     backgroundColor = Iris60
@@ -282,7 +283,7 @@ fun SearchBar(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(min = 56.dp)
-                .padding(start = 8.dp,end = 8.dp)
+                .padding(start = 8.dp, end = 8.dp)
         )
     }
 }

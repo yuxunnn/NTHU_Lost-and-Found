@@ -16,6 +16,8 @@ data class Post(
     val updatedAt:Any
 )
 
+
+
 val emptyPost = Post (
     postId = "",
     author = emptyUser,
@@ -31,3 +33,7 @@ val emptyPost = Post (
     createdAt = 0,
     updatedAt = 0,
 )
+
+val emptyPostList: MutableList<Post> = listOf(
+    emptyPost
+).toMutableList()
