@@ -30,7 +30,7 @@ import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun RankPage(
-    rankingViewModel: RankingViewModel = viewModel(),
+    rankingViewModel: RankingViewModel,
     modifier: Modifier = Modifier,
 ) {
     val rank by rankingViewModel.rank.collectAsState()
@@ -90,14 +90,6 @@ fun RankPage(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun RankPagePreview(){
-    SSteam2Theme() {
-        RankPage()
-    }
-}
-
 @Composable
 fun Title(){
     Row(
@@ -115,14 +107,6 @@ fun Title(){
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TitlePreview(){
-    SSteam2Theme() {
-        Title()
     }
 }
 
@@ -169,14 +153,6 @@ fun TopButtons(){
                 fontSize = 20.sp
             )
         }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TopButtonsPreview(){
-    SSteam2Theme() {
-        TopButtons()
     }
 }
 
@@ -262,21 +238,6 @@ fun Podium(
         }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun PodiumPreview(){
-    SSteam2Theme() {
-        Podium(
-            "清華大學",
-            "台灣大學",
-            "交通大學",
-            2000,
-            1500,
-            1000,
-        )
-    }
-}
-
 @Composable
 fun TrashCan(
     No_4:String,
@@ -322,24 +283,14 @@ fun TrashCan(
 
 @Composable
 fun Rank(
+    rankingViewModel: RankingViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
         Scaffold(
             bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
-            RankPage()
+            RankPage(rankingViewModel = rankingViewModel)
         }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun TrashCanPreview() {
-    SSteam2Theme() {
-        TrashCan(
-            No_4 = "政治大學",
-            No_4_Score = 500
-        )
     }
 }

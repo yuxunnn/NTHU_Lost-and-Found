@@ -34,7 +34,7 @@ fun WhereYouLost(
     navController: NavController,
     what: String,
     modifier: Modifier = Modifier,
-    postViewModel: PostViewModel = viewModel()
+    postViewModel: PostViewModel
 ){
     val isClicked1 = remember { mutableStateOf(false) }
     val isClicked2 = remember { mutableStateOf(false) }

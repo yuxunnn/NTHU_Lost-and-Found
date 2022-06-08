@@ -25,13 +25,11 @@ import com.example.ss_team2.presentation.ui.registerPage.RegisterPage
 import com.example.ss_team2.presentation.ui.shop.Shop
 import com.example.ss_team2.presentation.ui.taskList.Quest
 import com.example.ss_team2.presentation.ui.welcome.Welcome
-import com.example.ss_team2.presentation.viewModel.ChatViewModel
-import com.example.ss_team2.presentation.viewModel.MapViewModel
-import com.example.ss_team2.presentation.viewModel.PostViewModel
-import com.example.ss_team2.presentation.viewModel.UserViewModel
+import com.example.ss_team2.presentation.viewModel.*
 
 @Composable
 fun SetupNavGraph(
+    rankingViewModel: RankingViewModel = viewModel(),
     mapViewModel: MapViewModel = viewModel(),
     userViewModel: UserViewModel = viewModel(),
     chatViewModel: ChatViewModel = viewModel(),
@@ -61,12 +59,20 @@ fun SetupNavGraph(
         composable(
             route = Screen.Register.route
         ) {
-            RegisterPage(navController = navController)
+            RegisterPage(
+                userViewModel = userViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Login.route
         ) {
-            Welcome(navController = navController)
+            Welcome(
+                postViewModel = postViewModel,
+                chatViewModel = chatViewModel,
+                userViewModel = userViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Home.route
@@ -94,7 +100,10 @@ fun SetupNavGraph(
         composable(
             route = Screen.Shop.route
         ) {
-            Shop(navController = navController)
+            Shop(
+                userViewModel = userViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.ChatRoom.route
@@ -136,7 +145,9 @@ fun SetupNavGraph(
         composable(
             route = Screen.Rank.route
         ) {
-            Rank(navController = navController)
+            Rank(
+                rankingViewModel = rankingViewModel,
+                navController = navController)
         }
         composable(
             route = Screen.Confirmation.route

@@ -32,7 +32,7 @@ import com.example.ss_team2.ui.theme.Iris60
 @Composable
 fun RegisterPage (
     navController: NavController,
-    userViewModel: UserViewModel = viewModel(),
+    userViewModel: UserViewModel,
     modifier: Modifier = Modifier
 ){
     Column {

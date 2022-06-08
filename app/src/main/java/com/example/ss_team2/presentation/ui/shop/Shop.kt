@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.ui.shop
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -33,387 +34,454 @@ import com.example.ss_team2.ui.theme.TextGray
 @Composable
 fun Shop(
     navController: NavController,
-    userViewModel: UserViewModel = viewModel(),
-){
+    userViewModel: UserViewModel,
+) {
+    val user by userViewModel.user.collectAsState()
+//    val myMoney by userViewModel.userCoin.collectAsState()
 
-    val myMoney by userViewModel.userCoin.collectAsState()
-
-
-    Column() {
-        Title(money = myMoney, navController = navController)
+    Column {
+        Title(money = user.userCoin, navController = navController)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
 
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.orange_flag),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "台大旗"
-                    )
-                }
-                Text(
-                    text = "台大專屬旗子",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
+        LazyColumn {
 
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "500",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
-                                  userViewModel.updateUserItem(userViewModel.user.value.userName,"orangeFlag",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        enabled = myMoney >= 500,
-                        modifier = Modifier.padding(start = 8.dp)
+            item {
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.orange_flag),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "台大旗"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "台大專屬旗子",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "500",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -500
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "orangeFlag",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                enabled = user.userCoin >= 500,
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
-        }
-
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.purple_flag),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "清大旗"
-                    )
-                }
-                Text(
-                    text = "清大專屬旗子",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
-
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "500",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {userViewModel.updateCoin(userViewModel.user.value.userName,-500)
-                            userViewModel.updateUserItem(userViewModel.user.value.userName,"purpleFlag",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        enabled = myMoney >= 500,
-                        modifier = Modifier.padding(start = 8.dp)
+            item {
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.purple_flag),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "清大旗"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "清大專屬旗子",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "500",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -500
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "purpleFlag",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                enabled = user.userCoin >= 500,
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
-        }
+            item {
 
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.yellow_flag),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "交大旗"
-                    )
-                }
-                Text(
-                    text = "交大專屬旗子",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
 
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "500",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
-                            userViewModel.updateUserItem(userViewModel.user.value.userName,"yellowFlag",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        modifier = Modifier.padding(start = 8.dp)
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.yellow_flag),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "交大旗"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "交大專屬旗子",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "500",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -500
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "yellowFlag",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.blue_flag),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "政大旗"
-                    )
-                }
-                Text(
-                    text = "政大專屬旗子",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
+            item {
 
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "500",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            userViewModel.updateCoin(userViewModel.user.value.userName,-500)
-                            userViewModel.updateUserItem(userViewModel.user.value.userName,"blueFlag",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        enabled = myMoney >= 500,
-                        modifier = Modifier.padding(start = 8.dp)
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.blue_flag),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "政大旗"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "政大專屬旗子",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "500",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -500
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "blueFlag",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                enabled = user.userCoin >= 500,
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.poopoo),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "大便"
-                    )
-                }
-                Text(
-                    text = "要臭他們就用這個",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
+            item {
 
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "800",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            userViewModel.updateCoin(userViewModel.user.value.userName,-800)
-                            userViewModel.updateUserItem(userViewModel.user.value.userName,"shit",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        enabled = myMoney >= 800,
-                        modifier = Modifier.padding(start = 8.dp)
+
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.poopoo),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "大便"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "要臭他們就用這個",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "800",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -800
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "shit",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                enabled = user.userCoin >= 800,
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(84.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Color.White
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-            ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Image(
-                        painter = painterResource(R.drawable.bnt),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                    )
-                    Text(
-                        text = "BNT"
-                    )
-                }
-                Text(
-                    text = "記得打疫苗",
-                    modifier = Modifier.padding(top = 30.dp)
-                )
+            item {
 
-                Column() {
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(32.dp)
-                        )
-                        Text(
-                            text = "999",
-                            fontSize = 25.sp //may bug
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            userViewModel.updateCoin(userViewModel.user.value.userName,-1000)
-                            userViewModel.updateUserItem(userViewModel.user.value.userName,"vaccine",1)},
-                        colors = ButtonDefaults.textButtonColors(
-                            backgroundColor = Iris60
-                        ),
-                        enabled = myMoney >= 1000,
-                        modifier = Modifier.padding(start = 8.dp)
+                Card(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                        .height(84.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,    //shadow
+                    backgroundColor = Color.White
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
                     ) {
+                        Column() {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Image(
+                                painter = painterResource(R.drawable.bnt),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .height(40.dp)
+                                    .width(40.dp)
+                            )
+                            Text(
+                                text = "BNT"
+                            )
+                        }
                         Text(
-                            text = "購買",
-                            color = Color.White
+                            text = "記得打疫苗",
+                            modifier = Modifier.padding(top = 30.dp)
                         )
+
+                        Column() {
+                            Row() {
+                                Icon(
+                                    imageVector = Icons.Default.AttachMoney,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                )
+                                Text(
+                                    text = "999",
+                                    fontSize = 25.sp //may bug
+                                )
+                            }
+                            Button(
+                                onClick = {
+                                    userViewModel.updateCoin(
+                                        userViewModel.user.value.userName,
+                                        -999
+                                    )
+                                    userViewModel.updateUserItem(
+                                        userViewModel.user.value.userName,
+                                        "vaccine",
+                                        1
+                                    )
+                                },
+                                colors = ButtonDefaults.textButtonColors(
+                                    backgroundColor = Iris60
+                                ),
+                                enabled = user.userCoin >= 999,
+                                modifier = Modifier.padding(start = 8.dp)
+                            ) {
+                                Text(
+                                    text = "購買",
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -421,19 +489,12 @@ fun Shop(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun ShopPreview() {
-    SSteam2Theme { Shop(navController = rememberNavController()) }
-}
-
-
 @Composable
 fun Title(
     modifier: Modifier = Modifier,
     money: Int,
     navController: NavController
-){
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -457,7 +518,7 @@ fun Title(
             fontSize = 32.sp,
             color = TextGray,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(start = 70.dp,end = 16.dp)
+            modifier = Modifier.padding(start = 70.dp, end = 16.dp)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically

@@ -34,7 +34,7 @@ fun WhereYouFind(
     navController: NavController,
     what: String,
     modifier: Modifier = Modifier,
-    postViewModel: PostViewModel = viewModel()
+    postViewModel: PostViewModel
 ){
 
     val isClicked1 = remember { mutableStateOf(false) }
