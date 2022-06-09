@@ -1,30 +1,30 @@
 package com.example.ss_team2.presentation.ui.homepage
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.*
 
 @Composable
 fun HomepageScreen(
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
-
+    val user by userViewModel.user.collectAsState()
     val currentSchool = remember { mutableStateOf(0) }
 
     Column {
@@ -43,6 +43,7 @@ fun HomepageScreen(
                 TopBarButton(
                     imageVector = Icons.Default.Message,
                     onClick = {
+                        chatViewModel.chatsByReceive(user.userName)
                         navController.navigate(route = Screen.ChatList.route)
                     }
                 )
@@ -77,13 +78,28 @@ fun HomepageScreen(
 
 @Composable
 fun Homepage(
+    postViewModel: PostViewModel,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController) }
+            bottomBar = {
+                BottomBar(
+                    postViewModel = postViewModel,
+                    userViewModel = userViewModel,
+                    chatViewModel = chatViewModel,
+                    modifier = Modifier,
+                    navController = navController
+                )
+            }
         ) { padding ->
-            HomepageScreen(modifier = Modifier.padding(padding), navController = navController)
+            HomepageScreen(
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
+                modifier = Modifier.padding(padding), navController = navController
+            )
         }
     }
 }

@@ -234,7 +234,7 @@ fun Notification(
 ) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController) }
+//            bottomBar = { BottomBar(modifier = Modifier, navController) }
         ) {
 //            NotificationFinalScreen()
         }

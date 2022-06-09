@@ -12,6 +12,7 @@ import com.example.ss_team2.presentation.navigation.WHERE_ARGUMENT_KEY
 import com.example.ss_team2.presentation.ui.postList.FinalScreenWithMoney
 import com.example.ss_team2.presentation.ui.whatYouLost.WhatYouLost
 import com.example.ss_team2.presentation.ui.whereYouLost.WhereYouLost
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
@@ -20,6 +21,7 @@ fun NavGraphBuilder.lostNavGraph(
     helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     navigation(
@@ -76,6 +78,7 @@ fun NavGraphBuilder.lostNavGraph(
                 helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
+                chatViewModel = chatViewModel,
                 navController = navController
             )
         }

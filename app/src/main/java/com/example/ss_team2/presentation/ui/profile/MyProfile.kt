@@ -15,6 +15,7 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
@@ -93,13 +94,22 @@ fun MyProfileScreen(
 @Composable
 fun MyProfile(
     helperViewModel: HelperViewModel,
-    userViewModel: UserViewModel,
     postViewModel: PostViewModel,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController) }
+            bottomBar = {
+                BottomBar(
+                    postViewModel = postViewModel,
+                    userViewModel = userViewModel,
+                    chatViewModel = chatViewModel,
+                    modifier = Modifier,
+                    navController = navController
+                )
+            }
         ) {
             MyProfileScreen(
                 helperViewModel = helperViewModel,

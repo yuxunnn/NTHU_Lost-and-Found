@@ -42,20 +42,18 @@ fun Dialog(
 ) {
 
     var myTextInput by remember { mutableStateOf("") }
-    val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
     val user by userViewModel.user.collectAsState()
     val otherUser by userViewModel.otherUser.collectAsState()
     val chat by chatViewModel.chat.collectAsState()
 
     Column {
         Avatar(
+            chatViewModel = chatViewModel,
             userViewModel = userViewModel,
             navController = navController
         )
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
         DialogSurface(
-            listState = listState,
             chatViewModel = chatViewModel,
             userViewModel = userViewModel,
             modifier = Modifier.weight(1f)
@@ -71,9 +69,6 @@ fun Dialog(
                         message = myTextInput
                     )
                     myTextInput = ""
-                    coroutineScope.launch {
-                        listState.animateScrollToItem(index = chat.size-1)
-                    }
                 }
             }
         )
@@ -84,9 +79,11 @@ fun Dialog(
 @Composable
 fun Avatar(
     userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
 
+    val user by userViewModel.user.collectAsState()
     val otherUser by userViewModel.otherUser.collectAsState()
 
     Row(
@@ -102,7 +99,10 @@ fun Avatar(
             tint = TextGray,
             modifier = Modifier
                 .size(40.dp)
-                .clickable { navController.popBackStack() }
+                .clickable {
+                    chatViewModel.chatsByReceive(user.userName)
+                    navController.popBackStack()
+                }
         )
         Image(
             painter = painterResource(R.drawable.default_avatar),
@@ -113,14 +113,12 @@ fun Avatar(
                 .clip(CircleShape)
         )
         Text(text = otherUser.userName, fontSize = 24.sp)
-
     }
 }
 
 
 @Composable
 fun DialogSurface(
-    listState: LazyListState,
     chatViewModel: ChatViewModel,
     userViewModel: UserViewModel,
     modifier: Modifier
@@ -130,7 +128,6 @@ fun DialogSurface(
     val user by userViewModel.user.collectAsState()
 
     LazyColumn(
-        state = listState,
         modifier = modifier
     ) {
         items(chat) { item ->

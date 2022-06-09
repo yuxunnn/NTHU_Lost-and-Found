@@ -73,7 +73,7 @@ fun WhereYouLost(
         ) {
             Button(
                 onClick = {
-                    postViewModel.postSearch("lost", what, chosen.value)
+                    postViewModel.postSearch("find", what, chosen.value)
                     navController.navigate(
                         route = Screen.LostList.passWhatAndWhere(
                             what = what,

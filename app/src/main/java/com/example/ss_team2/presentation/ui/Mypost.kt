@@ -40,7 +40,10 @@ fun MyPostFinalScreen(
             leftButton = {
                 TopBarButton(
                     imageVector = Icons.Filled.ArrowBack,
-                    onClick = { navController.popBackStack() }
+                    onClick = {
+                        postViewModel.getMyPosts(user.userName)
+                        navController.popBackStack()
+                    }
                 )
             },
             text = stringResource(id = R.string.MyPost),

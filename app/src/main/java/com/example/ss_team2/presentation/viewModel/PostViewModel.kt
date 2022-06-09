@@ -26,12 +26,6 @@ class PostViewModel() : ViewModel() {
     val posts: StateFlow<List<Post>> = _posts
     val post: StateFlow<Post> = _post
 
-    init {
-        viewModelScope.launch {
-            _myPosts.value = postUseCase.getUserPosts("huiyuiui")
-        }
-    }
-
     fun getPostById(postId: String) {
         viewModelScope.launch {
             _post.value = postUseCase.getPostById(postId)

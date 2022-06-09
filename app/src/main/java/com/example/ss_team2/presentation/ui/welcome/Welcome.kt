@@ -113,9 +113,6 @@ fun Welcome (
             ) {
                 Button(
                     onClick = {
-//                        userViewModel.getUserItem(TypedEmail)
-//                        postViewModel.getUserPosts(TypedEmail)
-//                        chatViewModel.chatsByReceive(TypedEmail)
                         Log.d("Android", "Response: ${TypedEmail.value}, ${TypedPassword.value}")
                         userViewModel.userLogin(TypedEmail.value, TypedPassword.value)
                         navController.navigate(route = Screen.Home.route)

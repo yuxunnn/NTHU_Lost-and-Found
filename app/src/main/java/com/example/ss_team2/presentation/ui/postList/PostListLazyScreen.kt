@@ -33,14 +33,18 @@ fun PostListLazyScreen(
         verticalArrangement = Arrangement.spacedBy((8.dp))
     ) {
         items(posts) { post ->
-            if (post.postType == postType) {
+            if (!post.hasDone) {
                 PostPreviewElement(
                     post = post,
                     onClick = {
                         helperViewModel.getAllPostHelpers(post.postId)
                         postViewModel.getPostById(postId = post.postId)
                         userViewModel.getOtherUserByName(post.author.userName)
-                        navController.navigate(route = Screen.OthersLostList.route)
+                        if (postType == "find"){
+                            navController.navigate(route = Screen.OthersLostList.route)
+                        }else {
+                            navController.navigate(route = Screen.OthersFindList.route)
+                        }
                     }
                 )
             }

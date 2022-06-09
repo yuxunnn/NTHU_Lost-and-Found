@@ -114,12 +114,12 @@ fun PostTypeHint(
 ) {
     val color: Color =
         if (MaterialTheme.colors.isLight) {
-            if (type == "lost") FindHint else LostHint
+            if (type == "find") FindHint else LostHint
         } else {
-            if (type == "lost") FindHintDark else LostHintDark
+            if (type == "find") FindHintDark else LostHintDark
         }
 
-    val text: String = if (type == "lost") "撿" else "遺"
+    val text: String = if (type == "find") "撿" else "遺"
 
     Box(
         contentAlignment = Alignment.Center,

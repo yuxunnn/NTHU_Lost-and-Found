@@ -12,12 +12,14 @@ import com.example.ss_team2.presentation.ui.postList.FindListFinalScreen
 import com.example.ss_team2.presentation.ui.othersPost.OthersFindListApp
 import com.example.ss_team2.presentation.ui.whatYouFind.WhatYouFind
 import com.example.ss_team2.presentation.ui.whereYouFind.WhereYouFind
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 
 fun NavGraphBuilder.findNavGraph(
+    chatViewModel: ChatViewModel,
     helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
@@ -77,6 +79,7 @@ fun NavGraphBuilder.findNavGraph(
             route = Screen.OthersFindList.route
         ) {
             OthersFindListApp(
+                chatViewModel = chatViewModel,
                 helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,

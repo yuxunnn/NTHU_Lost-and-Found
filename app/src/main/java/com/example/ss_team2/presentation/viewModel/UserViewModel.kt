@@ -32,15 +32,6 @@ class UserViewModel : ViewModel() {
     private val _userCoin = MutableStateFlow(user.value.userCoin)
     val userCoin : StateFlow<Int> = _userCoin
 
-    init {
-        viewModelScope.launch {
-//            _user.value = userUseCase.getUserByName("huiyuiui")
-//            _userItem.value = userUseCase.getUserItem("huiyuiui")
-            _otherUser.value = userUseCase.getUserByName("Ryanke")
-            _otherUserItem.value = userUseCase.getUserItem("Ryanke")
-        }
-    }
-
     fun changeSelectedItem(selectedItem: String){
         viewModelScope.launch {
             _selectedItem.value = selectedItem

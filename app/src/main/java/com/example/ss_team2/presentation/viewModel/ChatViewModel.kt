@@ -16,12 +16,6 @@ class ChatViewModel : ViewModel() {
     private val _chat = MutableStateFlow(mutableListOf<Chat>())
     val chat: StateFlow<List<Chat>> = _chat
 
-    init {
-        viewModelScope.launch {
-            _chats.value = chatUseCase.chatsByReceive("huiyuiui")
-        }
-    }
-
     fun chatsByReceive(receiver: String) {
         viewModelScope.launch {
             _chats.value = chatUseCase.chatsByReceive(receiver)

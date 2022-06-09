@@ -27,5 +27,4 @@ class HelperViewModel : ViewModel() {
             _helpers.value = helperUseCase.getAllPostHelpers(postId)
         }
     }
-
 }

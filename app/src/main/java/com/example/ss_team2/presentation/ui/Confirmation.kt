@@ -77,7 +77,6 @@ fun Confirmation(
             Button(
                 onClick = {
                     postViewModel.donePost(post.postId)
-                    postViewModel.getMyPosts(user.userName)
                     userViewModel.updateCoin(user.userName, -post.rewardCoin)
                     navController.popBackStack()
                 },
@@ -144,7 +143,7 @@ fun HelpElement(
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
-        Text(text = "+ $money$")
+//        Text(text = "+ $money$")
     }
 }
 
