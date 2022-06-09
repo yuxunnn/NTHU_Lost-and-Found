@@ -105,7 +105,7 @@ fun Avatar(
                 .clickable { navController.popBackStack() }
         )
         Image(
-            painter = painterResource(R.drawable.my_image),
+            painter = painterResource(R.drawable.default_avatar),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier

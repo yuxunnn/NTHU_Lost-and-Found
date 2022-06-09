@@ -161,7 +161,7 @@ fun ConfirmationLazyScreen(
         items(helpers) { item ->
             HelpElement(
                 userName = item.helperName,
-                drawable = R.drawable.defaultpicture,
+                drawable = R.drawable.default_avatar,
                 money = 20
             )
         }
