@@ -56,6 +56,12 @@ class PostViewModel() : ViewModel() {
         }
     }
 
+    fun donePost(postId: String){
+        viewModelScope.launch {
+            postUseCase.donePost(postId)
+        }
+    }
+
     fun createPost(postCreateInput: PostCreateInput) {
         viewModelScope.launch {
             postUseCase.createPost(postCreateInput)

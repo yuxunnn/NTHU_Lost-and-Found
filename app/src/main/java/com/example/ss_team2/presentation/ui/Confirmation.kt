@@ -26,67 +26,23 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
-import com.example.ss_team2.presentation.ui.utility.TopBarButton
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
-import com.example.ss_team2.type.PostUpdateInput
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.TextGray
-
-@Composable
-fun ConfirmationHomeScreen(
-    helperViewModel: HelperViewModel,
-    postViewModel: PostViewModel
-) {
-
-    val post by postViewModel.post.collectAsState()
-
-    Column(
-        modifier = Modifier
-    ) {
-        Text(
-            text = stringResource(id = R.string.Confirm),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66, 0x70, 0x80),
-            modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 32.sp
-        )
-        Divider(
-            color = Color(0x66, 0x70, 0x80),
-            thickness = 1.dp,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
-        PostItemCard(
-            postViewModel = postViewModel
-        )
-        Row(
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "請選擇積分給予有協助的對象",
-                modifier = Modifier.padding(8.dp)
-            )
-            Spacer(modifier = Modifier.width(108.dp))
-            Text(text = " ${post.rewardCoin}", modifier = Modifier.padding(8.dp))
-        }
-        ConfirmationLazyScreen(
-            helperViewModel = helperViewModel
-        )
-    }
-}
 
 
 @Composable
 fun Confirmation(
     modifier: Modifier = Modifier,
     helperViewModel: HelperViewModel,
+    userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
 ) {
 
     val post by postViewModel.post.collectAsState()
+    val user by userViewModel.user.collectAsState()
 
     Column(
         modifier = Modifier
@@ -120,6 +76,9 @@ fun Confirmation(
             )
             Button(
                 onClick = {
+                    postViewModel.donePost(post.postId)
+                    postViewModel.getMyPosts(user.userName)
+                    userViewModel.updateCoin(user.userName, -post.rewardCoin)
                     navController.popBackStack()
                 },
                 modifier = Modifier

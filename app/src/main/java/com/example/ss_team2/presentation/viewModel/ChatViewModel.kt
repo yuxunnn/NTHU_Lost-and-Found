@@ -16,6 +16,12 @@ class ChatViewModel : ViewModel() {
     private val _chat = MutableStateFlow(mutableListOf<Chat>())
     val chat: StateFlow<List<Chat>> = _chat
 
+    init {
+        viewModelScope.launch {
+            _chats.value = chatUseCase.chatsByReceive("huiyuiui")
+        }
+    }
+
     fun chatsByReceive(receiver: String) {
         viewModelScope.launch {
             _chats.value = chatUseCase.chatsByReceive(receiver)
@@ -30,8 +36,7 @@ class ChatViewModel : ViewModel() {
 
     fun createChat(receiver: String, sender: String, message: String) {
         viewModelScope.launch {
-            chatUseCase.createChat(receiver, sender, message)
-            _chat.value = chatUseCase.chatsByReceiveAndSend(sender, receiver)
+            _chat.value = chatUseCase.createChat(receiver, sender, message)
         }
     }
 }

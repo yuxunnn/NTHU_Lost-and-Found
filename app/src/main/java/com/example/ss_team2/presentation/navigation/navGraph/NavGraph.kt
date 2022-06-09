@@ -157,6 +157,7 @@ fun SetupNavGraph(
             route = Screen.Confirmation.route
         ) {
             Confirmation(
+                userViewModel = userViewModel,
                 helperViewModel = helperViewModel,
                 postViewModel = postViewModel,
                 navController = navController
