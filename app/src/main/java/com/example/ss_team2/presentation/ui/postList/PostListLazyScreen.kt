@@ -29,7 +29,7 @@ fun PostListLazyScreen(
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy((8.dp))
     ) {
         items(posts) { post ->

@@ -56,7 +56,7 @@ fun MyProfileScreen(
             },
             text = myUser.userName,
             rightButton = {
-                Spacer(modifier = Modifier.size(32.dp))
+                Spacer(modifier = Modifier.size(40.dp))
             }
         )
 

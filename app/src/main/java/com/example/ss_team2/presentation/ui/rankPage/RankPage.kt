@@ -37,7 +37,7 @@ fun RankPage(
 
     Column() {
         Title()
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(thickness = 3.dp, color = TextGray)
         //TopButtons()
 
         Row(

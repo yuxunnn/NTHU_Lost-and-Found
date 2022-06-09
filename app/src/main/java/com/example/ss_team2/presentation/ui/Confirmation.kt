@@ -26,9 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
+import com.example.ss_team2.presentation.ui.utility.TopBarButton
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.type.PostUpdateInput
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun ConfirmationHomeScreen(
@@ -86,29 +88,68 @@ fun Confirmation(
 
     val post by postViewModel.post.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        ConfirmationHomeScreen(
-            helperViewModel = helperViewModel,
+    Column(
+        modifier = Modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .fillMaxWidth()
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = null,
+                tint = TextGray,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable(
+                        onClick = {
+                            navController.popBackStack()
+                        }
+                    )
+            )
+            Text(
+                text = stringResource(id = R.string.Confirm),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier,
+                color = TextGray
+            )
+            Button(
+                onClick = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+            ) {
+                Text(text = "完成")
+            }
+        }
+
+
+        Divider(
+            color = TextGray,
+            thickness = 2.dp,
+            modifier = Modifier
+        )
+        PostItemCard(
             postViewModel = postViewModel
         )
-        Icon(
-            Icons.Filled.ArrowBack,
-            "",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .clickable {}
-                .padding(16.dp)
-        )
-        Button(
-            onClick = {
-                navController.popBackStack()
-            },
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp)
+        Row(
+            horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "完成")
+            Text(
+                text = "請選擇積分給予有協助的對象",
+                modifier = Modifier.padding(8.dp)
+            )
+            Spacer(modifier = Modifier.width(108.dp))
+            Text(text = " ${post.rewardCoin}", modifier = Modifier.padding(8.dp))
         }
+        ConfirmationLazyScreen(
+            helperViewModel = helperViewModel
+        )
     }
 }
 

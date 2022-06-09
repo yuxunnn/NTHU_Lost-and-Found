@@ -3,7 +3,6 @@ package com.example.ss_team2.presentation.ui.othersPost
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,53 +11,20 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.utility.TopBar
+import com.example.ss_team2.presentation.ui.utility.TopBarButton
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
-
-@Composable
-fun LostListHomeScreen(
-    helperViewModel: HelperViewModel,
-    userViewModel: UserViewModel,
-    postViewModel: PostViewModel,
-    modifier: Modifier = Modifier,
-) {
-    val otherUser by userViewModel.otherUser.collectAsState()
-
-    Column(
-        modifier = Modifier
-    ) {
-        Text(
-            text = stringResource(id = R.string.LostList),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66, 0x70, 0x80),
-            modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 32.sp
-        )
-        Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
-        Spacer(modifier = Modifier.height(16.dp))
-        PostListLazyScreen(
-            postOwner = otherUser.userName,
-            helperViewModel = helperViewModel,
-            postViewModel = postViewModel
-        )
-    }
-}
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun LostListFinalScreen(
@@ -68,21 +34,34 @@ fun LostListFinalScreen(
     postViewModel: PostViewModel,
     navController: NavController
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        LostListHomeScreen(
+
+    val otherUser by userViewModel.otherUser.collectAsState()
+
+    Column(
+        modifier = Modifier
+    ) {
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Filled.ArrowBack,
+                    onClick = { navController.popBackStack() }
+                )
+            },
+            text = stringResource(id = R.string.LostList),
+            rightButton = {
+                Spacer(modifier = Modifier.size(40.dp))
+            }
+        )
+        Divider(
+            color = TextGray,
+            thickness = 2.dp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        PostListLazyScreen(
+            postOwner = otherUser.userName,
             helperViewModel = helperViewModel,
-            userViewModel = userViewModel,
             postViewModel = postViewModel
         )
-        Icon(
-            Icons.Filled.ArrowBack,
-            "",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .clickable { navController.popBackStack() }
-                .padding(16.dp)
-        )
-
     }
 }
 
