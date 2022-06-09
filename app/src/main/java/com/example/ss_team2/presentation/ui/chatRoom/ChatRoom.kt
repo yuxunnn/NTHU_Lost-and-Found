@@ -72,7 +72,7 @@ fun Dialog(
                     )
                     myTextInput = ""
                     coroutineScope.launch {
-                        listState.animateScrollToItem(index = chat.size)
+                        listState.animateScrollToItem(index = chat.size-1)
                     }
                 }
             }

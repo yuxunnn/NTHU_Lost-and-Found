@@ -1,5 +1,6 @@
 package com.example.ss_team2.presentation.ui.welcome
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -25,8 +26,8 @@ fun Welcome (
     navController: NavController,
     modifier: Modifier = Modifier
 ){
-    var TypedEmail by remember { mutableStateOf("") }
-    var TypedPassword by remember { mutableStateOf("") }
+    var TypedEmail = remember { mutableStateOf("") }
+    var TypedPassword = remember { mutableStateOf("") }
 
     Column() {
         Title(navController)
@@ -42,15 +43,15 @@ fun Welcome (
                     Modifier.width(350.dp),
                 ) {
                     Text(
-                        text = "信箱",
+                        text = "信箱或手機號碼",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = TextGray
                     )
                 }
                 TextField(
-                    value = TypedEmail,
-                    onValueChange = { TypedEmail = it },
+                    value = TypedEmail.value,
+                    onValueChange = { TypedEmail.value = it },
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = MaterialTheme.colors.surface
                     ),
@@ -84,8 +85,8 @@ fun Welcome (
                     )
                 }
                 TextField(
-                    value = TypedPassword,
-                    onValueChange = { TypedPassword = it },
+                    value = TypedPassword.value,
+                    onValueChange = { TypedPassword.value = it },
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = MaterialTheme.colors.surface
                     ),
@@ -115,7 +116,8 @@ fun Welcome (
 //                        userViewModel.getUserItem(TypedEmail)
 //                        postViewModel.getUserPosts(TypedEmail)
 //                        chatViewModel.chatsByReceive(TypedEmail)
-//                        userViewModel.userLogin(TypedEmail, TypedPassword)
+                        Log.d("Android", "Response: ${TypedEmail.value}, ${TypedPassword.value}")
+                        userViewModel.userLogin(TypedEmail.value, TypedPassword.value)
                         navController.navigate(route = Screen.Home.route)
                     },
                     colors = ButtonDefaults.textButtonColors(

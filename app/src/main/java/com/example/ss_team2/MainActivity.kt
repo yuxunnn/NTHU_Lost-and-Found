@@ -21,13 +21,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val notiRepository = NotiRepository()
-        var notiList: MutableList<Noti>
-        val notiCreateInput = NotiCreateInput("notyuxun", "using", "19", "傳送了協助歸還")
-        lifecycleScope.launchWhenCreated {
-            notiList = notiRepository.createNoti(notiCreateInput)
-            Log.d("GraphQL", "Android: $notiList")
-        }
+//        val userRepository = UserRepository()
+//        var user: User
+//        lifecycleScope.launchWhenCreated {
+//            user = userRepository.userLogin("chen1741954267@gmail.com", "chen0915")!!
+//            Log.d("GraphQL", "Android: $user")
+//        }
         setContent {
             SSteam2Theme {
                 navController = rememberNavController()

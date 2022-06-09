@@ -32,4 +32,3 @@
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
-notification
