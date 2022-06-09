@@ -41,6 +41,7 @@ type Query {
     chatsByReceiveAndSend(receive: String!, send: String!): [Chat]
     mapItems: [MapItem]
     postHelpers(postId: String!): [Helper]
+    notiByName(userName: String!): [Noti]
 }
 
 type Mutation {
@@ -49,6 +50,7 @@ type Mutation {
     createPost(post: PostCreateInput!): [Post]
     updatePost(postId: ID!, post: PostUpdateInput!): Post!
     deletePost(postId: ID!): String!
+    donePost(postId: ID!): Post!
     updateUserItem(userName: String!, itemType: String!, changeNum: Int!): UserItem!
     createUserItem(userName: String!): UserItem!
     deleteuserItem(userName: String!): String!
@@ -58,6 +60,7 @@ type Mutation {
     createChat(send: String!, receive: String!, message: String!): [Chat]
     createMapItem(mapItem: MapItemCreateInput!): [MapItem]
     createPostHelper(postId: String!, helperName: String!): String!
+    createNoti(noti: NotiCreateInput!): [Noti]
 }
 
 type UserItem {
@@ -89,6 +92,22 @@ input MapItemCreateInput {
     longitude: Float!
     userName: String!
     userSchool: String!
+}
+
+type Noti implements Timestamps {
+    receive: String!
+    send: String!
+    postId: String!
+    notification: String!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+input NotiCreateInput {
+    receive: String!
+    send: String!
+    postId: String!
+    notification: String!
 }
 
 type Post implements Timestamps {

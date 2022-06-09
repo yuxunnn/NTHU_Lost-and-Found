@@ -1,0 +1,21 @@
+query NotiByName($userName: String!) {
+    notiByName(userName: $userName) {
+        receive
+        send
+        postId
+        notification
+        createdAt
+        updatedAt
+    }
+}
+
+mutation CreateNoti($noti: NotiCreateInput!) {
+    createNoti(noti: $noti) {
+        receive
+        send
+        postId
+        notification
+        createdAt
+        updatedAt
+    }
+}

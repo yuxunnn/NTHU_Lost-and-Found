@@ -124,4 +124,17 @@ export default class PostModel {
             console.error(`[ERROR] PostModel.deletePost :\n ${err}`)
         }
     }
+
+    static async donePost(conn, postId) {
+        const _postId = postId
+
+        try {
+            const query = `UPDATE post SET hasDone = 'Y' WHERE postId = '${_postId}'`
+            const [rows, fields] = await conn.execute(query)
+
+            return _postId
+        } catch (err) {
+            console.error(`[ERROR] PostModel.donePost :\n ${err}`)
+        }
+    }
 }

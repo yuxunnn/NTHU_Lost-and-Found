@@ -1,0 +1,20 @@
+# Type
+type Noti implements Timestamps{
+    receive: String!,
+    send: String!,
+    postId: String!
+    notification: String!
+
+    # Interface required
+    createdAt: Date!
+    updatedAt: Date!
+
+}
+
+# Inputs
+input NotiCreateInput{
+    receive: String!,
+    send: String!,
+    postId: String!
+    notification: String!
+}
