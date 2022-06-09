@@ -229,4 +229,39 @@ class PostRepository {
 
         return response.data!!.deletePost
     }
+
+    suspend fun donePost(postId: String): Post{
+        val response = apolloClient.mutation(DonePostMutation(postId)).execute()
+        println("MySQL = ${response.data?.donePost}")
+
+        val data = response.data!!.donePost
+        val author = data!!.author
+        val user = User(
+            author.userId,
+            author.userName,
+            author.userSchool,
+            author.userPhoneNumber,
+            author.userEmail,
+            "",
+            author.userCoin,
+            author.userHead,
+            author.createdAt,
+            author.updatedAt
+        )
+
+        return Post(
+            data.postId,
+            user,
+            data.postType,
+            data.itemType,
+            data.location,
+            data.itemImage,
+            data.postDescribe,
+            data.hasDone,
+            data.rewardCoin,
+            data.anonymous,
+            data.createdAt,
+            data.updatedAt
+        )
+    }
 }
