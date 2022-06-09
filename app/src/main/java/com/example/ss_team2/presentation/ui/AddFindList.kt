@@ -1,6 +1,13 @@
 package com.example.ss_team2.presentation.ui
 
 
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -8,30 +15,77 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
-import com.example.ss_team2.ui.theme.SSteam2Theme
+
+@Composable
+fun PickImageFromGallery(){
+
+    var imageUri by remember { mutableStateOf<Uri?>(null)}
+    val context = LocalContext.current
+    val bitmap = remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){
+        uri: Uri? ->
+        imageUri = uri
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        imageUri?.let {
+            if(Build.VERSION.SDK_INT <28 ){
+                bitmap.value = MediaStore.Images
+                    .Media.getBitmap(context.contentResolver, it)
+            }else {
+                val source = ImageDecoder.createSource(context.contentResolver, it)
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+            }
+        }
+
+        bitmap.value?.let { btm ->
+            Image(
+                bitmap = btm.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier
+                    .height(160.dp)
+                    .width(160.dp)
+                    .clip(RectangleShape)
+                    .padding(4.dp)
+            )
+        }
+    }
+
+    Button(onClick = {launcher.launch("image/*")},
+    modifier = Modifier.size(144.dp),
+        shape = RoundedCornerShape(50),
+    ) {
+        Text(text = "選取照片", fontSize = 20.sp)
+    }
+}
+
 
 @Composable
 fun AnonymousUserCard(
@@ -91,17 +145,20 @@ fun EditItemCard(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(36.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.defaultpicture),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .height(160.dp)
-                .width(160.dp)
-                .clip(RectangleShape)
-                .padding(4.dp)
-                .clickable {}
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.defaultpicture),
+//            contentDescription = null,
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier
+//                .height(160.dp)
+//                .width(160.dp)
+//                .clip(RectangleShape)
+//                .padding(4.dp)
+//                .clickable {
+//
+//                }
+//        )
+        PickImageFromGallery()
         Column(modifier = Modifier) {
             WhatAndWhereColElementClickable(what = what,
                 where = where)
@@ -111,6 +168,7 @@ fun EditItemCard(
 
     }
 }
+
 
 @Composable
 fun WhatAndWhereColElementClickable(
@@ -255,3 +313,5 @@ fun AddFindList(
         where = where
     )
 }
+
+///please

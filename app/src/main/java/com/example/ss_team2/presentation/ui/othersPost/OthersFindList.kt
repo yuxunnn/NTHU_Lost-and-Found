@@ -1,6 +1,8 @@
 package com.example.ss_team2.presentation.ui.othersPost
 
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -110,8 +113,10 @@ fun OthersFindListFinalScreen(
 @Composable
 private fun OthersFindListBottomNavigation(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    where: String
 ) {
+    val context = LocalContext.current
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         modifier = modifier
@@ -127,7 +132,13 @@ private fun OthersFindListBottomNavigation(
                 Text("地圖定位")
             },
             selected = true,
-            onClick = {}
+            onClick = {
+                val gmmIntentUri =
+                    Uri.parse("geo:120,24?q=$where")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                context.startActivity(mapIntent)
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -167,7 +178,7 @@ fun OthersFindListApp(
     navController: NavController
 ) {
     Scaffold(
-        bottomBar = { OthersFindListBottomNavigation(navController = navController) }
+        bottomBar = { OthersFindListBottomNavigation(navController = navController, where = "台達館") }
     ) {
         OthersFindListFinalScreen(
             userViewModel = userViewModel,
