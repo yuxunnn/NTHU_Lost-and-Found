@@ -2,6 +2,7 @@ package com.example.ss_team2.presentation.ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -95,7 +97,83 @@ fun EditPostHomeScreen(
         Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
         Spacer(modifier = Modifier.height(16.dp))
         AnonymousUserCardForEdit(str = username, drawable = userdrawable)
-        EditItemCard(what = what, where = where)
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(280.dp)
+                .background(Color(220, 220, 220)),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(36.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.defaultpicture),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .height(160.dp)
+                    .width(160.dp)
+                    .clip(RectangleShape)
+                    .padding(4.dp)
+                    .clickable {}
+            )
+            Column(modifier = Modifier) {
+                //editpost
+                Column(
+                    modifier = modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "What",
+                        modifier = Modifier.padding(4.dp),
+                        fontSize = 12.sp,
+                        color = Color(66,70,80),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Surface(
+                        modifier = modifier,
+                        shape = MaterialTheme.shapes.small,
+                        color = Color(66,70,80)
+                    ){
+                        Text(
+                            text = what,
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .clickable { },
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Text(
+                        text = "Where",
+                        modifier = Modifier.padding(4.dp),
+                        fontSize = 12.sp,
+                        color = Color(66,70,80),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Surface(
+                        modifier = modifier,
+                        shape = MaterialTheme.shapes.small,
+                        color = Color(66,70,80)
+                    ){
+                        Text(
+                            text = where,
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .clickable { },
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(text = stringResource(id = R.string.description), fontSize = 12.sp)
+            }
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             onValueChange = { },
