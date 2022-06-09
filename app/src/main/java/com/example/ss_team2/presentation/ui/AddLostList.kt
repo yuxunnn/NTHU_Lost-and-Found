@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
@@ -59,26 +60,6 @@ fun AddLostListHomeScreen(
             label = { Text(text = "報酬") },
             modifier = Modifier.padding(start = 40.dp)
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "誰可以看到這篇貼文")
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically
-        ) {
-            val checkedState = remember { mutableStateOf(false) }              //State!!!
-            Checkbox(
-                checked = checkedState.value,
-                onCheckedChange = { checkedState.value = it }
-            )
-            Text(text = "男生")
-        }
-        Row(modifier = Modifier,verticalAlignment = Alignment.CenterVertically) {
-            val checkedState = remember { mutableStateOf(false) }              //State!!!
-            Checkbox(
-                checked = checkedState.value,
-                onCheckedChange = { checkedState.value = it }
-            )
-            Text(text = "女生")
-        }
     }
 }
 
@@ -136,4 +117,3 @@ fun AddLostList(
         where = where
     )
 }
-

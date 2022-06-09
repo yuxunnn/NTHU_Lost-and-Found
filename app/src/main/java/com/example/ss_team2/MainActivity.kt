@@ -7,12 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.apollographql.apollo3.api.Optional
 import com.example.ss_team2.data.data_source.*
 import com.example.ss_team2.data.repository.*
 import com.example.ss_team2.presentation.navigation.navGraph.SetupNavGraph
 import com.example.ss_team2.type.NotiCreateInput
-import com.example.ss_team2.type.PostCreateInput
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 class MainActivity : ComponentActivity() {
@@ -33,6 +31,6 @@ class MainActivity : ComponentActivity() {
                 SetupNavGraph(navController = navController)
             }
         }
+
     }
 }
-
