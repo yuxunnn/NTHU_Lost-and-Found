@@ -38,7 +38,7 @@ class PostViewModel() : ViewModel() {
         }
     }
 
-    fun getUserPosts(author: String){
+    fun getUserPosts(author: String) {
         viewModelScope.launch {
             _posts.value = postUseCase.getUserPosts(author)
         }
@@ -47,6 +47,12 @@ class PostViewModel() : ViewModel() {
     fun postSearch(postType: String, itemType: String, location: String) {
         viewModelScope.launch {
             _posts.value = postUseCase.searchPost(postType, itemType, location)
+        }
+    }
+
+    fun donePost(postId: String){
+        viewModelScope.launch {
+            postUseCase.donePost(postId)
         }
     }
 

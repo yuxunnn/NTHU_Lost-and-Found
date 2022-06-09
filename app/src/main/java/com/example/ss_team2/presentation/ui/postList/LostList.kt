@@ -21,7 +21,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.utility.WhatAndWhereRowElement
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 
@@ -29,6 +31,8 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 fun HomeScreenWithMoney(
     what: String,
     where: String,
+    userViewModel: UserViewModel,
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
@@ -57,6 +61,8 @@ fun HomeScreenWithMoney(
         Spacer(modifier = Modifier.height(10.dp))
         PostListLazyScreen(
             postType = "lost",
+            userViewModel = userViewModel,
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
             navController = navController
         )
@@ -66,6 +72,8 @@ fun HomeScreenWithMoney(
 
 @Composable
 fun FinalScreenWithMoney(
+    userViewModel: UserViewModel,
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     what: String,
     where: String,
@@ -76,6 +84,8 @@ fun FinalScreenWithMoney(
         HomeScreenWithMoney(
             what = what,
             where = where,
+            userViewModel = userViewModel,
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
             navController = navController
         )

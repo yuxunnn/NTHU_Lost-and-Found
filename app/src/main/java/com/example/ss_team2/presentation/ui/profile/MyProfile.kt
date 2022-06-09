@@ -15,6 +15,8 @@ import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.presentation.ui.utility.BottomBar
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -26,6 +28,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyProfileScreen(
     modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
@@ -54,12 +57,12 @@ fun MyProfileScreen(
             },
             text = myUser.userName,
             rightButton = {
-                Spacer(modifier = Modifier.size(32.dp))
+                Spacer(modifier = Modifier.size(40.dp))
             }
         )
 
         PersonalInfo(
-            image = R.drawable.my_image,
+            image = R.drawable.default_avatar,
             schoolName = myUser.userSchool,
             toolAmount = myUserItem.orangeFlag + myUserItem.purpleFlag + myUserItem.yellowFlag + myUserItem.blueFlag + myUserItem.shit + myUserItem.vaccine,
             point = myUser.userCoin
@@ -76,6 +79,7 @@ fun MyProfileScreen(
 
         HorizontalPager(state = pagerState) { index ->
             UserPostCardList(
+                helperViewModel = helperViewModel,
                 postViewModel = postViewModel,
                 tabPage = index,
                 posts = posts,
@@ -89,15 +93,26 @@ fun MyProfileScreen(
 
 @Composable
 fun MyProfile(
-    userViewModel: UserViewModel,
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController) }
+            bottomBar = {
+                BottomBar(
+                    postViewModel = postViewModel,
+                    userViewModel = userViewModel,
+                    chatViewModel = chatViewModel,
+                    modifier = Modifier,
+                    navController = navController
+                )
+            }
         ) {
             MyProfileScreen(
+                helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 modifier = Modifier,

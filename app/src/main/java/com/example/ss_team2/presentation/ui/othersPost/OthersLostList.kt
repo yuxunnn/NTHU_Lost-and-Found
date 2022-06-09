@@ -3,9 +3,8 @@ package com.example.ss_team2.presentation.ui.othersPost
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.clickable
+import android.widget.CheckedTextView
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
@@ -13,81 +12,74 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.ui.utility.TopBar
+import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
-
-
-
-@Composable
-fun LostListHomeScreen(
-    modifier: Modifier = Modifier,
-    userViewModel: UserViewModel,
-    postViewModel: PostViewModel
-) {
-    Column(
-        modifier = Modifier
-    ) {
-        Text(
-            text = stringResource(id = R.string.LostList),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66, 0x70, 0x80),
-            modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 32.sp
-        )
-        Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
-        Spacer(modifier = Modifier.height(16.dp))
-        PostListLazyScreen(
-            userViewModel = userViewModel,
-            postViewModel = postViewModel
-        )
-    }
-}
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun LostListFinalScreen(
     modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     navController: NavController
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        LostListHomeScreen(
-            userViewModel = userViewModel,
+
+    val otherUser by userViewModel.otherUser.collectAsState()
+
+    Column(
+        modifier = Modifier
+    ) {
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Filled.ArrowBack,
+                    onClick = { navController.popBackStack() }
+                )
+            },
+            text = stringResource(id = R.string.LostList),
+            rightButton = {
+                Spacer(modifier = Modifier.size(40.dp))
+            }
+        )
+        Divider(
+            color = TextGray,
+            thickness = 2.dp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        PostListLazyScreen(
+            postOwner = otherUser.userName,
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel
         )
-        Icon(
-            Icons.Filled.ArrowBack,
-            "",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .clickable { navController.popBackStack() }
-                .padding(16.dp)
-        )
-
     }
 }
 
 @Composable
 private fun OthersLostListBottomNavigation(
     modifier: Modifier = Modifier,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
+    helperViewModel: HelperViewModel,
+    postViewModel: PostViewModel,
     navController: NavController,
-    where: String
 ) {
+    val otherUser by userViewModel.otherUser.collectAsState()
+    val user by userViewModel.user.collectAsState()
+    val post by postViewModel.post.collectAsState()
+
     val context = LocalContext.current
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
@@ -106,7 +98,7 @@ private fun OthersLostListBottomNavigation(
             selected = true,
             onClick = {
                 val gmmIntentUri =
-                    Uri.parse("geo:120,24?q=$where")
+                    Uri.parse("geo:120,24?q=${post.location}")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 context.startActivity(mapIntent)
@@ -123,7 +115,12 @@ private fun OthersLostListBottomNavigation(
                 Text("成功歸還")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                helperViewModel.addPostHelper(
+                    postId = post.postId,
+                    helperName = user.userName
+                )
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -137,6 +134,7 @@ private fun OthersLostListBottomNavigation(
             },
             selected = false,
             onClick = {
+                chatViewModel.chatsByReceiveAndSend(user.userName, otherUser.userName)
                 navController.navigate(route = Screen.ChatRoom.route)
             }
         )
@@ -145,14 +143,25 @@ private fun OthersLostListBottomNavigation(
 
 @Composable
 fun OthersLostListApp(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     Scaffold(
-        bottomBar = { OthersLostListBottomNavigation(navController = navController, where = "台達館") }
+        bottomBar = {
+            OthersLostListBottomNavigation(
+                helperViewModel = helperViewModel,
+                chatViewModel = chatViewModel,
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
+        }
     ) {
         LostListFinalScreen(
+            helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController

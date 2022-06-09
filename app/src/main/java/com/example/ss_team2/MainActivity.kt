@@ -7,11 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.apollographql.apollo3.api.Optional
 import com.example.ss_team2.data.data_source.*
 import com.example.ss_team2.data.repository.*
 import com.example.ss_team2.presentation.navigation.navGraph.SetupNavGraph
-import com.example.ss_team2.type.PostCreateInput
+import com.example.ss_team2.type.NotiCreateInput
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 class MainActivity : ComponentActivity() {
@@ -20,12 +19,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val rankingRepository = RankingRepository()
-//        var rankList: MutableList<Ranking>
+//        val userRepository = UserRepository()
+//        var user: User
 //        lifecycleScope.launchWhenCreated {
-//            rankList = rankingRepository.getRanking()
-//            val rank = rankList[0].school
-//            Log.d("GraphQL", "Android: $rank")
+//            user = userRepository.userLogin("chen1741954267@gmail.com", "chen0915")!!
+//            Log.d("GraphQL", "Android: $user")
 //        }
         setContent {
             SSteam2Theme {
@@ -33,6 +31,6 @@ class MainActivity : ComponentActivity() {
                 SetupNavGraph(navController = navController)
             }
         }
+
     }
 }
-

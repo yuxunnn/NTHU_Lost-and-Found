@@ -1,85 +1,72 @@
 package com.example.ss_team2.presentation.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.othersPost.PostListLazyScreen
+import com.example.ss_team2.presentation.ui.utility.TopBar
+import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
-fun MyPostHomeScreen(
+fun MyPostFinalScreen(
+    helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
+    val user by userViewModel.user.collectAsState()
+
     Column(
         modifier = Modifier
     ) {
-        Text(
+        TopBar(
+            leftButton = {
+                TopBarButton(
+                    imageVector = Icons.Filled.ArrowBack,
+                    onClick = {
+                        postViewModel.getMyPosts(user.userName)
+                        navController.popBackStack()
+                    }
+                )
+            },
             text = stringResource(id = R.string.MyPost),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66, 0x70, 0x80),
-            modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 32.sp
+            rightButton = {
+                Spacer(modifier = Modifier.size(40.dp))
+            }
         )
         Divider(
-            color = Color(0x66, 0x70, 0x80),
-            thickness = 1.dp,
-            modifier = Modifier.padding(vertical = 16.dp)
+            color = TextGray,
+            thickness = 2.dp,
+            modifier = Modifier
         )
         PostListLazyScreen(
-            userViewModel = userViewModel,
+            postOwner = user.userName,
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
         )
     }
 }
 
 @Composable
-fun MyPostFinalScreen(
-    userViewModel: UserViewModel,
-    postViewModel: PostViewModel,
-    modifier: Modifier = Modifier,
-    navController: NavController
-) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        MyPostHomeScreen(
-            userViewModel = userViewModel,
-            postViewModel = postViewModel
-        )
-        Icon(
-            Icons.Filled.ArrowBack,
-            "",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .clickable {
-                    navController.popBackStack()
-                }
-                .padding(16.dp)
-        )
-    }
-}
-
-@Composable
 fun MyPostApp(
+    helperViewModel: HelperViewModel,
     postViewModel: PostViewModel,
     userViewModel: UserViewModel,
     navController: NavController
@@ -92,6 +79,7 @@ fun MyPostApp(
         }
     ) {
         MyPostFinalScreen(
+            helperViewModel = helperViewModel,
             postViewModel = postViewModel,
             userViewModel = userViewModel,
             navController = navController

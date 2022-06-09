@@ -23,13 +23,12 @@
 
 聊天(Chat)：發送者(String), 接受者(String), 訊息(String), 時間(Time)
 
-幫助者(Helper): postId(Int), helperName(String)
+幫助者(Helper): postId(String), helperName(String)
 
-通知(Noti): receive(String), send(String), notiType(String), 
+通知(Noti): receive(String), send(String), postId(String), 時間(Time)
 
 # 修改類
 
 積分 道具 貼文 任務 通知 地點 物品類型
 
 # TODO
-notification

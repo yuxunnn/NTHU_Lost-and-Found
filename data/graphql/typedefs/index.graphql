@@ -41,8 +41,11 @@ type Query {
   # MapItem
   mapItems: [MapItem]
 
-  #Helper
+  # Helper
   postHelpers(postId: String!): [Helper]
+
+  # Noti
+  notiByName(userName: String!): [Noti]
 }
 
 type Mutation{
@@ -54,6 +57,7 @@ type Mutation{
   createPost(post: PostCreateInput!): [Post]
   updatePost(postId: ID!, post: PostUpdateInput!): Post!
   deletePost(postId: ID!): String!
+  donePost(postId: ID!): Post!
 
   # UserItem
   updateUserItem(userName: String!,itemType: String!, changeNum: Int!): UserItem!
@@ -75,4 +79,7 @@ type Mutation{
 
   # Helper
   createPostHelper(postId: String!, helperName: String!): String!
+
+  # Noti
+  createNoti(noti: NotiCreateInput!): [Noti]
 }

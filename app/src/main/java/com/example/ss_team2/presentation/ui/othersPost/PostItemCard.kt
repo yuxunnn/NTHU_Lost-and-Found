@@ -14,11 +14,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.utility.WhatAndWhereColElement
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun PostItemCard(
@@ -34,7 +36,7 @@ fun PostItemCard(
             .height(280.dp)
             .background(Color(220, 220, 220)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.defaultpicture),
@@ -49,9 +51,17 @@ fun PostItemCard(
             WhatAndWhereColElement(
                 what = post.itemType,
                 where = post.location,
-                modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 24.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = 12.dp, bottom = 24.dp)
             )
-            Text(text = post.postDescribe!!, fontSize = 12.sp, modifier = Modifier.weight(1f))
+            Text(
+                text = post.postDescribe!!,
+                color = TextGray,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                modifier = Modifier.weight(1f)
+            )
         }
 
     }

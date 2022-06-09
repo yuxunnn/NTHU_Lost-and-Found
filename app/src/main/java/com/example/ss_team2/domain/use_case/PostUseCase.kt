@@ -21,6 +21,10 @@ class PostUseCase {
         return postRepository.searchPost(postType, ItemType, Location)
     }
 
+    suspend fun donePost(postId: String): Post{
+        return postRepository.donePost(postId)
+    }
+
     suspend fun createPost(postCreateInput: PostCreateInput): MutableList<Post>{
         return postRepository.createPost(postCreateInput)
     }

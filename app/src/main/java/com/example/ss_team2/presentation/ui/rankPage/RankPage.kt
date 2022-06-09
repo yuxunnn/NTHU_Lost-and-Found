@@ -23,7 +23,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.utility.BottomBar
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
+import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.RankingViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.Purple500
 import com.example.ss_team2.ui.theme.SSteam2Theme
 import com.example.ss_team2.ui.theme.TextGray
@@ -37,7 +40,7 @@ fun RankPage(
 
     Column() {
         Title()
-        Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
+        Divider(thickness = 3.dp, color = TextGray)
         //TopButtons()
 
         Row(
@@ -45,7 +48,7 @@ fun RankPage(
                 .fillMaxWidth()
                 .padding(top = 20.dp),
             horizontalArrangement = Arrangement.SpaceAround
-        ){
+        ) {
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
@@ -60,7 +63,7 @@ fun RankPage(
 
             Button(
                 onClick = {
-                          rankingViewModel.getRanking()
+                    rankingViewModel.getRanking()
                 },
                 modifier = Modifier
                     .height(50.dp)
@@ -85,20 +88,27 @@ fun RankPage(
             }
         }
         //Need to be modified
-        Podium(rank[0].school, rank[1].school, rank[2].school, rank[0].score, rank[1].score, rank[2].score)
+        Podium(
+            rank[0].school,
+            rank[1].school,
+            rank[2].school,
+            rank[0].score,
+            rank[1].score,
+            rank[2].score
+        )
         TrashCan(rank[3].school, rank[3].score)
     }
 }
 
 @Composable
-fun Title(){
+fun Title() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 20.dp)
             .fillMaxWidth()
-    ){
+    ) {
         Text(
             text = "積分榜",
             fontSize = 32.sp,
@@ -111,13 +121,13 @@ fun Title(){
 }
 
 @Composable
-fun TopButtons(){
+fun TopButtons() {
     Row(
         Modifier
             .fillMaxWidth()
             .padding(top = 20.dp),
         horizontalArrangement = Arrangement.SpaceAround
-    ){
+    ) {
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier
@@ -166,83 +176,83 @@ fun Podium(
     No_2_Score: Int,
     No_3_Score: Int,
 
-){
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.podium),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 30.dp)
+                .height(200.dp)
+                .size(500.dp)
+        )
+
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterHorizontally)
         ) {
-            Image(
-                painter = painterResource(R.drawable.podium),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(200.dp)
-                    .size(500.dp)
-            )
-
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterHorizontally)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = No_3,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextGray
-                    )
-                    Text(
-                        text = No_3_Score.toString(),
-                        fontWeight = FontWeight.Bold,
-                        color = TextGray
-                    )
-                }
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = No_1,
-                        fontSize = 16.sp,
-                        color = Purple500,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Text(
-                        text = No_1_Score.toString(),
-                        color = Purple500,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = No_2,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextGray
-                    )
-                    Text(
-                        text = No_2_Score.toString(),
-                        fontWeight = FontWeight.Bold,
-                        color = TextGray
-                    )
-                }
+                Text(
+                    text = No_3,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
+                )
+                Text(
+                    text = No_3_Score.toString(),
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
+                )
             }
 
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = No_1,
+                    fontSize = 16.sp,
+                    color = Purple500,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = No_1_Score.toString(),
+                    color = Purple500,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = No_2,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
+                )
+                Text(
+                    text = No_2_Score.toString(),
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
+                )
+            }
         }
+
+    }
 }
 
 @Composable
 fun TrashCan(
-    No_4:String,
-    No_4_Score:Int,
-){
+    No_4: String,
+    No_4_Score: Int,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -283,12 +293,23 @@ fun TrashCan(
 
 @Composable
 fun Rank(
-    rankingViewModel: RankingViewModel,
+    rankingViewModel: RankingViewModel = viewModel(),
+    postViewModel: PostViewModel,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     SSteam2Theme {
         Scaffold(
-            bottomBar = { BottomBar(modifier = Modifier, navController) }
+            bottomBar = {
+                BottomBar(
+                    postViewModel = postViewModel,
+                    userViewModel = userViewModel,
+                    chatViewModel = chatViewModel,
+                    modifier = Modifier,
+                    navController = navController
+                )
+            }
         ) {
             RankPage(rankingViewModel = rankingViewModel)
         }

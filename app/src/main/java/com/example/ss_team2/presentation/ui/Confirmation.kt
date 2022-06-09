@@ -1,11 +1,11 @@
 package com.example.ss_team2.presentation.ui
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,32 +26,71 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ss_team2.R
 import com.example.ss_team2.presentation.ui.othersPost.PostItemCard
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
+import com.example.ss_team2.ui.theme.TextGray
+
 
 @Composable
-fun ConfirmationHomeScreen(
-    postViewModel: PostViewModel
+fun Confirmation(
+    modifier: Modifier = Modifier,
+    helperViewModel: HelperViewModel,
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
+    navController: NavController
 ) {
 
     val post by postViewModel.post.collectAsState()
+    val user by userViewModel.user.collectAsState()
 
     Column(
         modifier = Modifier
     ) {
-        Text(
-            text = stringResource(id = R.string.Confirm),
-            fontWeight = FontWeight.Bold,
-            color = Color(0x66, 0x70, 0x80),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .paddingFromBaseline(top = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 32.sp
-        )
+                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .fillMaxWidth()
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = null,
+                tint = TextGray,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable(
+                        onClick = {
+                            navController.popBackStack()
+                        }
+                    )
+            )
+            Text(
+                text = stringResource(id = R.string.Confirm),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier,
+                color = TextGray
+            )
+            Button(
+                onClick = {
+                    postViewModel.donePost(post.postId)
+                    userViewModel.updateCoin(user.userName, -post.rewardCoin)
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+            ) {
+                Text(text = "完成")
+            }
+        }
+
+
         Divider(
-            color = Color(0x66, 0x70, 0x80),
-            thickness = 1.dp,
-            modifier = Modifier.padding(vertical = 16.dp)
+            color = TextGray,
+            thickness = 2.dp,
+            modifier = Modifier
         )
         PostItemCard(
             postViewModel = postViewModel
@@ -66,38 +105,9 @@ fun ConfirmationHomeScreen(
             Spacer(modifier = Modifier.width(108.dp))
             Text(text = " ${post.rewardCoin}", modifier = Modifier.padding(8.dp))
         }
-        ConfirmationLazyScreen()
-    }
-}
-
-
-@Composable
-fun ConfirmationFinalScreen(
-    modifier: Modifier = Modifier,
-    postViewModel: PostViewModel,
-    navController: NavController
-) {
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        ConfirmationHomeScreen(postViewModel = postViewModel)
-        Icon(
-            Icons.Filled.ArrowBack,
-            "",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .clickable {}
-                .padding(16.dp)
+        ConfirmationLazyScreen(
+            helperViewModel = helperViewModel
         )
-        Button(
-            onClick = {
-                navController.popBackStack()
-            },
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp)
-        ) {
-            Text(text = "完成")
-        }
     }
 }
 
@@ -105,7 +115,7 @@ fun ConfirmationFinalScreen(
 fun HelpElement(
     modifier: Modifier = Modifier,
     money: Int,
-    @StringRes username: Int,
+    userName: String,
     @DrawableRes drawable: Int,
 ) {
     Row(
@@ -128,36 +138,31 @@ fun HelpElement(
                 .clip(CircleShape)
         )
         Text(
-            text = stringResource(id = username),
+            text = userName,
             fontSize = 12.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold
         )
-        Text(text = "+ $money$")
+//        Text(text = "+ $money$")
     }
 }
 
 @Composable
 fun ConfirmationLazyScreen(
+    helperViewModel: HelperViewModel,
     modifier: Modifier = Modifier
 ) {
+    val helpers by helperViewModel.helpers.collectAsState()
+
     LazyColumn(
         modifier = Modifier.padding(20.dp)
     ) {
-//        items(TestData) { item ->
-//            HelpElement(username = item.text, drawable = item.drawable, money = 20)
-//        }
+        items(helpers) { item ->
+            HelpElement(
+                userName = item.helperName,
+                drawable = R.drawable.default_avatar,
+                money = 20
+            )
+        }
     }
-}
-
-
-@Composable
-fun Confirmation(
-    postViewModel: PostViewModel,
-    navController: NavController
-) {
-    ConfirmationFinalScreen(
-        postViewModel = postViewModel,
-        navController = navController
-    )
 }

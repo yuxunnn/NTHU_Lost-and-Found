@@ -111,7 +111,7 @@ fun ChatRoom(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(R.drawable.defaultpicture),
+                painter = painterResource(R.drawable.default_avatar),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

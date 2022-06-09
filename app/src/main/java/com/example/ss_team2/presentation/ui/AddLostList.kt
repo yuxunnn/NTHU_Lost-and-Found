@@ -46,6 +46,7 @@ fun AddLostList(
     where: String,
     postViewModel: PostViewModel = viewModel(),
     userViewModel: UserViewModel = viewModel()
+
 ){
 
     val user by userViewModel.user.collectAsState()
@@ -393,5 +394,4 @@ fun AddLostList(
 //        }
 //    }
 //}
-
 

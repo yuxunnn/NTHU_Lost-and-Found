@@ -12,11 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
+import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 @Composable
 fun PostListLazyScreen(
     postType: String,
+    helperViewModel: HelperViewModel,
+    userViewModel: UserViewModel,
     postViewModel: PostViewModel,
     modifier: Modifier = Modifier,
     navController: NavController
@@ -25,16 +29,22 @@ fun PostListLazyScreen(
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy((8.dp))
     ) {
         items(posts) { post ->
-            if (post.postType == postType) {
+            if (!post.hasDone) {
                 PostPreviewElement(
                     post = post,
                     onClick = {
+                        helperViewModel.getAllPostHelpers(post.postId)
                         postViewModel.getPostById(postId = post.postId)
-                        navController.navigate(route = Screen.OthersLostList.route)
+                        userViewModel.getOtherUserByName(post.author.userName)
+                        if (postType == "find"){
+                            navController.navigate(route = Screen.OthersLostList.route)
+                        }else {
+                            navController.navigate(route = Screen.OthersFindList.route)
+                        }
                     }
                 )
             }

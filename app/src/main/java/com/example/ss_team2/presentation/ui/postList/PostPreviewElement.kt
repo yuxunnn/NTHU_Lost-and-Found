@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.data.data_source.Post
 import com.example.ss_team2.presentation.ui.utility.WhatAndWhereColElement
+import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun PostPreviewElement(
@@ -36,7 +37,7 @@ fun PostPreviewElement(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(36.dp),
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier.width(280.dp).fillMaxHeight()
         ) {
             Image(
@@ -44,14 +45,14 @@ fun PostPreviewElement(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(100.dp)
                     .clip(RectangleShape)
             )
             WhatAndWhereColElement(post.itemType, post.location, modifier = Modifier.fillMaxHeight())
             Text(
                 text = post.postDescribe!!,
-                fontSize = 16.sp,
-                color = Color(66, 70, 80),
+                fontSize = 12.sp,
+                color = TextGray,
                 fontWeight = FontWeight.Bold
             )
         }

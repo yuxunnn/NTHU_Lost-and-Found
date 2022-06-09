@@ -136,3 +136,30 @@ mutation UpdatePost($postId: ID!, $post: PostUpdateInput!) {
 mutation DeletePost($postId: ID!) {
     deletePost(postId: $postId)
 }
+
+mutation DonePost($postId: ID!) {
+    donePost(postId: $postId) {
+        postId
+        author {
+            userId
+            userName
+            userSchool
+            userPhoneNumber
+            userEmail
+            userCoin
+            userHead
+            createdAt
+            updatedAt
+        }
+        postType
+        itemType
+        location
+        itemImage
+        postDescribe
+        hasDone
+        rewardCoin
+        anonymous
+        createdAt
+        updatedAt
+    }
+}

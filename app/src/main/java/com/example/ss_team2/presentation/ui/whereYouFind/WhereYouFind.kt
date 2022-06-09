@@ -3,6 +3,9 @@ package com.example.ss_team2.presentation.ui.whereYouFind
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.navigation.Screen.FindList.passWhatAndWhere
+import com.example.ss_team2.presentation.ui.whatYouFind.WhatButton
 import com.example.ss_team2.presentation.ui.whatYouLost.locationLabels1
 import com.example.ss_team2.presentation.ui.whatYouLost.locationLabels2
 import com.example.ss_team2.presentation.viewModel.PostViewModel
@@ -35,18 +39,9 @@ fun WhereYouFind(
     what: String,
     modifier: Modifier = Modifier,
     postViewModel: PostViewModel
-){
+) {
 
-    val isClicked1 = remember { mutableStateOf(false) }
-    val isClicked2 = remember { mutableStateOf(false) }
-    val isClicked3 = remember { mutableStateOf(false) }
-    val isClicked4 = remember { mutableStateOf(false) }
-    val isClicked5 = remember { mutableStateOf(false) }
-    val isClicked6 = remember { mutableStateOf(false) }
-    val isClicked7 = remember { mutableStateOf(false) }
-    val isClicked8 = remember { mutableStateOf(false) }
-
-    val chosen = remember { mutableStateOf("") }
+    val chosen = remember { mutableStateOf("台達館") }
 
     Column() {
         Lastpage(navController)
@@ -54,151 +49,24 @@ fun WhereYouFind(
         SearchBar()
         Spacer(modifier = Modifier.height(40.dp))
 
-        Column() {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = modifier.fillMaxWidth()
-            ) {
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked1.value = !isClicked1.value
-                        chosen.value = "台達館"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked1.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "台達館",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked2.value = !isClicked2.value
-                        chosen.value = "資電館"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked2.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "資電館",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked3.value = !isClicked3.value
-                        chosen.value = "風雲樓"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked3.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "風雲樓",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked4.value = !isClicked4.value
-                        chosen.value = "小吃部"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked4.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "小吃部",
-                        fontSize = 12.sp,
-                    )
-                }
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(4),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(locationLabels1) { item ->
+                WhatButton(
+                    chosen = chosen.value,
+                    text = item,
+                    onClick = { chosen.value = item }
+                )
             }
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = modifier.fillMaxWidth()
-            ) {
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked5.value = !isClicked5.value
-                        chosen.value = "碩齋"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked5.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "碩齋",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked6.value = !isClicked6.value
-                        chosen.value = "教育館"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked6.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "教育館",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked7.value = !isClicked7.value
-                        chosen.value = "圖書館"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked7.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "圖書館",
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    shape = MaterialTheme.shapes.small,
-                    onClick = {
-                        isClicked8.value = !isClicked8.value
-                        chosen.value = "人社院"
-                    },
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = if(isClicked8.value) Color.Gray else Color.White
-                    )
-                ){
-                    Text(
-                        text =  "人社院",
-                        fontSize = 12.sp,
-                    )
-                }
+            items(locationLabels2) { item ->
+                WhatButton(
+                    chosen = chosen.value,
+                    text = item,
+                    onClick = { chosen.value = item }
+                )
             }
         }
 
@@ -210,11 +78,13 @@ fun WhereYouFind(
         ) {
             Button(
                 onClick = {
-                    postViewModel.postSearch("find",what,chosen.value)
-                    navController.navigate(route = Screen.FindList.passWhatAndWhere(
-                        what = what,
-                        where = chosen.value
-                    ))
+                    postViewModel.postSearch("lost", what, chosen.value)
+                    navController.navigate(
+                        route = Screen.FindList.passWhatAndWhere(
+                            what = what,
+                            where = chosen.value
+                        )
+                    )
                 },
                 colors = ButtonDefaults.textButtonColors(
                     backgroundColor = Iris60
@@ -234,7 +104,7 @@ fun WhereYouFind(
 @Composable
 fun Lastpage(
     navController: NavController
-){
+) {
     //var enabled = true  //test
     Icon(
         imageVector = Icons.Default.ArrowBackIos,

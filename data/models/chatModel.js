@@ -28,7 +28,7 @@ export default class ChatModel {
         const _send = send
 
         try {
-            const query = `SELECT * FROM chat WHERE receive = '${_receive}' AND send = '${_send}'`
+            const query = `SELECT * FROM chat WHERE ((receive = '${_receive}' OR receive = '${_send}') AND (send = '${_receive}' OR send = '${_send}'))`
             const [rows, fields] = await conn.execute(query)
 
             return rows
