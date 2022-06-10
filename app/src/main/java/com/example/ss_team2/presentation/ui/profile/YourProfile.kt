@@ -65,7 +65,7 @@ fun YourProfileScreen(
         )
 
         PersonalInfo(
-            image = R.drawable.your_image,
+            userViewModel = userViewModel,
             schoolName = otherUser.userSchool,
             toolAmount = otherUserItem.orangeFlag + otherUserItem.purpleFlag + otherUserItem.yellowFlag + otherUserItem.blueFlag + otherUserItem.shit + otherUserItem.vaccine,
             point = otherUser.userCoin

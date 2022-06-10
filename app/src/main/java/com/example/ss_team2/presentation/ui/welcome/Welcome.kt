@@ -1,9 +1,11 @@
 package com.example.ss_team2.presentation.ui.welcome
 
 import android.util.Log
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +18,7 @@ import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.Iris60
+import com.example.ss_team2.ui.theme.Purple200
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
@@ -28,8 +31,12 @@ fun Welcome (
 ){
     var TypedEmail = remember { mutableStateOf("") }
     var TypedPassword = remember { mutableStateOf("") }
+    var (snackbarVisibleState, setSnackBarState) = remember { mutableStateOf(false) }
+    val user by userViewModel.user.collectAsState()
 
-    Column() {
+    Column(
+        Modifier.fillMaxHeight()
+    ) {
         Title(navController)
 
         Row(
@@ -113,12 +120,15 @@ fun Welcome (
             ) {
                 Button(
                     onClick = {
-//                        userViewModel.getUserItem(TypedEmail)
-//                        postViewModel.getUserPosts(TypedEmail)
-//                        chatViewModel.chatsByReceive(TypedEmail)
-                        Log.d("Android", "Response: ${TypedEmail.value}, ${TypedPassword.value}")
                         userViewModel.userLogin(TypedEmail.value, TypedPassword.value)
-                        navController.navigate(route = Screen.Home.route)
+                        //snackbar
+                        if(user == null){
+                            snackbarVisibleState = true
+                        }else{
+                            snackbarVisibleState = false
+                            navController.navigate(route = Screen.Home.route)
+                        }
+                        //Log.d("Android", "Response: $snackbarVisibleState")
                     },
                     colors = ButtonDefaults.textButtonColors(
                         backgroundColor = Iris60
@@ -133,9 +143,25 @@ fun Welcome (
                         fontSize = 18.sp
                     )
                 }
+
             }
         }
         ForgotPassword()
+        if (snackbarVisibleState) {
+            Snackbar(
+                action = {
+                    TextButton(onClick = {
+                        snackbarVisibleState = false
+                    }) {
+                        Text(
+                            text = "確認",
+                             color = Purple200
+                        )
+                    }
+                },
+                modifier = Modifier.padding(8.dp)
+            ) { Text(text = "查無此帳號或輸入密碼有誤!") }
+        }
     }
 }
 

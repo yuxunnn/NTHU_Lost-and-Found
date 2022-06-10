@@ -81,16 +81,16 @@ class UserRepository {
         if(user == null) return null
 
         return User(
-                user.userId,
-                user.userName,
-                user.userSchool,
-                user.userPhoneNumber,
-                user.userEmail,
-                user.userPassword,
-                user.userCoin,
-                user.userHead,
-                user.createdAt,
-                user.updatedAt
+            user.userId,
+            user.userName,
+            user.userSchool,
+            user.userPhoneNumber,
+            user.userEmail,
+            user.userPassword,
+            user.userCoin,
+            user.userHead,
+            user.createdAt,
+            user.updatedAt
         )
     }
 
@@ -244,6 +244,5 @@ class UserRepository {
             user.createdAt,
             user.updatedAt
         )
-
     }
 }

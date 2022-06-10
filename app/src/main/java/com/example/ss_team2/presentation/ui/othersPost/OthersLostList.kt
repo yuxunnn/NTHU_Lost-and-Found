@@ -3,6 +3,7 @@ package com.example.ss_team2.presentation.ui.othersPost
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.CheckedTextView
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,6 +22,7 @@ import com.example.ss_team2.R
 import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.ui.utility.TopBar
 import com.example.ss_team2.presentation.ui.utility.TopBarButton
+import com.example.ss_team2.presentation.viewModel.ChatViewModel
 import com.example.ss_team2.presentation.viewModel.HelperViewModel
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
@@ -68,9 +70,16 @@ fun LostListFinalScreen(
 @Composable
 private fun OthersLostListBottomNavigation(
     modifier: Modifier = Modifier,
+    userViewModel: UserViewModel,
+    chatViewModel: ChatViewModel,
+    helperViewModel: HelperViewModel,
+    postViewModel: PostViewModel,
     navController: NavController,
-    where: String
 ) {
+    val otherUser by userViewModel.otherUser.collectAsState()
+    val user by userViewModel.user.collectAsState()
+    val post by postViewModel.post.collectAsState()
+
     val context = LocalContext.current
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
@@ -89,7 +98,7 @@ private fun OthersLostListBottomNavigation(
             selected = true,
             onClick = {
                 val gmmIntentUri =
-                    Uri.parse("geo:120,24?q=$where")
+                    Uri.parse("geo:120,24?q=${post.location}")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 context.startActivity(mapIntent)
@@ -106,7 +115,12 @@ private fun OthersLostListBottomNavigation(
                 Text("成功歸還")
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                helperViewModel.addPostHelper(
+                    postId = post.postId,
+                    helperName = user.userName
+                )
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -120,6 +134,7 @@ private fun OthersLostListBottomNavigation(
             },
             selected = false,
             onClick = {
+                chatViewModel.chatsByReceiveAndSend(user.userName, otherUser.userName)
                 navController.navigate(route = Screen.ChatRoom.route)
             }
         )
@@ -131,10 +146,19 @@ fun OthersLostListApp(
     helperViewModel: HelperViewModel,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavController
 ) {
     Scaffold(
-        bottomBar = { OthersLostListBottomNavigation(navController = navController, where = "台達館") }
+        bottomBar = {
+            OthersLostListBottomNavigation(
+                helperViewModel = helperViewModel,
+                chatViewModel = chatViewModel,
+                userViewModel = userViewModel,
+                postViewModel = postViewModel,
+                navController = navController
+            )
+        }
     ) {
         LostListFinalScreen(
             helperViewModel = helperViewModel,

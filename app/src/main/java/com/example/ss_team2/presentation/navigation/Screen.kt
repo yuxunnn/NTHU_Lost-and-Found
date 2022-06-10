@@ -66,12 +66,12 @@ sealed class Screen (val route: String) {
     }
     object Confirmation: Screen(route = "confirmation_screen")
     object EditPost: Screen(route = "editpost_screen/{$WHAT_ARGUMENT_KEY}/{$WHERE_ARGUMENT_KEY}/{$USERNAME_ARGUMENT_KEY}"){
-        fun passWhatAndWhereAndUserName(
+        fun passWhatAndWhereAndDescribe(
             what: String,
             where: String,
-            username: String
+            describe: String
         ): String {
-            return "editpost_screen/$what/$where/$username"
+            return "editpost_screen/$what/$where/$describe"
         }
     }
     object MyPost: Screen(route = "mypost_screen")

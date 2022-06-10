@@ -36,6 +36,10 @@ class UserUseCase {
         return userRepository.updateUserItem(userName, itemType, changeNum)
     }
 
+    suspend fun updateUserHead(userName: String, userHead: String): User{
+        return userRepository.updateUserHead(userName, userHead)
+    }
+
     suspend fun userLogin(loginInput: String, password: String): User?{
         return userRepository.userLogin(loginInput, password)
     }

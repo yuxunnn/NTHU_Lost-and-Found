@@ -32,7 +32,6 @@ fun WhatAndWhereRowElement(
         )
         Button(
             modifier = modifier
-                .width(80.dp)
                 .height(40.dp),
             shape = RoundedCornerShape(15),
             colors = ButtonDefaults.outlinedButtonColors(
@@ -59,7 +58,6 @@ fun WhatAndWhereRowElement(
         )
         Button(
             modifier = modifier
-                .width(80.dp)
                 .height(40.dp),
             shape = RoundedCornerShape(15),
             colors = ButtonDefaults.outlinedButtonColors(

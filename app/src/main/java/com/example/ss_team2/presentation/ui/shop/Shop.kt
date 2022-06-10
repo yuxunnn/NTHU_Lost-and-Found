@@ -40,7 +40,7 @@ fun Shop(
 //    val myMoney by userViewModel.userCoin.collectAsState()
 
     Column {
-        Title(money = user.userCoin, navController = navController)
+        Title(money = user.userCoin, /*navController = navController*/)
         Divider(startIndent = 0.dp, thickness = 3.dp, color = Color.Black)
 
         LazyColumn {
@@ -251,6 +251,7 @@ fun Shop(
                                 colors = ButtonDefaults.textButtonColors(
                                     backgroundColor = Iris60
                                 ),
+                                enabled = user.userCoin >= 500,
                                 modifier = Modifier.padding(start = 8.dp)
                             ) {
                                 Text(
@@ -338,7 +339,6 @@ fun Shop(
             }
 
             item {
-
 
                 Card(
                     modifier = Modifier
@@ -493,7 +493,7 @@ fun Shop(
 fun Title(
     modifier: Modifier = Modifier,
     money: Int,
-    navController: NavController
+    //navController: NavController
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -510,7 +510,7 @@ fun Title(
                 .size(32.dp)
                 .padding(start = 8.dp)
                 .clickable() {
-                    navController.popBackStack()
+                    //navController.popBackStack()
                 }
         )
         Text(
@@ -521,7 +521,7 @@ fun Title(
             modifier = Modifier.padding(start = 70.dp, end = 16.dp)
         )
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.Default.AttachMoney,
@@ -532,9 +532,16 @@ fun Title(
             )
             Text(
                 text = money.toString(),
-                fontSize = 36.sp //may bug
+                fontSize = 25.sp //may bug
             )
         }
     }
 }
 
+//@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+//@Composable
+//fun TitlePreview(){
+//    SSteam2Theme() {
+//        Title(money = 8888)
+//    }
+//}

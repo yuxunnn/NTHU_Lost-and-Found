@@ -1,6 +1,8 @@
 package com.example.ss_team2.presentation.navigation.navGraph
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -36,18 +38,23 @@ fun SetupNavGraph(
     postViewModel: PostViewModel = viewModel(),
     navController: NavHostController
 ) {
+
+    val user by userViewModel.user.collectAsState()
+
     NavHost(
         navController = navController,
         startDestination = Screen.First.route,
         route = ROOT_GRAPH_ROUTE
     ) {
         findNavGraph(
+            chatViewModel = chatViewModel,
             helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
             navController = navController
         )
         lostNavGraph(
+            chatViewModel = chatViewModel,
             helperViewModel = helperViewModel,
             userViewModel = userViewModel,
             postViewModel = postViewModel,
@@ -79,7 +86,12 @@ fun SetupNavGraph(
         composable(
             route = Screen.Home.route
         ) {
-            Homepage(navController)
+            Homepage(
+                postViewModel = postViewModel,
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
+                navController = navController
+            )
         }
         composable(
             route = Screen.Map.route
@@ -133,6 +145,7 @@ fun SetupNavGraph(
                 helperViewModel = helperViewModel,
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
+                chatViewModel = chatViewModel,
                 navController = navController
             )
         }
@@ -144,12 +157,19 @@ fun SetupNavGraph(
         composable(
             route = Screen.Quest.route
         ) {
-            Quest(navController = navController)
+            Quest(
+                postViewModel = postViewModel,
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
+                navController = navController)
         }
         composable(
             route = Screen.Rank.route
         ) {
             Rank(
+                postViewModel = postViewModel,
+                userViewModel = userViewModel,
+                chatViewModel = chatViewModel,
                 navController = navController
             )
         }
@@ -181,7 +201,9 @@ fun SetupNavGraph(
                 navController = navController,
                 what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
                 where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString(),
-                username = entry.arguments?.getString(USERNAME_ARGUMENT_KEY).toString()
+                describe = entry.arguments?.getString(USERNAME_ARGUMENT_KEY).toString(),
+                userViewModel = userViewModel,
+                postViewModel = postViewModel
             )
         }
     }
