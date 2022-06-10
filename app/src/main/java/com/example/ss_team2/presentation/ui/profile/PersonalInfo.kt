@@ -11,13 +11,14 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.ss_team2.R
 import androidx.compose.ui.unit.dp
 import com.example.ss_team2.presentation.ui.PickImageFromGallery
+import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
 fun PersonalInfo(
-    @DrawableRes image: Int,
     schoolName: String,
     toolAmount: Int,
+    userViewModel: UserViewModel,
     point: Int
 ) {
     Row(
@@ -25,7 +26,9 @@ fun PersonalInfo(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.padding(top = 20.dp)
     ) {
-        PickImageFromGallery()
+        PickImageFromGallery(
+            userViewModel = userViewModel
+        )
         Text(
             text = schoolName
         )

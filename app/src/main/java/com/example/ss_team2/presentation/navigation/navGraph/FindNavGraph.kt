@@ -71,6 +71,8 @@ fun NavGraphBuilder.findNavGraph(
         ) { entry ->
             AddFindList(
                 navController = navController,
+                postViewModel = postViewModel,
+                userViewModel = userViewModel,
                 what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
                 where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString()
             )

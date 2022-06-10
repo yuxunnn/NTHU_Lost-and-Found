@@ -52,6 +52,7 @@ type Mutation{
   # User
   createUser(user: UserCreateInput!): User!
   updateCoin(userName:String!, changeCoin: Int!): User!
+  updateUserHead(userName: String!, userHead: String!): User!
 
   # Post
   createPost(post: PostCreateInput!): [Post]

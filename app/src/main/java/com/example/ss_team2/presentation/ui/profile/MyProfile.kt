@@ -57,12 +57,17 @@ fun MyProfileScreen(
             },
             text = myUser.userName,
             rightButton = {
-                Spacer(modifier = Modifier.size(40.dp))
+                TopBarButton(
+                    imageVector = Icons.Default.Logout,
+                    onClick = {
+                        navController.navigate(route = Screen.Login.route)
+                    }
+                )
             }
         )
 
         PersonalInfo(
-            image = R.drawable.default_avatar,
+            userViewModel = userViewModel,
             schoolName = myUser.userSchool,
             toolAmount = myUserItem.orangeFlag + myUserItem.purpleFlag + myUserItem.yellowFlag + myUserItem.blueFlag + myUserItem.shit + myUserItem.vaccine,
             point = myUser.userCoin

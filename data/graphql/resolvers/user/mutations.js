@@ -13,6 +13,12 @@ const userMutations = {
     const user = await UserModel.selectUserByName(connectPool, userName)
 
     return user
+  },
+  updateUserHead: async (_, args) => {
+    const userName = await UserModel.updateUserHead(connectPool, args.userName, args.userHead)
+    const user = await UserModel.selectUserByName(connectPool, userName)
+
+    return user
   }
 }
 
