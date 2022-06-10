@@ -1,21 +1,16 @@
 package com.example.ss_team2.presentation.ui.profile
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.ss_team2.R
 import androidx.compose.ui.unit.dp
-//import com.example.ss_team2.presentation.ui.PickImageFromGallery
+import com.example.ss_team2.presentation.ui.PickImageFromGallery
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
@@ -30,7 +25,7 @@ fun PersonalInfo(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.padding(top = 20.dp)
     ) {
-        //PickImageFromGallery()
+        PickImageFromGallery()
         Text(
             text = schoolName
         )

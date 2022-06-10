@@ -1,6 +1,15 @@
 package com.example.ss_team2.presentation.ui
 
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +42,107 @@ import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.type.PostCreateInput
 import com.example.ss_team2.ui.theme.SSteam2Theme
+
+@Composable
+fun PickImageFromGallery(){
+    val first = remember { mutableStateOf(false) }
+    var imageUri by remember { mutableStateOf<Uri?>(null)}
+    val context = LocalContext.current
+    val bitmap = remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){
+            uri: Uri? ->
+        imageUri = uri
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        imageUri?.let {
+            if(Build.VERSION.SDK_INT <28 ){
+                bitmap.value = MediaStore.Images
+                    .Media.getBitmap(context.contentResolver, it)
+                Log.d("Args" ,"1")
+            }else {
+                val source = ImageDecoder.createSource(context.contentResolver, it)
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+                Log.d("Args" ,source.toString())
+            }
+        }
+        val icon = BitmapFactory.decodeResource(context.getResources(),
+            R.drawable.defaultpicture)
+        if(first.value) bitmap.value = bitmap.value else bitmap.value = icon
+        bitmap.value?.let { btm ->
+            Image(
+                bitmap = btm.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .padding(4.dp)
+                    .clip(CircleShape)
+                    .width(120.dp)
+                    .height(120.dp)
+                    .clickable {
+                        first.value = true
+                        launcher.launch("image/*")
+                    }
+            )
+        }
+    }
+}
+@Composable
+fun PickImageFromGallery2(){
+    val first = remember { mutableStateOf(false) }
+    var imageUri by remember { mutableStateOf<Uri?>(null)}
+    val context = LocalContext.current
+    val bitmap = remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){
+            uri: Uri? ->
+        imageUri = uri
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        imageUri?.let {
+            if(Build.VERSION.SDK_INT <28 ){
+                bitmap.value = MediaStore.Images
+                    .Media.getBitmap(context.contentResolver, it)
+                Log.d("Args" ,"1")
+            }else {
+                val source = ImageDecoder.createSource(context.contentResolver, it)
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+                Log.d("Args" ,source.toString())
+            }
+        }
+        val icon = BitmapFactory.decodeResource(context.getResources(),
+            R.drawable.defaultpicture)
+        if(first.value) bitmap.value = bitmap.value else bitmap.value = icon
+        bitmap.value?.let { btm ->
+            Image(
+                bitmap = btm.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .padding(4.dp)
+                    .clip(RectangleShape)
+                    .height(160.dp)
+                    .width(160.dp)
+                    .clickable {
+                        first.value = true
+                        launcher.launch("image/*")
+                    }
+            )
+        }
+    }
+}
+
+
 
 @Composable
 fun AddFindList(
@@ -115,17 +227,7 @@ fun AddFindList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.defaultpicture),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .height(160.dp)
-                        .width(160.dp)
-                        .clip(RectangleShape)
-                        .padding(4.dp)
-                        .clickable {}
-                )
+                PickImageFromGallery2()
                 Column(modifier = Modifier) {
                     Column(
                         modifier = Modifier,
@@ -182,7 +284,9 @@ fun AddFindList(
                         value = postDescription,
                         onValueChange = { postDescription = it },
                         label = { Text(text = "物品描述") },
-                        modifier = Modifier.width(180.dp).height(160.dp)
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(160.dp)
                     )
                 }
             }

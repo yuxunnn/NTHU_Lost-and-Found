@@ -113,17 +113,7 @@ fun AddLostList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.defaultpicture),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .height(160.dp)
-                        .width(160.dp)
-                        .clip(RectangleShape)
-                        .padding(4.dp)
-                        .clickable {}
-                )
+                PickImageFromGallery2()
 
                 Column(modifier = Modifier) {
                     Column(
@@ -181,7 +171,9 @@ fun AddLostList(
                         value = postDescription,
                         onValueChange = { postDescription = it },
                         label = { Text(text = "物品描述") },
-                        modifier = Modifier.width(180.dp).height(160.dp)
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(160.dp)
                     )
                 }
             }
