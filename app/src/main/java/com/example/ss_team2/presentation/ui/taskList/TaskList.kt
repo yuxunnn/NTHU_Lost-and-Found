@@ -32,12 +32,99 @@ import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 
 @Composable
-fun TaskList(navController: NavController) {
+fun TaskList(
+    navController: NavController,
+    userViewModel: UserViewModel,
+) {
+    val user by userViewModel.user.collectAsState()
+    var progress1 by remember { mutableStateOf(0.0f) }
+
     Column {
         Title()
         Divider(startIndent = 0.dp, thickness = 2.dp, color = TextGray)
-        MoneyAndShop(money = "520", navController = navController)
-        TaskCards()
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.AttachMoney,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(60.dp),
+                    tint = TextGray
+                )
+                Text(
+                    text = user.userCoin.toString(),
+                    fontSize = 32.sp, //may bug,
+                    fontWeight = FontWeight.Bold,
+                    color = TextGray
+                )
+            }
+            Icon(
+                imageVector = Icons.Default.Storefront,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(60.dp)
+                    .clickable() {
+                        navController.navigate(route = Screen.Shop.route)
+                    },
+                tint = TextGray
+            )
+        }
+
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(72.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Iris60
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(start = 10.dp),
+                ) {
+                    Text(
+                        text = "發布一則撿到物貼文",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = White
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LinearProgressIndicator(
+                        backgroundColor = Purple200,
+                        progress = progress1,
+                        color = Purple700,
+                        modifier = Modifier.height(6.dp)
+                    )
+                }
+                Column() {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircleOutline,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable() {}
+                    )
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                        Text(text = "+40")
+                    }
+                }
+            }
+        }
 
         //BottomNavigation
     }
@@ -129,6 +216,7 @@ fun TaskCard(
     Yourtask: String
 ) {
     var progress by remember { mutableStateOf(0.3f) } //just for testing
+
     Card(
         modifier = Modifier
             .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
@@ -218,7 +306,7 @@ fun Quest(
                 )
             }
         ) {
-            TaskList(navController = navController)
+            TaskList(navController = navController,userViewModel)
         }
     }
 }

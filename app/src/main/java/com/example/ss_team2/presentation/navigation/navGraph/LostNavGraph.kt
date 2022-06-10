@@ -68,7 +68,9 @@ fun NavGraphBuilder.lostNavGraph(
             AddLostList(
                 navController = navController,
                 what = entry.arguments?.getString(WHAT_ARGUMENT_KEY).toString(),
-                where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString()
+                where = entry.arguments?.getString(WHERE_ARGUMENT_KEY).toString(),
+                userViewModel = userViewModel,
+                postViewModel = postViewModel
             )
         }
         composable(

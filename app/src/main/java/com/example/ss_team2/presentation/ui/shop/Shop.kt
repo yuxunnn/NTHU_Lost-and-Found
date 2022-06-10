@@ -251,6 +251,7 @@ fun Shop(
                                 colors = ButtonDefaults.textButtonColors(
                                     backgroundColor = Iris60
                                 ),
+                                enabled = user.userCoin >= 500,
                                 modifier = Modifier.padding(start = 8.dp)
                             ) {
                                 Text(
@@ -338,7 +339,6 @@ fun Shop(
             }
 
             item {
-
 
                 Card(
                     modifier = Modifier

@@ -46,7 +46,7 @@ fun MyPostFinalScreen(
                     }
                 )
             },
-            text = stringResource(id = R.string.MyPost),
+            text = "我的貼文",
             rightButton = {
                 Spacer(modifier = Modifier.size(40.dp))
             }
@@ -71,11 +71,67 @@ fun MyPostApp(
     userViewModel: UserViewModel,
     navController: NavController
 ) {
+    val post by postViewModel.post.collectAsState()
+
     Scaffold(
         bottomBar = {
-            MyPostBottomNavigation(
-                navController = navController
-            )
+            BottomNavigation(
+                backgroundColor = MaterialTheme.colors.background,
+                modifier = Modifier
+            ) {
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text("編輯")
+                    },
+                    selected = true,
+                    onClick = {
+                        navController.navigate(
+                            route = Screen.EditPost.passWhatAndWhereAndDescribe(
+                                what = post.itemType,
+                                where = post.location,
+                                describe = post.postDescribe!!
+                            )
+                        )
+                    }
+                )
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text("已找回")
+                    },
+                    selected = false,
+                    onClick = {
+                        navController.navigate(route = Screen.Confirmation.route)
+                    }
+                )
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(text = "刪除貼文", color = Color.Red)
+                    },
+                    selected = false,
+                    onClick = {
+                        navController.navigate(route = Screen.Profile.route)
+                        postViewModel.deletePost(post.postId)
+                    }
+                )
+            }
         }
     ) {
         MyPostFinalScreen(
@@ -109,10 +165,10 @@ private fun MyPostBottomNavigation(
             selected = true,
             onClick = {
                 navController.navigate(
-                    route = Screen.EditPost.passWhatAndWhereAndUserName(
+                    route = Screen.EditPost.passWhatAndWhereAndDescribe(
                         what = "hi",
                         where = "ho",
-                        username = "ii"
+                        describe = "ii"
                     )
                 )
             }

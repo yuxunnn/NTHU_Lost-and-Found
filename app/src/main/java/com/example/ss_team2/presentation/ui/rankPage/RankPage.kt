@@ -49,17 +49,6 @@ fun RankPage(
                 .padding(top = 20.dp),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .height(50.dp)
-                    .width(80.dp)
-            ) {
-                Text(
-                    text = "本週",
-                    fontSize = 20.sp
-                )
-            }
 
             Button(
                 onClick = {
@@ -70,19 +59,7 @@ fun RankPage(
                     .width(80.dp)
             ) {
                 Text(
-                    text = "累積",
-                    fontSize = 20.sp
-                )
-            }
-
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .height(50.dp)
-                    .width(80.dp)
-            ) {
-                Text(
-                    text = "本月",
+                    text = "刷新",
                     fontSize = 20.sp
                 )
             }

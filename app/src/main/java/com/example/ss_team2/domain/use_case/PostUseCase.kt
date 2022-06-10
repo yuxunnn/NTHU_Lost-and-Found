@@ -29,8 +29,8 @@ class PostUseCase {
         return postRepository.createPost(postCreateInput)
     }
 
-    suspend fun updatePost(postId: String, postUpdateInput: PostUpdateInput){
-        postRepository.updatePost(postId, postUpdateInput)
+    suspend fun updatePost(postId: String, postUpdateInput: PostUpdateInput): Post{
+        return postRepository.updatePost(postId, postUpdateInput)
     }
 
     suspend fun deletePost(postId: String){

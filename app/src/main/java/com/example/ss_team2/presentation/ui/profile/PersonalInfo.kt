@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.ss_team2.R
 import androidx.compose.ui.unit.dp
-import com.example.ss_team2.presentation.ui.PickImageFromGallery
+//import com.example.ss_team2.presentation.ui.PickImageFromGallery
 import com.example.ss_team2.ui.theme.TextGray
 
 @Composable
@@ -30,7 +30,7 @@ fun PersonalInfo(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.padding(top = 20.dp)
     ) {
-        PickImageFromGallery()
+        //PickImageFromGallery()
         Text(
             text = schoolName
         )
