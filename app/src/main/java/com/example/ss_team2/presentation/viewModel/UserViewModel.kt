@@ -94,6 +94,12 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    fun updateUserHead(userName: String, userHead: String){
+        viewModelScope.launch {
+            _user.value = userUseCase.updateUserHead(userName, userHead)
+        }
+    }
+
     fun userLogin (loginInput: String, password: String){
         viewModelScope.launch {
             _user.value = userUseCase.userLogin(loginInput,password)!!

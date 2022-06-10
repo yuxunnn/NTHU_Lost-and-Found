@@ -41,39 +41,53 @@ import com.example.ss_team2.presentation.navigation.Screen
 import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 import com.example.ss_team2.type.PostCreateInput
+import com.example.ss_team2.type.PostUpdateInput
 import com.example.ss_team2.ui.theme.SSteam2Theme
 
 @Composable
-fun PickImageFromGallery(){
-    val first = remember { mutableStateOf(false) }
-    var imageUri by remember { mutableStateOf<Uri?>(null)}
+fun PickImageFromGallery(
+    userViewModel: UserViewModel
+) {
+
+    val user by userViewModel.user.collectAsState()
     val context = LocalContext.current
     val bitmap = remember {
         mutableStateOf<Bitmap?>(null)
     }
+
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ){
-            uri: Uri? ->
-        imageUri = uri
+    ) { uri: Uri? ->
+        userViewModel.updateUserHead(user.userName, uri.toString())
     }
+
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        imageUri?.let {
-            if(Build.VERSION.SDK_INT <28 ){
+        if (user.userHead == null) {
+            bitmap.value = BitmapFactory.decodeResource(
+                context.getResources(),
+                R.drawable.default_avatar
+            )
+        } else {
+            if (Build.VERSION.SDK_INT < 28) {
+                Log.d("Args", "15802170751841")
+
                 bitmap.value = MediaStore.Images
-                    .Media.getBitmap(context.contentResolver, it)
-                Log.d("Args" ,"1")
-            }else {
-                val source = ImageDecoder.createSource(context.contentResolver, it)
+                    .Media.getBitmap(context.contentResolver, Uri.parse(user.userHead))
+                Log.d("Args", "1")
+            } else {
+                Log.d("Args", user.userHead!!)
+
+                val source =
+                    ImageDecoder.createSource(context.contentResolver, Uri.parse(user.userHead))
+                Log.d("Args", Uri.parse(user.userHead).toString())
                 bitmap.value = ImageDecoder.decodeBitmap(source)
-                Log.d("Args" ,source.toString())
+                Log.d("Args", source.toString())
             }
+
         }
-        val icon = BitmapFactory.decodeResource(context.getResources(),
-            R.drawable.defaultpicture)
-        if(first.value) bitmap.value = bitmap.value else bitmap.value = icon
         bitmap.value?.let { btm ->
             Image(
                 bitmap = btm.asImageBitmap(),
@@ -85,44 +99,58 @@ fun PickImageFromGallery(){
                     .width(120.dp)
                     .height(120.dp)
                     .clickable {
-                        first.value = true
                         launcher.launch("image/*")
                     }
             )
         }
     }
 }
+
 @Composable
-fun PickImageFromGallery2(){
-    val first = remember { mutableStateOf(false) }
-    var imageUri by remember { mutableStateOf<Uri?>(null)}
+fun PickImageFromGallery2(
+    postViewModel: PostViewModel
+) {
+
+    val post by postViewModel.post.collectAsState()
     val context = LocalContext.current
     val bitmap = remember {
         mutableStateOf<Bitmap?>(null)
     }
+
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ){
-            uri: Uri? ->
-        imageUri = uri
+    ) { uri: Uri? ->
+        postViewModel.updatePost(
+            postId = post.postId,
+            postUpdateInput = PostUpdateInput(
+                itemImage = Optional.Present(uri.toString())
+            )
+        )
     }
+
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        imageUri?.let {
-            if(Build.VERSION.SDK_INT <28 ){
+        if (post.itemImage == null) {
+            bitmap.value = BitmapFactory.decodeResource(
+                context.getResources(),
+                R.drawable.defaultpicture
+            )
+        } else {
+            if (Build.VERSION.SDK_INT < 28) {
+                Log.d("Args", "15802170751841")
+
                 bitmap.value = MediaStore.Images
-                    .Media.getBitmap(context.contentResolver, it)
-                Log.d("Args" ,"1")
-            }else {
-                val source = ImageDecoder.createSource(context.contentResolver, it)
+                    .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
+                Log.d("Args", "1")
+            } else {
+                val source =
+                    ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
                 bitmap.value = ImageDecoder.decodeBitmap(source)
-                Log.d("Args" ,source.toString())
             }
+
         }
-        val icon = BitmapFactory.decodeResource(context.getResources(),
-            R.drawable.defaultpicture)
-        if(first.value) bitmap.value = bitmap.value else bitmap.value = icon
         bitmap.value?.let { btm ->
             Image(
                 bitmap = btm.asImageBitmap(),
@@ -130,11 +158,10 @@ fun PickImageFromGallery2(){
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .padding(4.dp)
-                    .clip(RectangleShape)
-                    .height(160.dp)
-                    .width(160.dp)
+                    .clip(CircleShape)
+                    .width(120.dp)
+                    .height(120.dp)
                     .clickable {
-                        first.value = true
                         launcher.launch("image/*")
                     }
             )
@@ -142,16 +169,14 @@ fun PickImageFromGallery2(){
     }
 }
 
-
-
 @Composable
 fun AddFindList(
     navController: NavController,
     what: String,
     where: String,
-    postViewModel: PostViewModel = viewModel(),
-    userViewModel: UserViewModel = viewModel()
-){
+    postViewModel: PostViewModel,
+    userViewModel: UserViewModel
+) {
 //    AddFindListFinalScreen(userdrawable = R.drawable.ic_launcher_foreground,
 //        username = R.string.Finder,
 //        time = 20,
@@ -164,14 +189,15 @@ fun AddFindList(
     var postDescription by remember { mutableStateOf("") }
     val checkedState = remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize()){
+    Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
             modifier = Modifier
         ) {
-            Text(text = stringResource(id = R.string.AddFindList),
+            Text(
+                text = stringResource(id = R.string.AddFindList),
                 fontWeight = FontWeight.Bold,
-                color = Color(0x66,0x70,0x80),
+                color = Color(0x66, 0x70, 0x80),
                 modifier = Modifier
                     .paddingFromBaseline(top = 16.dp)
                     .fillMaxWidth(),
@@ -179,7 +205,7 @@ fun AddFindList(
                 fontSize = 32.sp
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Divider(color = Color(0x66,0x70,0x80), thickness = 1.dp)
+            Divider(color = Color(0x66, 0x70, 0x80), thickness = 1.dp)
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
@@ -205,17 +231,19 @@ fun AddFindList(
                 Spacer(modifier = Modifier.width(60.dp))
                 Text(
                     text = ("匿名"),
-                    color = Color(0x66,0x70,0x80),
+                    color = Color(0x66, 0x70, 0x80),
                     fontSize = 8.sp
                 )
 
                 Switch(
                     checked = checkedState.value,
                     onCheckedChange = { checkedState.value = it },
-                    colors = SwitchDefaults.colors(checkedThumbColor = Color.DarkGray,
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.DarkGray,
                         uncheckedThumbColor = Color.DarkGray,
                         checkedTrackColor = Color.Blue,
-                        uncheckedTrackColor = Color.Blue,)
+                        uncheckedTrackColor = Color.Blue,
+                    )
                 )
             }
 
@@ -227,7 +255,7 @@ fun AddFindList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                PickImageFromGallery2()
+                PickImageFromGallery2(postViewModel = postViewModel)
                 Column(modifier = Modifier) {
                     Column(
                         modifier = Modifier,
@@ -237,14 +265,14 @@ fun AddFindList(
                             text = "What",
                             modifier = Modifier.padding(4.dp),
                             fontSize = 12.sp,
-                            color = Color(66,70,80),
+                            color = Color(66, 70, 80),
                             fontWeight = FontWeight.Bold
                         )
                         Surface(
                             modifier = Modifier,
                             shape = MaterialTheme.shapes.small,
-                            color = Color(66,70,80)
-                        ){
+                            color = Color(66, 70, 80)
+                        ) {
                             Text(
                                 text = what,
                                 modifier = Modifier
@@ -259,14 +287,14 @@ fun AddFindList(
                             text = "Where",
                             modifier = Modifier.padding(4.dp),
                             fontSize = 12.sp,
-                            color = Color(66,70,80),
+                            color = Color(66, 70, 80),
                             fontWeight = FontWeight.Bold
                         )
                         Surface(
                             modifier = Modifier,
                             shape = MaterialTheme.shapes.small,
-                            color = Color(66,70,80)
-                        ){
+                            color = Color(66, 70, 80)
+                        ) {
                             Text(
                                 text = where,
                                 modifier = Modifier
@@ -319,10 +347,11 @@ fun AddFindList(
                 )
                 navController.navigate(
                     route = Screen.FindList.passWhatAndWhere(
-                    what = what,
-                    where = where
-                )){
-                    popUpTo(Screen.FindList.route){
+                        what = what,
+                        where = where
+                    )
+                ) {
+                    popUpTo(Screen.FindList.route) {
                         inclusive = true
                     }
                 }

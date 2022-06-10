@@ -47,6 +47,7 @@ type Query {
 type Mutation {
     createUser(user: UserCreateInput!): User!
     updateCoin(userName: String!, changeCoin: Int!): User!
+    updateUserHead(userName: String!, userHead: String!): User!
     createPost(post: PostCreateInput!): [Post]
     updatePost(postId: ID!, post: PostUpdateInput!): Post!
     deletePost(postId: ID!): String!

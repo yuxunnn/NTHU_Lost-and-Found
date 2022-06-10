@@ -113,7 +113,9 @@ fun AddLostList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                PickImageFromGallery2()
+                PickImageFromGallery2(
+                    postViewModel = postViewModel
+                )
 
                 Column(modifier = Modifier) {
                     Column(

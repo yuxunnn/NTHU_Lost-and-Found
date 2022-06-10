@@ -81,16 +81,16 @@ class UserRepository {
         if(user == null) return null
 
         return User(
-                user.userId,
-                user.userName,
-                user.userSchool,
-                user.userPhoneNumber,
-                user.userEmail,
-                user.userPassword,
-                user.userCoin,
-                user.userHead,
-                user.createdAt,
-                user.updatedAt
+            user.userId,
+            user.userName,
+            user.userSchool,
+            user.userPhoneNumber,
+            user.userEmail,
+            user.userPassword,
+            user.userCoin,
+            user.userHead,
+            user.createdAt,
+            user.updatedAt
         )
     }
 
@@ -224,5 +224,26 @@ class UserRepository {
             userQuest.quest2,
             userQuest.quest3
         )
+    }
+
+    suspend fun updateUserHead(userName: String, userHead: String): User{
+        val response = apolloClient.mutation(UpdateUserHeadMutation(userName, userHead)).execute()
+        println("MySQL Response = ${response.data!!.updateUserHead}")
+
+        val user = response.data!!.updateUserHead
+
+        return User(
+            user!!.userId,
+            user.userName,
+            user.userSchool,
+            user.userPhoneNumber,
+            user.userEmail,
+            "",
+            user.userCoin,
+            user.userHead,
+            user.createdAt,
+            user.updatedAt
+        )
+
     }
 }

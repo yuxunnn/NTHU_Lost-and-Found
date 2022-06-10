@@ -132,3 +132,17 @@ mutation UpdateQuest($userName: String!, $questId: String!, $updateNum: Int!) {
         quest3
     }
 }
+
+mutation UpdateUserHead($userName: String!, $userHead: String!) {
+    updateUserHead(userName: $userName, userHead: $userHead) {
+        userId
+        userName
+        userSchool
+        userPhoneNumber
+        userEmail
+        userCoin
+        userHead
+        createdAt
+        updatedAt
+    }
+}

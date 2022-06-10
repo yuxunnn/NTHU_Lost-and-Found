@@ -106,4 +106,18 @@ export default class UserModel {
       console.error(`[ERROR] UserModel.updateCoin :\n ${err}`)
     }
   }
+
+  static async updateUserHead(conn, userName, userHead) {
+    const _userName = userName
+    const _userHead = userHead
+
+    try {
+      const query = `UPDATE user SET userHead = '${_userHead}' WHERE userName = '${_userName}'`
+      const [rows, fields] = await conn.execute(query)
+
+      return _userName
+    } catch (err) {
+      console.error(`[ERROR] UserModel.updateUserHead :\n ${err}`)
+    }
+  }
 }
