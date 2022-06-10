@@ -399,7 +399,7 @@ fun EditPost(
                         rewardCoin = Optional.Present(reward.toInt())
                     )
                 )
-                navController.navigate(route = Screen.MyPost.route)
+                navController.navigate(route = Screen.Profile.route)
             },
             modifier = Modifier
                 .align(Alignment.TopEnd)
