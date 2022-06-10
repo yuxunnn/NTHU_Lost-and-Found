@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ss_team2.ui.theme.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -84,6 +85,71 @@ fun TaskList(
             elevation = 3.dp,    //shadow
             backgroundColor = Iris60
         ) {
+
+            var finish by remember {mutableStateOf(false)}
+            val icon = if(finish)Icons.Default.CheckCircleOutline
+                        else Icons.Default.RadioButtonUnchecked
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(start = 10.dp),
+                ) {
+                    Text(
+                        text = "每日登入",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = White
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LinearProgressIndicator(
+                        backgroundColor = Purple200,
+                        progress = progress1,
+                        color = Purple700,
+                        modifier = Modifier.height(6.dp)
+                    )
+                }
+                Column() {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable(
+                                enabled = !finish
+                            ) {
+                                finish = !finish
+                                userViewModel.updateCoin(user.userName,400)
+                            }
+                    )
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                        Text(text = "+500")
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(72.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Iris60
+        ) {
+
+            var finish by remember {mutableStateOf(false)}
+            val icon = if(finish)Icons.Default.CheckCircleOutline
+            else Icons.Default.RadioButtonUnchecked
+
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
                 modifier = Modifier.fillMaxWidth()
@@ -107,11 +173,16 @@ fun TaskList(
                 }
                 Column() {
                     Icon(
-                        imageVector = Icons.Default.CheckCircleOutline,
+                        imageVector = icon,
                         contentDescription = null,
                         modifier = Modifier
                             .size(48.dp)
-                            .clickable() {}
+                            .clickable(
+                                enabled = !finish
+                            ) {
+                                finish = !finish
+                                userViewModel.updateCoin(user.userName,999)
+                            }
                     )
                     Row() {
                         Icon(
@@ -120,7 +191,127 @@ fun TaskList(
                             modifier = Modifier
                                 .size(20.dp)
                         )
-                        Text(text = "+40")
+                        Text(text = "+999")
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(72.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Iris60
+        ) {
+
+            var finish by remember {mutableStateOf(false)}
+            val icon = if(finish)Icons.Default.CheckCircleOutline
+            else Icons.Default.RadioButtonUnchecked
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(start = 10.dp),
+                ) {
+                    Text(
+                        text = "塗鴉一次",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = White
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LinearProgressIndicator(
+                        backgroundColor = Purple200,
+                        progress = progress1,
+                        color = Purple700,
+                        modifier = Modifier.height(6.dp)
+                    )
+                }
+                Column() {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable(
+                                enabled = !finish
+                            ) {
+                                finish = !finish
+                                userViewModel.updateCoin(user.userName,2000)
+                            }
+                    )
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                        Text(text = "+200")
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                .height(72.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 3.dp,    //shadow
+            backgroundColor = Iris60
+        ) {
+
+            var finish by remember {mutableStateOf(false)}
+            val icon = if(finish)Icons.Default.CheckCircleOutline
+            else Icons.Default.RadioButtonUnchecked
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(start = 10.dp),
+                ) {
+                    Text(
+                        text = "幫助他人找回遺失物一次",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = White
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LinearProgressIndicator(
+                        backgroundColor = Purple200,
+                        progress = progress1,
+                        color = Purple700,
+                        modifier = Modifier.height(6.dp)
+                    )
+                }
+                Column() {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable(
+                                enabled = !finish
+                            ) {
+                                finish = !finish
+                                userViewModel.updateCoin(user.userName,500)
+                            }
+                    )
+                    Row() {
+                        Icon(
+                            imageVector = Icons.Default.AttachMoney,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                        Text(text = "+500")
                     }
                 }
             }
