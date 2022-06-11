@@ -265,6 +265,7 @@ fun RegisterPage (
                                 userPassword = TypedPassword
                             )
                         )
+                        userViewModel.createUserQuest(TypedName)
                         navController.navigate(route = Screen.First.route){
                             popUpTo(Screen.First.route){
                                 inclusive = true

@@ -255,7 +255,18 @@ fun AddFindList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                PickImageFromGallery2(postViewModel = postViewModel)
+                //PickImageFromGallery2(postViewModel = postViewModel)
+                Image(
+                    painter = painterResource(id = R.drawable.defaultpicture),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                    .height(160.dp)
+                    .width(160.dp)
+                    .clip(RectangleShape)
+                    .padding(4.dp)
+                    .clickable {}
+                )
                 Column(modifier = Modifier) {
                     Column(
                         modifier = Modifier,
@@ -345,6 +356,7 @@ fun AddFindList(
                         anonymous = false
                     )
                 )
+                userViewModel.updateUserQuest(user.userName,"quest2",1)
                 navController.navigate(
                     route = Screen.FindList.passWhatAndWhere(
                         what = what,

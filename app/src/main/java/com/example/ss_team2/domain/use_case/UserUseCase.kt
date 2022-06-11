@@ -1,5 +1,6 @@
 package com.example.ss_team2.domain.use_case
 
+import com.example.ss_team2.data.data_source.Quest
 import com.example.ss_team2.data.data_source.User
 import com.example.ss_team2.data.data_source.UserItem
 import com.example.ss_team2.data.repository.UserRepository
@@ -44,4 +45,15 @@ class UserUseCase {
         return userRepository.userLogin(loginInput, password)
     }
 
+    suspend fun createUserQuest(userName: String): Quest{
+        return userRepository.createUserQuest(userName)
+    }
+
+    suspend fun updateUserQuest(userName: String, questId: String, updateNum: Int): Quest{
+        return userRepository.updateUserQuest(userName,questId,updateNum)
+    }
+
+    suspend fun getUserQuest(userName: String):Quest{
+        return userRepository.getUserQuest(userName)
+    }
 }

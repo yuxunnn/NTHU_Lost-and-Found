@@ -33,6 +33,8 @@ fun Map(
         modifier = modifier,
         onMapClick = {
 
+            userViewModel.updateUserQuest(user.userName,"quest3",1)
+
             val selectedItemCount = when (selectedItem){
                 "orangeFlag" -> userItem.orangeFlag
                 "purpleFlag" -> userItem.purpleFlag

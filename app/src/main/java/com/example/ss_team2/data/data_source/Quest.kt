@@ -6,3 +6,10 @@ data class Quest(
     val quest2: Int,
     val quest3: Int
 )
+
+val emptyQuest = Quest(
+    userName = "",
+    quest1 = 0,
+    quest2 = 0,
+    quest3 = 0
+)

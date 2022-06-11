@@ -3,10 +3,7 @@ package com.example.ss_team2.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ss_team2.data.data_source.User
-import com.example.ss_team2.data.data_source.UserItem
-import com.example.ss_team2.data.data_source.emptyUser
-import com.example.ss_team2.data.data_source.emptyUserItem
+import com.example.ss_team2.data.data_source.*
 import com.example.ss_team2.domain.use_case.UserUseCase
 import com.example.ss_team2.type.UserCreateInput
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +28,9 @@ class UserViewModel : ViewModel() {
 
     private val _userCoin = MutableStateFlow(user.value.userCoin)
     val userCoin : StateFlow<Int> = _userCoin
+
+    private val _userQuest = MutableStateFlow(emptyQuest)
+    val userQuest: StateFlow<Quest> = _userQuest
 
     fun changeSelectedItem(selectedItem: String){
         viewModelScope.launch {
@@ -103,6 +103,24 @@ class UserViewModel : ViewModel() {
     fun userLogin (loginInput: String, password: String){
         viewModelScope.launch {
             _user.value = userUseCase.userLogin(loginInput,password)!!
+        }
+    }
+
+    fun createUserQuest(userName: String){
+        viewModelScope.launch {
+            _userQuest.value = userUseCase.createUserQuest(userName)
+        }
+    }
+
+    fun updateUserQuest(userName: String, questId: String, updateNum: Int){
+        viewModelScope.launch {
+            _userQuest.value = userUseCase.updateUserQuest(userName,questId,updateNum)
+        }
+    }
+
+    fun getUserQuest(userName: String){
+        viewModelScope.launch {
+            _userQuest.value = userUseCase.getUserQuest(userName)
         }
     }
 }

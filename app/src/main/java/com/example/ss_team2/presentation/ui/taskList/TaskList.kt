@@ -1,5 +1,6 @@
 package com.example.ss_team2.presentation.ui.taskList
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,6 +33,7 @@ import com.example.ss_team2.presentation.viewModel.PostViewModel
 import com.example.ss_team2.presentation.viewModel.UserViewModel
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun TaskList(
     navController: NavController,
@@ -86,8 +88,9 @@ fun TaskList(
             backgroundColor = Iris60
         ) {
 
-            var finish by remember {mutableStateOf(false)}
-            val icon = if(finish)Icons.Default.CheckCircleOutline
+            //var received = userViewMode.userQuest.value.quest1Done
+
+            val icon = if(received)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
 
             Row(
@@ -118,10 +121,11 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = !finish
+                                //enabled = !received
                             ) {
-                                finish = !finish
+                                //received = !received
                                 userViewModel.updateCoin(user.userName,400)
+
                             }
                     )
                     Row() {
@@ -146,9 +150,12 @@ fun TaskList(
             backgroundColor = Iris60
         ) {
 
-            var finish by remember {mutableStateOf(false)}
-            val icon = if(finish)Icons.Default.CheckCircleOutline
-            else Icons.Default.RadioButtonUnchecked
+            var finish = userViewModel.userQuest.value.quest2 >= 1
+            //var received = userViewMode.userQuest.value.quest2Done
+
+
+            val icon = if(received)Icons.Default.CheckCircleOutline
+                        else Icons.Default.RadioButtonUnchecked
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -178,9 +185,9 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = !finish
+                                //enabled = finish && !received
                             ) {
-                                finish = !finish
+                                //received = !received
                                 userViewModel.updateCoin(user.userName,999)
                             }
                     )
@@ -206,9 +213,10 @@ fun TaskList(
             backgroundColor = Iris60
         ) {
 
-            var finish by remember {mutableStateOf(false)}
-            val icon = if(finish)Icons.Default.CheckCircleOutline
-            else Icons.Default.RadioButtonUnchecked
+            var finish = userViewModel.userQuest.value.quest3 >= 1
+            //var received = userViewMode.userQuest.value.quest3Done
+            val icon = if(received)Icons.Default.CheckCircleOutline
+                        else Icons.Default.RadioButtonUnchecked
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -238,9 +246,9 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = !finish
+                                //enabled = finish && !received
                             ) {
-                                finish = !finish
+                                //received = !received
                                 userViewModel.updateCoin(user.userName,2000)
                             }
                     )
@@ -256,67 +264,6 @@ fun TaskList(
                 }
             }
         }
-
-        Card(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
-                .height(72.dp),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 3.dp,    //shadow
-            backgroundColor = Iris60
-        ) {
-
-            var finish by remember {mutableStateOf(false)}
-            val icon = if(finish)Icons.Default.CheckCircleOutline
-            else Icons.Default.RadioButtonUnchecked
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(start = 10.dp),
-                ) {
-                    Text(
-                        text = "幫助他人找回遺失物一次",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(top = 12.dp),
-                        color = White
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    LinearProgressIndicator(
-                        backgroundColor = Purple200,
-                        progress = progress1,
-                        color = Purple700,
-                        modifier = Modifier.height(6.dp)
-                    )
-                }
-                Column() {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable(
-                                enabled = !finish
-                            ) {
-                                finish = !finish
-                                userViewModel.updateCoin(user.userName,500)
-                            }
-                    )
-                    Row() {
-                        Icon(
-                            imageVector = Icons.Default.AttachMoney,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(20.dp)
-                        )
-                        Text(text = "+500")
-                    }
-                }
-            }
-        }
-
         //BottomNavigation
     }
 }

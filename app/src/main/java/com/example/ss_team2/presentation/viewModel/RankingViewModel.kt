@@ -25,7 +25,7 @@ class RankingViewModel() : ViewModel() {
     //先做累積
     fun getRanking() {
         viewModelScope.launch {
-            _rank.value = rankingUseCase.getRanking()
+            _rank.value = rankingUseCase.updateRanking()
         }
     }
 }
