@@ -56,43 +56,45 @@ fun PostPreviewElement(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier.width(280.dp).fillMaxHeight()
         ) {
-            Image(
-                painter = painterResource(R.drawable.umbrella1),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RectangleShape)
-            )
-//            if (post.itemImage == null) {
-//                bitmap.value = BitmapFactory.decodeResource(
-//                    context.getResources(),
-//                    R.drawable.defaultpicture
-//                )
-//            } else {
-//                if (Build.VERSION.SDK_INT < 28) {
-//                    Log.d("Args", "15802170751841")
-//
-//                    bitmap.value = MediaStore.Images
-//                        .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
-//                    Log.d("Args", "1")
-//                } else {
-//                    val source =
-//                        ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
-//                    bitmap.value = ImageDecoder.decodeBitmap(source)
-//                }
-//
-//            }
-//            bitmap.value?.let { btm ->
-//                Image(
-//                    bitmap = btm.asImageBitmap(),
-//                    contentDescription = null,
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier
-//                        .size(100.dp)
-//                        .clip(RectangleShape)
-//                )
-//            }
+//            Image(
+//                painter = painterResource(R.drawable.umbrella1),
+//                contentDescription = null,
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier
+//                    .size(100.dp)
+//                    .clip(RectangleShape)
+//            )
+            if (post.itemImage == null || post.itemImage == "null" || post.itemImage == "") {
+                Log.d("Args", "itemImage is null")
+                bitmap.value = BitmapFactory.decodeResource(
+                    context.getResources(),
+                    R.drawable.defaultpicture
+                )
+            } else {
+                if (Build.VERSION.SDK_INT < 28) {
+                    Log.d("Args", "SDK INT")
+
+                    bitmap.value = MediaStore.Images
+                        .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
+                    Log.d("Args", "1")
+                } else {
+                    Log.d("Args", "Decode ${post.itemImage}")
+                    val source =
+                        ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
+                    bitmap.value = ImageDecoder.decodeBitmap(source)
+                }
+
+            }
+            bitmap.value?.let { btm ->
+                Image(
+                    bitmap = btm.asImageBitmap(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RectangleShape)
+                )
+            }
 
             WhatAndWhereColElement(post.itemType, post.location, modifier = Modifier.fillMaxHeight())
             Text(

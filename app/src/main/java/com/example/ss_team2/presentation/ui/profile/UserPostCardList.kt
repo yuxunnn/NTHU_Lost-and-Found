@@ -41,6 +41,7 @@ fun UserPostCardList(
                         postViewModel.getPostById(item.postId)
                         navController.navigate(route = Screen.MyPost.route)
                     },
+                    image = item.itemImage,
                     modifier = Modifier
                 )
             }

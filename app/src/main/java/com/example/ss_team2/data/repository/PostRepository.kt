@@ -59,7 +59,7 @@ class PostRepository {
                 location = location
             )
         ).execute()
-        println("Response = ${response.data?.postSearch}")
+        println("SearchPost Response = ${response.data?.postSearch}")
 
         val data = response.data?.postSearch
         var postList: MutableList<Post> = arrayListOf()
