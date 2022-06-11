@@ -21,6 +21,7 @@ import com.example.ss_team2.ui.theme.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
@@ -39,8 +40,15 @@ fun TaskList(
     navController: NavController,
     userViewModel: UserViewModel,
 ) {
+
     val user by userViewModel.user.collectAsState()
-    var progress1 by remember { mutableStateOf(0.0f) }
+
+    var finish2 = userViewModel.userQuest.value.quest2 >= 1
+    var received2 by remember {mutableStateOf(userViewModel.userQuest.value.quest2Done)}
+    var finish3 = userViewModel.userQuest.value.quest3 >= 1
+    var received3 by remember {mutableStateOf(userViewModel.userQuest.value.quest3Done)}
+
+    userViewModel.getUserQuest(user.userName)
 
     Column {
         Title()
@@ -88,9 +96,9 @@ fun TaskList(
             backgroundColor = Iris60
         ) {
 
-            var received = userViewModel.userQuest.value.quest1Done
+            var received1 by remember {mutableStateOf(userViewModel.userQuest.value.quest1Done)}
 
-            val icon = if(received)Icons.Default.CheckCircleOutline
+            val icon = if(received1)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
 
             Row(
@@ -109,7 +117,7 @@ fun TaskList(
                     Spacer(modifier = Modifier.height(16.dp))
                     LinearProgressIndicator(
                         backgroundColor = Purple200,
-                        progress = progress1,
+                        progress = 1.0f,
                         color = Purple700,
                         modifier = Modifier.height(6.dp)
                     )
@@ -121,11 +129,11 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = !received
+                                enabled = !received1
                             ) {
-                                received = !received
-                                userViewModel.updateCoin(user.userName,400)
-
+                                userViewModel.updateCoin(user.userName,500)
+                                userViewModel.doneUserQuest(user.userName,"quest1")
+                                received1 = !received1
                             }
                     )
                     Row() {
@@ -147,14 +155,10 @@ fun TaskList(
                 .height(72.dp),
             shape = RoundedCornerShape(15.dp),
             elevation = 3.dp,    //shadow
-            backgroundColor = Iris60
+            backgroundColor = if(finish2) Iris60 else Gray
         ) {
 
-            var finish = userViewModel.userQuest.value.quest2 >= 1
-            var received = userViewModel.userQuest.value.quest2Done
-
-
-            val icon = if(received)Icons.Default.CheckCircleOutline
+            val icon = if(received2)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
 
             Row(
@@ -173,7 +177,7 @@ fun TaskList(
                     Spacer(modifier = Modifier.height(16.dp))
                     LinearProgressIndicator(
                         backgroundColor = Purple200,
-                        progress = progress1,
+                        progress = if(finish2) 1.0f else 0.0f,
                         color = Purple700,
                         modifier = Modifier.height(6.dp)
                     )
@@ -185,10 +189,11 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = finish && !received
+                                enabled = finish2 && !received2
                             ) {
-                                received = !received
+                                received2 = !received2
                                 userViewModel.updateCoin(user.userName,999)
+                                userViewModel.doneUserQuest(user.userName,"quest2")
                             }
                     )
                     Row() {
@@ -210,13 +215,12 @@ fun TaskList(
                 .height(72.dp),
             shape = RoundedCornerShape(15.dp),
             elevation = 3.dp,    //shadow
-            backgroundColor = Iris60
+            backgroundColor = if(finish3) Iris60 else Gray
         ) {
 
-            var finish = userViewModel.userQuest.value.quest3 >= 1
-            var received = userViewModel.userQuest.value.quest3Done
 
-            val icon = if(received)Icons.Default.CheckCircleOutline
+
+            val icon = if(received3)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
 
             Row(
@@ -235,7 +239,7 @@ fun TaskList(
                     Spacer(modifier = Modifier.height(16.dp))
                     LinearProgressIndicator(
                         backgroundColor = Purple200,
-                        progress = progress1,
+                        progress = if(finish3) 1.0f else 0.0f,
                         color = Purple700,
                         modifier = Modifier.height(6.dp)
                     )
@@ -247,10 +251,11 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                enabled = finish && !received
+                                enabled = finish3 && !received3
                             ) {
-                                received = !received
+                                received3 = !received3
                                 userViewModel.updateCoin(user.userName,2000)
+                                userViewModel.doneUserQuest(user.userName,"quest3")
                             }
                     )
                     Row() {

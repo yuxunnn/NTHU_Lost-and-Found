@@ -32,6 +32,7 @@ class UserViewModel : ViewModel() {
     private val _userQuest = MutableStateFlow(emptyQuest)
     val userQuest: StateFlow<Quest> = _userQuest
 
+
     fun changeSelectedItem(selectedItem: String){
         viewModelScope.launch {
             _selectedItem.value = selectedItem
