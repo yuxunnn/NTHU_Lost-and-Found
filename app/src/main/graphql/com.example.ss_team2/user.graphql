@@ -59,6 +59,9 @@ query Quest($userName: String!) {
         quest1
         quest2
         quest3
+        quest1Done
+        quest2Done
+        quest3Done
     }
 }
 
@@ -121,6 +124,9 @@ mutation CreateQuest($userName: String!) {
         quest1
         quest2
         quest3
+        quest1Done
+        quest2Done
+        quest3Done
     }
 }
 
@@ -130,6 +136,21 @@ mutation UpdateQuest($userName: String!, $questId: String!, $updateNum: Int!) {
         quest1
         quest2
         quest3
+        quest1Done
+        quest2Done
+        quest3Done
+    }
+}
+
+mutation DoneQuest($userName: String!, $questId: String!) {
+    doneQuest(userName: $userName, questId: $questId) {
+        userName
+        quest1
+        quest2
+        quest3
+        quest1Done
+        quest2Done
+        quest3Done
     }
 }
 

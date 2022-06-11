@@ -53,4 +53,18 @@ export default class QuestModel {
             console.error(`[ERROR] QuestModel.selectAll :\n ${err}`)
         }
     }
+
+    static async doneQuest(conn, userName, questId) {
+        const _userName = userName
+        const _questId = questId
+
+        try {
+            const query = `UPDATE quest SET ${_questId}Done = 'Y' WHERE userName = '${_userName}'`
+            const [rows, fields] = await conn.execute(query)
+
+            return _userName
+        } catch (err) {
+            console.error(`[ERROR] QuestModel.doneQuest :\n ${err}`)
+        }
+    }
 }

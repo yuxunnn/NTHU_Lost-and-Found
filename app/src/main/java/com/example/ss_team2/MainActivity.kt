@@ -19,12 +19,20 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val postRepository = PostRepository()
-//        var post: Post
-//        lifecycleScope.launchWhenCreated {
-//            post = postRepository.getPostById("37")
-//            Log.d("GraphQL", "Android: $post")
-//        }
+        val userRepository = UserRepository()
+        var userQuest: Quest
+        lifecycleScope.launchWhenCreated {
+            userQuest = userRepository.getUserQuest("huiyuiui")
+            Log.d("GraphQL", "Android: $userQuest")
+            userQuest = userRepository.getGlobalQuest()
+            Log.d("GraphQL", "Android: $userQuest")
+            userQuest = userRepository.updateUserQuest("kristen012", "quest2", 1)
+            Log.d("GraphQL", "Android: $userQuest")
+            userQuest = userRepository.doneUserQuest("kristen012", "quest2")
+            Log.d("GraphQL", "Android: $userQuest")
+            userQuest = userRepository.createUserQuest("notyuxun")
+            Log.d("GraphQL", "Android: $userQuest")
+        }
         setContent {
             SSteam2Theme {
                 navController = rememberNavController()
