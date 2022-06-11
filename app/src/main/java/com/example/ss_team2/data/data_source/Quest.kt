@@ -14,5 +14,8 @@ val emptyQuest = Quest(
     userName = "",
     quest1 = 0,
     quest2 = 0,
-    quest3 = 0
+    quest3 = 0,
+    quest1Done = false,
+    quest2Done = false,
+    quest3Done = false
 )

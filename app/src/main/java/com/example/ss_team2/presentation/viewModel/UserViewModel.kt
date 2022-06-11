@@ -123,4 +123,10 @@ class UserViewModel : ViewModel() {
             _userQuest.value = userUseCase.getUserQuest(userName)
         }
     }
+
+    fun doneUserQuest(userName: String, questId: String){
+        viewModelScope.launch {
+            _userQuest.value = userUseCase.doneUserQuest(userName,questId)
+        }
+    }
 }

@@ -56,4 +56,8 @@ class UserUseCase {
     suspend fun getUserQuest(userName: String):Quest{
         return userRepository.getUserQuest(userName)
     }
+
+    suspend fun doneUserQuest(userName: String, questId: String):Quest{
+        return userRepository.doneUserQuest(userName, questId)
+    }
 }

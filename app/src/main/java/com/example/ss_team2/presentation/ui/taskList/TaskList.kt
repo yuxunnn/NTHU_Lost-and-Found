@@ -88,7 +88,7 @@ fun TaskList(
             backgroundColor = Iris60
         ) {
 
-            //var received = userViewMode.userQuest.value.quest1Done
+            var received = userViewModel.userQuest.value.quest1Done
 
             val icon = if(received)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
@@ -121,9 +121,9 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                //enabled = !received
+                                enabled = !received
                             ) {
-                                //received = !received
+                                received = !received
                                 userViewModel.updateCoin(user.userName,400)
 
                             }
@@ -151,7 +151,7 @@ fun TaskList(
         ) {
 
             var finish = userViewModel.userQuest.value.quest2 >= 1
-            //var received = userViewMode.userQuest.value.quest2Done
+            var received = userViewModel.userQuest.value.quest2Done
 
 
             val icon = if(received)Icons.Default.CheckCircleOutline
@@ -185,9 +185,9 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                //enabled = finish && !received
+                                enabled = finish && !received
                             ) {
-                                //received = !received
+                                received = !received
                                 userViewModel.updateCoin(user.userName,999)
                             }
                     )
@@ -214,7 +214,8 @@ fun TaskList(
         ) {
 
             var finish = userViewModel.userQuest.value.quest3 >= 1
-            //var received = userViewMode.userQuest.value.quest3Done
+            var received = userViewModel.userQuest.value.quest3Done
+
             val icon = if(received)Icons.Default.CheckCircleOutline
                         else Icons.Default.RadioButtonUnchecked
 
@@ -246,9 +247,9 @@ fun TaskList(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable(
-                                //enabled = finish && !received
+                                enabled = finish && !received
                             ) {
-                                //received = !received
+                                received = !received
                                 userViewModel.updateCoin(user.userName,2000)
                             }
                     )
