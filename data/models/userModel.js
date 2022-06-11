@@ -60,7 +60,6 @@ export default class UserModel {
     try {
       const query = `SELECT * FROM user WHERE userEmail = '${_loginInput}' OR userPhoneNumber = '${_loginInput}'`
       const [rows, fields] = await conn.execute(query)
-      console.log(rows[0])
 
       if (_password == rows[0].userPassword) return rows[0]
       else return null

@@ -4,4 +4,7 @@ type Quest{
     quest1: Int!
     quest2: Int!
     quest3: Int!
+    quest1Done: Boolean!
+    quest2Done: Boolean!
+    quest3Done: Boolean!
 }

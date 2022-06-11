@@ -96,7 +96,7 @@ class UserRepository {
 
     suspend fun getUserQuest(userName: String): Quest {
         val response = apolloClient.query(QuestQuery(userName)).execute()
-        println("MySQL Response = ${response.data?.quest}")
+        println("getUserQuest Response = ${response.data?.quest}")
 
         val userQuest = response.data?.quest
 
@@ -104,13 +104,16 @@ class UserRepository {
             userQuest!!.userName,
             userQuest.quest1,
             userQuest.quest2,
-            userQuest.quest3
+            userQuest.quest3,
+            userQuest.quest1Done,
+            userQuest.quest2Done,
+            userQuest.quest3Done
         )
     }
 
     suspend fun getGlobalQuest(): Quest {
         val response = apolloClient.query(QuestQuery("Global")).execute()
-        println("MySQL Response = ${response.data?.quest}")
+        println("getGlobalQuest Response = ${response.data?.quest}")
 
         val globalQuest = response.data?.quest
 
@@ -118,7 +121,10 @@ class UserRepository {
             globalQuest!!.userName,
             globalQuest.quest1,
             globalQuest.quest2,
-            globalQuest.quest3
+            globalQuest.quest3,
+            globalQuest.quest1Done,
+            globalQuest.quest2Done,
+            globalQuest.quest3Done
         )
     }
 
@@ -200,7 +206,7 @@ class UserRepository {
 
     suspend fun createUserQuest(userName: String): Quest{
         val response = apolloClient.mutation(CreateQuestMutation(userName = userName)).execute()
-        println("MySQL Response = ${response.data!!.createQuest}")
+        println("createUserQuest Response = ${response.data!!.createQuest}")
 
         val userQuest = response.data!!.createQuest
 
@@ -208,13 +214,16 @@ class UserRepository {
             userQuest.userName,
             userQuest.quest1,
             userQuest.quest2,
-            userQuest.quest3
+            userQuest.quest3,
+            userQuest.quest1Done,
+            userQuest.quest2Done,
+            userQuest.quest3Done
         )
     }
 
     suspend fun  updateUserQuest(userName: String, questId: String, updateNum: Int): Quest{
         val response = apolloClient.mutation(UpdateQuestMutation(userName,questId,updateNum)).execute()
-        println("MySQL Response = ${response.data!!.updateQuest}")
+        println("updateUserQuest Response = ${response.data!!.updateQuest}")
 
         val userQuest = response.data!!.updateQuest
 
@@ -222,7 +231,27 @@ class UserRepository {
             userQuest.userName,
             userQuest.quest1,
             userQuest.quest2,
-            userQuest.quest3
+            userQuest.quest3,
+            userQuest.quest1Done,
+            userQuest.quest2Done,
+            userQuest.quest3Done
+        )
+    }
+
+    suspend fun doneUserQuest(userName: String, questId: String): Quest{
+        val response = apolloClient.mutation(DoneQuestMutation(userName,questId)).execute()
+        println("doneUserQuest Response = ${response.data!!.doneQuest}")
+
+        val userQuest = response.data!!.doneQuest
+
+        return Quest(
+            userQuest.userName,
+            userQuest.quest1,
+            userQuest.quest2,
+            userQuest.quest3,
+            userQuest.quest1Done,
+            userQuest.quest2Done,
+            userQuest.quest3Done
         )
     }
 
@@ -244,6 +273,5 @@ class UserRepository {
             user.createdAt,
             user.updatedAt
         )
-
     }
 }

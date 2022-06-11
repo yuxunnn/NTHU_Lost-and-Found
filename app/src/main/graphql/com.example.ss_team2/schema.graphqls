@@ -58,6 +58,7 @@ type Mutation {
     updateRanking: [Ranking]
     createQuest(userName: String!): Quest!
     updateQuest(userName: String!, questId: String!, updateNum: Int!): Quest!
+    doneQuest(userName: String!, questId: String!): Quest!
     createChat(send: String!, receive: String!, message: String!): [Chat]
     createMapItem(mapItem: MapItemCreateInput!): [MapItem]
     createPostHelper(postId: String!, helperName: String!): String!
@@ -152,6 +153,9 @@ type Quest {
     quest1: Int!
     quest2: Int!
     quest3: Int!
+    quest1Done: Boolean!
+    quest2Done: Boolean!
+    quest3Done: Boolean!
 }
 
 type Ranking {

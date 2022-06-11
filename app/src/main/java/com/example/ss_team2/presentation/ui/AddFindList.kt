@@ -109,64 +109,9 @@ fun PickImageFromGallery(
 @Composable
 fun PickImageFromGallery2(
     postViewModel: PostViewModel
-) {
-
-    val post by postViewModel.post.collectAsState()
-    val context = LocalContext.current
-    val bitmap = remember {
-        mutableStateOf<Bitmap?>(null)
-    }
+){
 
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        postViewModel.updatePost(
-            postId = post.postId,
-            postUpdateInput = PostUpdateInput(
-                itemImage = Optional.Present(uri.toString())
-            )
-        )
-    }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (post.itemImage == null) {
-            bitmap.value = BitmapFactory.decodeResource(
-                context.getResources(),
-                R.drawable.defaultpicture
-            )
-        } else {
-            if (Build.VERSION.SDK_INT < 28) {
-                Log.d("Args", "15802170751841")
-
-                bitmap.value = MediaStore.Images
-                    .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
-                Log.d("Args", "1")
-            } else {
-                val source =
-                    ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
-                bitmap.value = ImageDecoder.decodeBitmap(source)
-            }
-
-        }
-        bitmap.value?.let { btm ->
-            Image(
-                bitmap = btm.asImageBitmap(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .padding(4.dp)
-                    .clip(CircleShape)
-                    .width(120.dp)
-                    .height(120.dp)
-                    .clickable {
-                        launcher.launch("image/*")
-                    }
-            )
-        }
-    }
 }
 
 @Composable
@@ -184,7 +129,18 @@ fun AddFindList(
 //        what = what,
 //        where = where
 //    )
-
+    val first = remember { mutableStateOf(false) }
+    var imageUri by remember { mutableStateOf<Uri?>(null)}
+    val context = LocalContext.current
+    val bitmap = remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){
+            uri: Uri? ->
+        imageUri = uri
+    }
     val user by userViewModel.user.collectAsState()
     var postDescription by remember { mutableStateOf("") }
     val checkedState = remember { mutableStateOf(false) }
@@ -255,18 +211,40 @@ fun AddFindList(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(36.dp)
             ) {
-                //PickImageFromGallery2(postViewModel = postViewModel)
-                Image(
-                    painter = painterResource(id = R.drawable.defaultpicture),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                    .height(160.dp)
-                    .width(160.dp)
-                    .clip(RectangleShape)
-                    .padding(4.dp)
-                    .clickable {}
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    imageUri?.let {
+                        if(Build.VERSION.SDK_INT <28 ){
+                            bitmap.value = MediaStore.Images
+                                .Media.getBitmap(context.contentResolver, it)
+                            //Log.d("Args" ,"1")
+                        }else {
+                            val source = ImageDecoder.createSource(context.contentResolver, it)
+                            bitmap.value = ImageDecoder.decodeBitmap(source)
+                            //Log.d("Args" ,source.toString())
+                        }
+                    }
+                    val icon = BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.defaultpicture)
+                    if(first.value) bitmap.value = bitmap.value else bitmap.value = icon
+                    bitmap.value?.let { btm ->
+                        Image(
+                            bitmap = btm.asImageBitmap(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .clip(CircleShape)
+                                .width(120.dp)
+                                .height(120.dp)
+                                .clickable {
+                                    first.value = true
+                                    launcher.launch("image/*")
+                                }
+                        )
+                    }
+                }
                 Column(modifier = Modifier) {
                     Column(
                         modifier = Modifier,
@@ -349,7 +327,7 @@ fun AddFindList(
                         postType = "find",
                         itemType = what,
                         location = where,
-                        itemImage = Optional.Absent,
+                        itemImage = Optional.Present(imageUri.toString()),
                         postDescribe = Optional.Present(postDescription),
                         hasDone = false,
                         rewardCoin = 0,

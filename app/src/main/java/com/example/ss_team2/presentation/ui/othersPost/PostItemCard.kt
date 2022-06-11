@@ -51,45 +51,46 @@ fun PostItemCard(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.defaultpicture),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(200.dp)
-                .clip(RectangleShape)
-        )
-//        if (post.itemImage == null) {
-//            bitmap.value = BitmapFactory.decodeResource(
-//                context.getResources(),
-//                R.drawable.defaultpicture
-//            )
-//        } else {
-//            if (Build.VERSION.SDK_INT < 28) {
-//                Log.d("Args", "15802170751841")
-//
-//                bitmap.value = MediaStore.Images
-//                    .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
-//                Log.d("Args", "1")
-//            } else {
-//                val source =
-//                    ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
-//                bitmap.value = ImageDecoder.decodeBitmap(source)
-//            }
-//
-//        }
-//        bitmap.value?.let { btm ->
-//            Image(
-//                bitmap = btm.asImageBitmap(),
-//                contentDescription = null,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .fillMaxHeight()
-//                    .width(200.dp)
-//                    .clip(RectangleShape)
-//            )
-//        }
+//        Image(
+//            painter = painterResource(id = R.drawable.defaultpicture),
+//            contentDescription = null,
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier
+//                .fillMaxHeight()
+//                .width(200.dp)
+//                .clip(RectangleShape)
+//        )
+        if (post.itemImage == null || post.itemImage == "null" || post.itemImage == "") {
+            Log.d("Args", "itemImage is null")
+            bitmap.value = BitmapFactory.decodeResource(
+                context.getResources(),
+                R.drawable.defaultpicture
+            )
+        } else {
+            if (Build.VERSION.SDK_INT < 28) {
+                Log.d("Args", "SDKINT < 28")
+                bitmap.value = MediaStore.Images
+                    .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
+                Log.d("Args", "1")
+            } else {
+                Log.d("Args", "Decode Image")
+                val source =
+                    ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+            }
+
+        }
+        bitmap.value?.let { btm ->
+            Image(
+                bitmap = btm.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(200.dp)
+                    .clip(RectangleShape)
+            )
+        }
 
         Column(modifier = Modifier) {
             WhatAndWhereColElement(
