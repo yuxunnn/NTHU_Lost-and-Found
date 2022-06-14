@@ -169,7 +169,7 @@ fun TaskList(
                     modifier = Modifier.padding(start = 10.dp),
                 ) {
                     Text(
-                        text = "發布一則撿到物貼文",
+                        text = "發布一則遺失物貼文",
                         fontSize = 20.sp,
                         modifier = Modifier.padding(top = 12.dp),
                         color = White

@@ -132,12 +132,12 @@ class UserRepository {
 
     suspend fun createUser(newUser: UserCreateInput): User{
         val response = apolloClient.mutation(CreateUserMutation(newUser)).execute()
-        println("MySQL Response = ${response.data?.createUser}")
+        println("MySQL Response = ${response.data!!.createUser}")
 
-        val user = response.data?.createUser
+        val user = response.data!!.createUser
 
         return User(
-            user!!.userId,
+            user.userId,
             user.userName,
             user.userSchool,
             user.userPhoneNumber,

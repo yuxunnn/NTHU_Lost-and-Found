@@ -65,20 +65,20 @@ fun PostPreviewElement(
 //                    .clip(RectangleShape)
 //            )
             if (post.itemImage == null || post.itemImage == "null" || post.itemImage == "") {
-                Log.d("Args", "itemImage is null")
+               // Log.d("Args", "itemImage is null")
                 bitmap.value = BitmapFactory.decodeResource(
                     context.getResources(),
                     R.drawable.defaultpicture
                 )
             } else {
                 if (Build.VERSION.SDK_INT < 28) {
-                    Log.d("Args", "SDK INT")
+                    //Log.d("Args", "SDK INT")
 
                     bitmap.value = MediaStore.Images
                         .Media.getBitmap(context.contentResolver, Uri.parse(post.itemImage))
-                    Log.d("Args", "1")
+                    //Log.d("Args", "1")
                 } else {
-                    Log.d("Args", "Decode ${post.itemImage}")
+                    //Log.d("Args", "Decode ${post.itemImage}")
                     val source =
                         ImageDecoder.createSource(context.contentResolver, Uri.parse(post.itemImage))
                     bitmap.value = ImageDecoder.decodeBitmap(source)

@@ -35,6 +35,7 @@
 Main Flow
 create
 login A
+換頭像
 lost
 如果有找到→看定位→取回
 如果沒有→發佈新貼文→選照片→編輯貼文→完成任務

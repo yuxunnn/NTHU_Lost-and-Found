@@ -334,7 +334,6 @@ fun AddFindList(
                         anonymous = false
                     )
                 )
-                userViewModel.updateUserQuest(user.userName,"quest2",1)
                 navController.navigate(
                     route = Screen.FindList.passWhatAndWhere(
                         what = what,

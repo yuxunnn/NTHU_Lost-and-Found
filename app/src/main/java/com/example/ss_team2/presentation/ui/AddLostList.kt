@@ -300,6 +300,7 @@ fun AddLostList(
                         anonymous = false
                     )
                 )
+                userViewModel.updateUserQuest(user.userName,"quest2",1)
                 navController.navigate(
                     route = Screen.LostList.passWhatAndWhere(
                         what = what,

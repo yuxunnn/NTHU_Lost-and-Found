@@ -78,19 +78,19 @@ fun UserPostCard(
 //                modifier = Modifier.size(72.dp)
 //            )
             if (image == null || image == "null" || image == "") {
-                Log.d("Args", "itemImage is null")
+                //Log.d("Args", "itemImage is null")
                 bitmap.value = BitmapFactory.decodeResource(
                     context.getResources(),
                     R.drawable.defaultpicture
                 )
             } else {
                 if (Build.VERSION.SDK_INT < 28) {
-                    Log.d("Args", "SDKINT < 28")
+                   // Log.d("Args", "SDKINT < 28")
                     bitmap.value = MediaStore.Images
                         .Media.getBitmap(context.contentResolver, Uri.parse(image))
-                    Log.d("Args", "1")
+                    //Log.d("Args", "1")
                 } else {
-                    Log.d("Args", "Decode Image")
+                   // Log.d("Args", "Decode Image")
                     val source =
                         ImageDecoder.createSource(context.contentResolver, Uri.parse(image))
                     bitmap.value = ImageDecoder.decodeBitmap(source)
