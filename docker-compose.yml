@@ -1,0 +1,24 @@
+version: '1.0'
+
+services:
+  node:
+    image: node:16.20.0-alpine3.18
+    tty: true
+    volumes:
+      - ./graphql:/graphql
+    ports:
+      - 3000:3000
+  
+  db:
+    image: mysql:8
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/sql:/opt/sql
+    environment:
+      - LANG=C.UTF-8
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=ssteam2
+    ports:
+      - 3306:3306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

@@ -15,3 +15,5 @@
 .cxx
 local.properties
 app.build.gradle
+/mysql/data
+/graphql/node_modules
